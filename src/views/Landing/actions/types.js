@@ -1,0 +1,5 @@
+export const DATA_LOADING_STARTS = 'DATA_LOADING_STARTS'
+export const DATA_LOADING_ENDS = 'DATA_LOADING_ENDS'
+export const GET_DATA = 'GET_DATA'
+export const DATA_ERROR = 'DATA_ERROR'
+export const CLEAR_DATA_ERROR = 'CLEAR_DATA_ERROR'
