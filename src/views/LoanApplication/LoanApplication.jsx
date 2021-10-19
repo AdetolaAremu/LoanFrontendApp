@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import {Link} from "react-router-dom";
 import {
   Badge,
   Card,
@@ -60,7 +61,21 @@ const LoanApplication = () => {
                         </td>
                         <td>
                           <div className="d-flex align-items-center">
-                            Actions
+                            <Link>
+                              <span className='icon icon-shape'>
+                                <i class="fas fa-eye"></i>
+                              </span>
+                            </Link>
+                            <Link>    
+                              <span className='icon icon-shape'>
+                                <i class="fas fa-edit"></i>
+                              </span>
+                            </Link>
+                            <Link>
+                              <span className='icon icon-shape'>
+                                <i class="fas fa-trash-alt"></i>
+                              </span>
+                            </Link>
                           </div>
                         </td>
                       </tr>

@@ -1,5 +1,5 @@
 import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
+import Profile from "views/Profile/Profile";
 import Register from "views/Auth/Register.js";
 import Login from "views/Auth/Login.js";
 import Tables from "views/examples/Tables.js";
@@ -25,11 +25,11 @@ const routes = [
     component: Applications,
     layout: "/admin",
   },
-  {
-    path: CONSTANTS.KYC_PENDING,
-    component: KYCPending,
-    layout: "/admin"
-  },
+  // {
+  //   path: CONSTANTS.KYC_PENDING,
+  //   component: KYCPending,
+  //   layout: "/admin"
+  // },
   {
     path: CONSTANTS.LOAN_TYPE,
     name: "Loan Types",
