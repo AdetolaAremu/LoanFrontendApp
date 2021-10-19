@@ -117,15 +117,13 @@ function Applications() {
               </Row>
             </div>
         </Container>
-      </div>
-      <div className='mt-2'>
-        <Container fluid>
+        <Container fluid style={{ marginTop:"3.8rem" }}>
           <div className="header-body">
             {/* Card stats */}
             <Row>
               <Col lg="6" xl="4">
-                <Card className="card-stats mb-4 mb-xl-0 bg-light">
-                  <Link to="/admin/kyc/Pending">
+                <Card className="card-stats mb-4 mb-xl-0">
+                  <Link to="/admin/pending/kyc">
                     <CardBody>
                       <Row>
                         <div className="col">
@@ -153,7 +151,7 @@ function Applications() {
                 </Card>
               </Col>
               <Col lg="6" xl="4">
-                <Card className="card-stats mb-4 mb-xl-0 bg-light">
+                <Card className="card-stats mb-4 mb-xl-0">
                   <Link to="/">
                     <CardBody>
                     <Row>
@@ -180,7 +178,7 @@ function Applications() {
                 </Card>
               </Col>
               <Col lg="6" xl="4">
-                <Card className="card-stats mb-4 mb-xl-0 bg-light">
+                <Card className="card-stats mb-4 mb-xl-0">
                   <Link to="/">
                     <CardBody>
                       <Row>
@@ -210,6 +208,9 @@ function Applications() {
           </div>
         </Container>
       </div>
+      {/* <div className='mt-2'>
+        
+      </div> */}
     </>
   )
 }

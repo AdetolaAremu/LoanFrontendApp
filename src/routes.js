@@ -7,52 +7,52 @@ import Kyc from "views/KYC/kyc";
 import Applications from "views/Applications/Applications";
 import LoanApplication from "views/LoanApplication/LoanApplication";
 import KYCPending from "views/Applications/KYCPending";
+import LoanType from "views/LoanType/LoanType";
+import CONSTANTS from "Routes/routes.json"
 
 const routes = [
-  // {
-  //   path: "/",
-  //   name: "Landing",
-  //   icon: "ni ni-tv-2 text-primary",
-  //   component: Landing,
-  //   layout: "/",
-  // },
   {
-    path: "/index",
+    path: CONSTANTS.DASHBOARD,
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
     layout: "/admin",
   },
   {
-    path: "/applications",
+    path: CONSTANTS.ALL_APPLICATION,
     name: "All Applications",
     icon: "ni ni-single-02 text-yellow",
     component: Applications,
     layout: "/admin",
   },
-  // {
-  //   path: "/kyc/pending",
-  //   name: "Pending KYC",
-  //   icon: "ni ni-single-02 text-yellow",
-  //   component: KYCPending,
-  //   layout: "/admin",
-  // },
   {
-    path: "/loan-application",
+    path: CONSTANTS.KYC_PENDING,
+    component: KYCPending,
+    layout: "/admin"
+  },
+  {
+    path: CONSTANTS.LOAN_TYPE,
+    name: "Loan Types",
+    icon: "ni ni-single-02 text-yellow",
+    component: LoanType,
+    layout: "/admin",
+  },
+  {
+    path: CONSTANTS.LOAN_APPLICATION,
     name: "Loan Application",
     icon: "ni ni-single-02 text-yellow",
     component: LoanApplication,
     layout: "/admin",
   },
   {
-    path: "/kyc",
+    path: CONSTANTS.KYC_VIEW,
     name: "KYC Application",
     icon: "ni ni-single-02 text-yellow",
     component: Kyc,
     layout: "/admin",
   },
   {
-    path: "/user-profile",
+    path: CONSTANTS.USER_PROFILE_VIEW,
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
@@ -66,14 +66,14 @@ const routes = [
     layout: "/admin",
   },
   {
-    path: "/login",
+    path: CONSTANTS.LOGIN,
     name: "Login",
     icon: "ni ni-key-25 text-info",
     component: Login,
     layout: "/auth",
   },
   {
-    path: "/register",
+    path: CONSTANTS.REGISTER,
     name: "Register",
     icon: "ni ni-circle-08 text-pink",
     component: Register,

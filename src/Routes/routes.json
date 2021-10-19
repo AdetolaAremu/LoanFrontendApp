@@ -1,6 +1,12 @@
 {
   "HOME": "/",
   "LOGIN": "/login",
-  "Register": "/register",
-  "Dashboard": "/dashboard"
+  "REGISTER": "/register",
+  "DASHBOARD": "/index",
+  "ALL_APPLICATION": "/applications",
+  "LOAN_TYPE": "/loan-type",
+  "LOAN_APPLICATION": "/loan-application",
+  "KYC_VIEW": "/kyc",
+  "KYC_PENDING": "/pending/kyc",
+  "USER_PROFILE_VIEW": "/user-profile"
 }

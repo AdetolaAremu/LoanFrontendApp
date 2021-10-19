@@ -35,7 +35,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-        <Route path="/admin/kyc/Pending" component={KYCPending} render={(props) => <AdminLayout {...props} />} />
+        {/* <Route exact path="/admin/pending/kyc" component={KYCPending} render={(props) => <AdminLayout {...props} />} /> */}
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
         <Route exact path="/" component={Landing} />
         {/* <Redirect from="/" to="/admin/index" /> */}
