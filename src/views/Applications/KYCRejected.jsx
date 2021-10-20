@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Link } from 'react-router-dom';
 import {
   Badge,
@@ -20,12 +20,11 @@ import {
   Row,
   UncontrolledTooltip,
 } from "reactstrap";
-import Header from "components/Headers/Header.js";
 
-const KYCPending = () => {
-  return (
-    <div>
-      <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+const KYCRejected = ()=> {
+ return(
+   <>
+    <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
             {/* Table */}
             <Row>
@@ -56,7 +55,7 @@ const KYCPending = () => {
                         </th>
                         <td>KYC</td>
                         <td>
-                          Pending
+                          Rejected
                         </td>
                         <td>
                           2021-10-10   
@@ -129,9 +128,9 @@ const KYCPending = () => {
               </div>
             </Row>
         </Container>
-      </div>
     </div>
-  )
+   </>
+ ) 
 }
 
-export default KYCPending;
+export default KYCRejected

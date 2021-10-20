@@ -36,7 +36,7 @@ class Landing extends React.Component {
         <Navbar />
         <import />
         <main ref="main">
-          <div className="position-relative bg-primary">
+          <div className="position-relative bg-gradient-default">
             {/* shape Hero */}
             <section className="section section-lg section-shaped pb-250">
               <div className="shape shape-style-1 shape-default">
@@ -71,7 +71,7 @@ class Landing extends React.Component {
                           <span className="btn-inner--icon mr-1">
                             <i className="fa fa-code" />
                           </span>
-                          <span className="btn-inner--text">Components</span>
+                          <span className="btn-inner--text">Get Started</span>
                         </Button>
                         <Button
                           className="btn-white btn-icon mb-3 mb-sm-0 ml-1"
@@ -82,7 +82,7 @@ class Landing extends React.Component {
                             <i className="ni ni-cloud-download-95" />
                           </span>
                           <span className="btn-inner--text">
-                            Download React
+                            Register
                           </span>
                         </Button>
                       </div>

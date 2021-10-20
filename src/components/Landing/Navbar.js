@@ -59,7 +59,7 @@ class DemoNavbar extends React.Component {
                 <NavbarBrand className="mr-lg-5">
                   <img
                     alt="..."
-                    src={require("assets/img/brand/argon-react-white.png")}
+                    src={require("assets/img/brand/argon-react-white.png")} 
                   />
                 </NavbarBrand>
               </Link>
@@ -95,7 +95,7 @@ class DemoNavbar extends React.Component {
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
                       <i className="ni ni-ui-04 d-lg-none mr-1" />
-                      <span className="nav-link-inner--text">Components</span>
+                      <span className="nav-link-inner--text">Dropdown</span>
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu-xl">
                       <div className="dropdown-menu-inner">
@@ -109,11 +109,11 @@ class DemoNavbar extends React.Component {
                           </div>
                           <Media body className="ml-3">
                             <h6 className="heading text-primary mb-md-1">
-                              Getting started
+                              Get started
                             </h6>
-                            <p className="description d-none d-md-inline-block mb-0">
-                              Learn how to use Argon compiling Scss, change
-                              brand colors and more.
+                            <p className="description d-none d-md-inline-block mb-1">
+                              Register to get low interest loans
+                              it will only take minutes.
                             </p>
                           </Media>
                         </Media>
@@ -127,15 +127,14 @@ class DemoNavbar extends React.Component {
                           </div>
                           <Media body className="ml-3">
                             <h6 className="heading text-primary mb-md-1">
-                              Foundation
+                              Github
                             </h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Learn more about colors, typography, icons and the
-                              grid system we used for Argon.
+                              See the Github repository of this website
                             </p>
                           </Media>
                         </Media>
-                        <Media
+                        {/* <Media
                           className="d-flex align-items-center"
                           href="https://demos.creative-tim.com/argon-design-system-react/#/documentation/alert?ref=adsr-navbar"
                           target="_blank"
@@ -152,7 +151,7 @@ class DemoNavbar extends React.Component {
                               offered in the Free version.
                             </p>
                           </Media>
-                        </Media>
+                        </Media> */}
                       </div>
                     </DropdownMenu>
                   </UncontrolledDropdown>
@@ -162,12 +161,6 @@ class DemoNavbar extends React.Component {
                       <span className="nav-link-inner--text">Examples</span>
                     </DropdownToggle>
                     <DropdownMenu>
-                      <DropdownItem to="/landing-page" tag={Link}>
-                        Landing
-                      </DropdownItem>
-                      <DropdownItem to="/profile-page" tag={Link}>
-                        Profile
-                      </DropdownItem>
                       <DropdownItem to="/auth/login" tag={Link}>
                         Login
                       </DropdownItem>
@@ -176,9 +169,6 @@ class DemoNavbar extends React.Component {
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
-                  <Link to="/dashboard">
-                    Dashboard
-                  </Link>
                   {/* <Link to="/index">
                     dfash
                   </Link> */}
@@ -191,7 +181,7 @@ class DemoNavbar extends React.Component {
                       id="tooltip333589074"
                       target="_blank"
                     >
-                      <i className="fa fa-facebook-square" />
+                      <i className="fab fa-facebook-square" />
                       <span className="nav-link-inner--text d-lg-none ml-2">
                         Facebook
                       </span>
@@ -207,7 +197,7 @@ class DemoNavbar extends React.Component {
                       id="tooltip356693867"
                       target="_blank"
                     >
-                      <i className="fa fa-instagram" />
+                      <i className="fab fa-instagram" />
                       <span className="nav-link-inner--text d-lg-none ml-2">
                         Instagram
                       </span>
@@ -223,7 +213,7 @@ class DemoNavbar extends React.Component {
                       id="tooltip184698705"
                       target="_blank"
                     >
-                      <i className="fa fa-twitter-square" />
+                      <i className="fab fa-twitter-square" />
                       <span className="nav-link-inner--text d-lg-none ml-2">
                         Twitter
                       </span>
@@ -239,7 +229,7 @@ class DemoNavbar extends React.Component {
                       id="tooltip112445449"
                       target="_blank"
                     >
-                      <i className="fa fa-github" />
+                      <i className="fab fa-github" />
                       <span className="nav-link-inner--text d-lg-none ml-2">
                         Github
                       </span>

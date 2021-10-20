@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   Badge,
@@ -20,9 +20,8 @@ import {
   Row,
   UncontrolledTooltip,
 } from "reactstrap";
-import Header from "components/Headers/Header.js";
 
-const KYCPending = () => {
+const LoanRejected = () => {
   return (
     <div>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -32,14 +31,14 @@ const KYCPending = () => {
               <div className="col">
                 <Card className="shadow">
                   <CardHeader className="border-0">
-                    <h3 className="mb-0">KYC Pending Table</h3>
+                    <h3 className="mb-0">Loan Rejected Table</h3>
                   </CardHeader>
                   <Table className="align-items-center table-flush" responsive>
                     <thead className="thead-light">
                       <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Request Type</th>
-                        <th scope="col">KYC Status</th>
+                        <th scope="col">Loan Status</th>
                         <th scope="col">Date Created</th>
                         <th scope="col">Actions</th>
                         {/* <th scope="col" /> */}
@@ -54,9 +53,9 @@ const KYCPending = () => {
                             </span>
                           </Media>
                         </th>
-                        <td>KYC</td>
+                        <td>Loan</td>
                         <td>
-                          Pending
+                          Rejected
                         </td>
                         <td>
                           2021-10-10   
@@ -134,4 +133,4 @@ const KYCPending = () => {
   )
 }
 
-export default KYCPending;
+export default LoanRejected

@@ -7,6 +7,11 @@
   "LOAN_TYPE": "/loan-type",
   "LOAN_APPLICATION": "/loan-application",
   "KYC_VIEW": "/kyc",
-  "KYC_PENDING": "/pending/kyc",
-  "USER_PROFILE_VIEW": "/user-profile"
+  "USER_PROFILE_VIEW": "/user-profile",
+  "KYC_PENDING": "/pending-kyc",
+  "KYC_APPROVED": "/approved-kyc",
+  "KYC_REJECTED": "/rejected-kyc",
+  "LOAN_PENDING": "/pending-loan",
+  "LOAN_APPROVED":"/approved-loan",
+  "LOAN_REJECTED":"/rejected-loan"
 }

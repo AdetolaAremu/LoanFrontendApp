@@ -21,6 +21,7 @@ import {
   Button,
   CardBody, CardTitle, Col,
 } from "reactstrap";
+import CONSTANTS from "Routes/routes.json"
 import Header from "components/Headers/Header.js";
 
 function Applications() {
@@ -33,7 +34,7 @@ function Applications() {
               <Row>
                 <Col lg="6" xl="4">
                   <Card className="card-stats mb-4 mb-xl-0">
-                    <Link to="/">
+                    <Link to="pending-loan">
                       <CardBody>
                         <Row>
                           <div className="col">
@@ -62,7 +63,7 @@ function Applications() {
                 </Col>
                 <Col lg="6" xl="4">
                   <Card className="card-stats mb-4 mb-xl-0">
-                    <Link to="/">
+                    <Link to="approved-loan">
                       <CardBody>
                       <Row>
                         <div className="col">
@@ -89,7 +90,7 @@ function Applications() {
                 </Col>
                 <Col lg="6" xl="4">
                   <Card className="card-stats mb-4 mb-xl-0">
-                    <Link to="/">
+                    <Link to="rejected-loan">
                       <CardBody>
                         <Row>
                           <div className="col">
@@ -123,7 +124,7 @@ function Applications() {
             <Row>
               <Col lg="6" xl="4">
                 <Card className="card-stats mb-4 mb-xl-0">
-                  <Link to="/admin/pending/kyc">
+                  <Link to="pending-kyc">
                     <CardBody>
                       <Row>
                         <div className="col">
@@ -152,7 +153,7 @@ function Applications() {
               </Col>
               <Col lg="6" xl="4">
                 <Card className="card-stats mb-4 mb-xl-0">
-                  <Link to="/">
+                  <Link to="approved-kyc">
                     <CardBody>
                     <Row>
                       <div className="col">
@@ -179,7 +180,7 @@ function Applications() {
               </Col>
               <Col lg="6" xl="4">
                 <Card className="card-stats mb-4 mb-xl-0">
-                  <Link to="/">
+                  <Link to="rejected-kyc">
                     <CardBody>
                       <Row>
                         <div className="col">

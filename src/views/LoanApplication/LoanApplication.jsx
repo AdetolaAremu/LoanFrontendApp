@@ -13,6 +13,7 @@ import {
   Pagination,
   PaginationItem,
   PaginationLink,
+  Button,
   Progress,
   Table,
   Container,
@@ -24,6 +25,13 @@ const LoanApplication = () => {
   return (
     <div>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+        <div className='text-right'>
+          <Link>
+            <Button className='mx-5'>
+              Create Loan Application
+            </Button>
+          </Link>
+        </div>
         <Container className="mt-4" fluid>
             {/* Table */}
             <Row>
