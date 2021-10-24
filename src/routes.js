@@ -76,7 +76,7 @@ const routes = [
     path: CONSTANTS.LOAN_REJECTED,
     name: "Loan Rejected",
     icon: "ni ni-single-02 text-yellow",
-    component: LoanApproved,
+    component: LoanRejected,
     layout: "/admin",
     show:false
   },

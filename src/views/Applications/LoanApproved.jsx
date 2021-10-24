@@ -55,7 +55,10 @@ const LoanApproved = () => {
                           </th>
                           <td>Loan</td>
                           <td>
-                            Approved
+                            <Badge color="" className="badge-dot">
+                              <i className="bg-success" />
+                              approved
+                            </Badge>
                           </td>
                           <td>
                             2021-10-10   

@@ -378,6 +378,10 @@ const KYC = () => {
                           </FormGroup>
                         </Col>
                       </Row>
+                      <div className="text-right">
+                        <Button color="success">Submit</Button>
+                        <Button color="danger">Cancel</Button>
+                      </div>
                     </div>
                   </Form>
                 </CardBody>

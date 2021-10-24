@@ -132,7 +132,7 @@ function Applications() {
                             tag="h5"
                             className="text-uppercase mb-3"
                           >
-                            Pending KYCs
+                            KYC Pending
                           </CardTitle>
                           <span className="h2 font-weight-bold">
                             350,897
@@ -161,7 +161,7 @@ function Applications() {
                           tag="h5"
                           className="text-uppercase mb-3"
                         >
-                        Approved KYCs
+                          KYC Approved
                         </CardTitle>
                         <span className="h2 font-weight-bold">2,356</span>
                       </div>
@@ -188,7 +188,7 @@ function Applications() {
                             tag="h5"
                             className="text-uppercase mb-3"
                           >
-                            Rejected KYCs
+                            KYC Rejected
                           </CardTitle>
                           <span className="h2 font-weight-bold">924</span>
                         </div>

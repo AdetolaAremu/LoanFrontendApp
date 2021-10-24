@@ -56,7 +56,10 @@ const KYCPending = () => {
                         </th>
                         <td>KYC</td>
                         <td>
-                          Pending
+                          <Badge color="" className="badge-dot mr-4">
+                            <i className="bg-warning" />
+                            pending
+                          </Badge>
                         </td>
                         <td>
                           2021-10-10   

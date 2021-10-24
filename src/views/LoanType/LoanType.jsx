@@ -123,6 +123,7 @@ function LoanType() {
                       <th scope="col">Loan Amount</th>
                       <th scope="col">Repayment Amount</th>
                       <th scope="col">Repayment Days</th>
+                      <th scope="col">Date Created</th>
                       <th scope="col">Actions</th>
                       <th scope="col" />
                     </tr>
@@ -142,6 +143,9 @@ function LoanType() {
                       </td>
                       <td>
                         14 days    
+                      </td>
+                      <td>
+                        2021-10-10
                       </td>
                       <td>
                         <div className="d-flex align-items-center">

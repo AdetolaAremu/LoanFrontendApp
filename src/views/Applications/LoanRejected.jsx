@@ -55,7 +55,10 @@ const LoanRejected = () => {
                         </th>
                         <td>Loan</td>
                         <td>
-                          Rejected
+                          <Badge color="" className="badge-dot mr-4">
+                            <i className="bg-danger" />
+                            rejected
+                          </Badge>
                         </td>
                         <td>
                           2021-10-10   
