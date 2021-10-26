@@ -3,27 +3,35 @@ import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from 'views/Landing/actions/actions';
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col,
+  Button, Card, CardHeader, CardBody, FormGroup, Form,
+  Input, InputGroupAddon, InputGroupText,InputGroup, Row,Col,
 } from "reactstrap";
 
+const initialState = {
+  "email":'',
+  "password":''
+}
+
 const Login = () => {
-  const {loading, data, error} = useSelector(state => state.landing)
+  // const { allAuths: {} } = useSelector(state => state)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getData())
-  }, [])
+  const [Inputs, setInputs] = useState(initialState)
+
+  const handleChange = (e) => {
+    console.log('value', e.target.value)
+    setInputs({...Inputs, [e.target.name]: e.target.value})
+  }
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+  }
+
+  // useEffect(() => {
+  //   dispatch(getData())
+  // }, [])
+  console.log('inputs', Inputs);
 
   return (
     <>
@@ -86,6 +94,9 @@ const Login = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    name='email'
+                    onChange={handleChange}
+                    value={Inputs.email}
                   />
                 </InputGroup>
               </FormGroup>
@@ -99,7 +110,10 @@ const Login = () => {
                   <Input
                     placeholder="Password"
                     type="password"
+                    name='password'
                     autoComplete="new-password"
+                    onChange={handleChange}
+                    value={Inputs.password}
                   />
                 </InputGroup>
               </FormGroup>
@@ -117,7 +131,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4" color="primary" type="button" onSubmit={() =>handleSubmit}>
                   Sign in
                 </Button>
               </div>

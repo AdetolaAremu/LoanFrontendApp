@@ -18,15 +18,19 @@ export const setCurrentUser = (decoded) => {
 
 export const loginUser = (userData) => {
   return async(dispatch) => {
-    dispatch({type: AUTH_LOADING_STARTS});
-    const response = await axios.post(`${service_url}/login`, userData);
-    const { access_token } = response.data;
-    localStorage.setItem("jwtToken", access_token);
-    setAuthToken(access_token);
-    const decoded =  jwtdecode(access_token);
-    
-    dispatch(setCurrentUser(decoded));
-    dispatch({type: AUTH_LOADING_ENDS});
-    dispatch({type: REDIRECT_TO, payload:ROUTE.DASHBOARD});
+    try {
+      dispatch({type: AUTH_LOADING_STARTS});
+      const response = await axios.post(`${service_url}/login`, userData);
+      const { access_token } = response.data;
+      localStorage.setItem("jwtToken", access_token);
+      setAuthToken(access_token);
+      const decoded =  jwtdecode(access_token);
+      
+      dispatch(setCurrentUser(decoded));
+      dispatch({type: AUTH_LOADING_ENDS});
+      dispatch({type: REDIRECT_TO, payload:ROUTE.DASHBOARD});
+    } catch (error) {
+      dispatch({type: AUTH_LOADING_ENDS});
+    }
   }
 }
