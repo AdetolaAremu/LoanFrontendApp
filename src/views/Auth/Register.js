@@ -1,71 +1,48 @@
 
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+import "../Auth/authStyles.css";
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col,
+  Button, Card, CardHeader, CardBody, FormGroup, Form,
+  Input, InputGroupAddon, InputGroupText,InputGroup, Row, Col,
 } from "reactstrap";
 
+const initialState = {
+  first_name: "", last_name:"", email:"", phone:"", password:"", confirm_password:""
+}
+
 const Register = () => {
+  const [Inputs, setInputs] = useState(initialState)
+
+  const strength = (length) => {
+    if(length < 3){
+        return 'weak'
+    }
+    else if(length = 5){
+      return 'good'
+    }
+    else if (length = 7) {
+      return 'strong'
+    }
+  }
+
+  const handleChange = (e) => {
+    setInputs({...Inputs, [e.target.name]: e.target.value})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('inputs', Inputs)
+  }
+
   return (
     <>
       <Col lg="6" md="8">
         <Card className="bg-secondary shadow border-0">
-          <CardHeader className="bg-transparent pb-5">
-            <div className="text-muted text-center mt-2 mb-4">
-              <small>Sign up with</small>
-            </div>
-            <div className="text-center">
-              <Button
-                className="btn-neutral btn-icon mr-4"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/github.svg")
-                        .default
-                    }
-                  />
-                </span>
-                <span className="btn-inner--text">Github</span>
-              </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/google.svg")
-                        .default
-                    }
-                  />
-                </span>
-                <span className="btn-inner--text">Google</span>
-              </Button>
-            </div>
-          </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
             <div className="text-center text-muted mb-4">
-              <small>Or sign up with credentials</small>
+              <small>Sign up with the requested credentials</small>
             </div>
-            <Form role="form">
+            <Form role="form" onSubmit={handleSubmit}>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
                   <InputGroupAddon addonType="prepend">
@@ -73,7 +50,29 @@ const Register = () => {
                       <i className="ni ni-hat-3" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="Name" type="text" />
+                  <Input 
+                    placeholder="First name" 
+                    type="text"
+                    name='first_name'
+                    onChange={handleChange}
+                    value={Inputs.first_name} 
+                  />
+                </InputGroup>
+              </FormGroup>
+              <FormGroup>
+                <InputGroup className="input-group-alternative mb-3">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-hat-3" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input 
+                    placeholder="Last name" 
+                    type="text"
+                    name='last_name'
+                    onChange={handleChange}
+                    value={Inputs.last_name} 
+                  />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -87,6 +86,25 @@ const Register = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    name='email'
+                    onChange={handleChange}
+                    value={Inputs.email}
+                  />
+                </InputGroup>
+              </FormGroup>
+              <FormGroup>
+                <InputGroup className="input-group-alternative mb-3">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-hat-3" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input 
+                    placeholder="Phone number" 
+                    type="text"
+                    name='phone'
+                    onChange={handleChange}
+                    value={Inputs.phone} 
                   />
                 </InputGroup>
               </FormGroup>
@@ -101,16 +119,43 @@ const Register = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
+                    name='password'
+                    onChange={handleChange}
+                    value={Inputs.password} 
+                  />
+                </InputGroup>
+                {/* <span className={`${strength(Inputs?.password?.length)}`}>
+                  {
+                    Inputs.password.length <= 0 ? "" : 
+                    <small>strength</small>
+                  }
+                </span> */}
+              </FormGroup>
+              <FormGroup>
+                <InputGroup className="input-group-alternative">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-lock-circle-open" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    placeholder="Password"
+                    type="password"
+                    autoComplete="new-password"
+                    name='confirm_password'
+                    onChange={handleChange}
+                    value={Inputs.confirm_password} 
                   />
                 </InputGroup>
               </FormGroup>
               <div className="text-muted font-italic">
-                <small>
-                  password strength:{" "}
-                  <span className="text-success font-weight-700">strong</span>
+                <small className={`${strength(Inputs?.password?.length)}`}>
+                
+                  password strength
+                  {/* <span className="text-success font-weight-700">strong</span> */}
                 </small>
               </div>
-              <Row className="my-4">
+              {/* <Row className="my-4">
                 <Col xs="12">
                   <div className="custom-control custom-control-alternative custom-checkbox">
                     <input
@@ -131,9 +176,9 @@ const Register = () => {
                     </label>
                   </div>
                 </Col>
-              </Row>
+              </Row> */}
               <div className="text-center">
-                <Button className="mt-4" color="primary" type="button">
+                <Button className="mt-4" color="primary" type="submit">
                   Create account
                 </Button>
               </div>

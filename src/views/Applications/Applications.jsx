@@ -21,8 +21,8 @@ import {
   Button,
   CardBody, CardTitle, Col,
 } from "reactstrap";
-import CONSTANTS from "Routes/routes.json"
 import Header from "components/Headers/Header.js";
+import CONSTANTS from "Routes/routes.json"
 
 function Applications() {
   return (
@@ -34,7 +34,7 @@ function Applications() {
               <Row>
                 <Col lg="6" xl="4">
                   <Card className="card-stats mb-4 mb-xl-0">
-                    <Link to="pending-loan">
+                    <Link to={CONSTANTS.LOGIN}>
                       <CardBody>
                         <Row>
                           <div className="col">

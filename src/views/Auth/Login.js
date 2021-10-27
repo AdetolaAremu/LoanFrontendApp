@@ -6,6 +6,7 @@ import {
   Button, Card, CardHeader, CardBody, FormGroup, Form,
   Input, InputGroupAddon, InputGroupText,InputGroup, Row,Col,
 } from "reactstrap";
+import { loginUser } from './actions/actions';
 
 const initialState = {
   "email":'',
@@ -13,7 +14,8 @@ const initialState = {
 }
 
 const Login = () => {
-  // const { allAuths: {} } = useSelector(state => state)
+  const { allAuths: { loading } } = useSelector(state => state)
+
   const dispatch = useDispatch()
 
   const [Inputs, setInputs] = useState(initialState)
@@ -24,14 +26,10 @@ const Login = () => {
   }
 
   const handleSubmit = (e) => {
-
     e.preventDefault();
+    dispatch(loginUser(Inputs));
+    console.log('inputs', Inputs);
   }
-
-  // useEffect(() => {
-  //   dispatch(getData())
-  // }, [])
-  console.log('inputs', Inputs);
 
   return (
     <>
@@ -82,7 +80,7 @@ const Login = () => {
             <div className="text-center text-muted mb-4">
               <small>Or sign in with credentials</small>
             </div>
-            <Form role="form">
+            <Form role="form" onSubmit={handleSubmit}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -131,7 +129,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button" onSubmit={() =>handleSubmit}>
+                <Button className="my-4" color="primary" type="submit">
                   Sign in
                 </Button>
               </div>

@@ -1,34 +1,40 @@
-import {DATA_ERROR, GET_DATA, DATA_LOADING_STARTS, DATA_LOADING_ENDS, CLEAR_DATA_ERROR} from './types'
+import {CLEAR_APPLICATION_ERROR, GET_APPLICATION_ERROR, GET_KYC_DATA, GET_KYC_SINGLE_DATA, KYC_DATA_LOADING_ENDS, KYC_DATA_LOADING_STARTS} from './types'
 
 const INITIAL_STATE = {
     loading: false,
     data:[],
-    error:{}
+    error:{},
+    singleData:{}
  }
+ 
  export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case DATA_LOADING_STARTS:
+        case KYC_DATA_LOADING_STARTS:
             return {
                 ...state,
                 loading:true
             }
-        case GET_DATA:
-            return {
-                ...state,
-                data:action.payload
-            }
-        case DATA_LOADING_ENDS:
+        case KYC_DATA_LOADING_ENDS:
                 return {
                     ...state,
                     loading:false
                 }
-
-        case DATA_ERROR:
+        case GET_KYC_DATA:
+            return {
+                ...state,
+                data:action.payload
+            }
+        case GET_KYC_SINGLE_DATA:
+            return {
+                ...state,
+                singleData:action.payload
+            }
+        case GET_APPLICATION_ERROR:
             return {
                 ...state,
                 error:action.payload
             }
-        case CLEAR_DATA_ERROR:
+        case CLEAR_APPLICATION_ERROR:
             return {
                 ...state,
                 error:{}
