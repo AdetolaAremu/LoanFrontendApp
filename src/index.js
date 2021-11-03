@@ -56,12 +56,12 @@ if (localStorage.jwtToken) {
   }
 }
 
-ReactDOM.render(
+ReactDOM.render(  
   <Provider store ={store}>
     <BrowserRouter>
       <Switch>
-        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-        <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+        <PrivateRoute path="/admin" component ={AdminLayout} />
+        <Route path="/auth" component ={AuthLayout} />
         <Route exact path="/" component={Landing} />
         {/* <Redirect from="/" to="/admin/index" /> */}
       </Switch>

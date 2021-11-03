@@ -1,28 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import {
-  Badge,
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
-  Button,
-  CardBody, CardTitle, Col,
+  Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem,
+  UncontrolledDropdown, DropdownToggle, Media, Pagination, PaginationItem,
+  PaginationLink, Progress, Table, Container, Row, UncontrolledTooltip,
+  Button, CardBody, CardTitle, Col,
 } from "reactstrap";
+import ROUTES from "Routes/routes.json"
 import Header from "components/Headers/Header.js";
-import CONSTANTS from "Routes/routes.json"
 
 function Applications() {
   return (
@@ -34,7 +19,7 @@ function Applications() {
               <Row>
                 <Col lg="6" xl="4">
                   <Card className="card-stats mb-4 mb-xl-0">
-                    <Link to={CONSTANTS.LOGIN}>
+                    <Link to="pending-loan">
                       <CardBody>
                         <Row>
                           <div className="col">

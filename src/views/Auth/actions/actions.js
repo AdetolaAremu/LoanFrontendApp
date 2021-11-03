@@ -1,5 +1,6 @@
 import axios from "axios";
 import jwtdecode from "jwt-decode";
+import { Route, Redirect } from "react-router-dom";
 import setAuthToken from "utils/setAuthToken";
 import { notify } from "utils/notification";
 import process from "env.js"
@@ -23,9 +24,9 @@ export const loginUser = (userData) => {
       const response = await axios.post(`${service_url}/login`, userData);
       const { token } = response.data;
       localStorage.setItem("jwtToken", token);
-      setAuthToken(token);
+      setAuthToken(localStorage.jwtToken);
       const decoded =  jwtdecode(token);
-      dispatch({type: REDIRECT_TO, payload: ROUTE.DASHBOARD});
+      dispatch({type: REDIRECT_TO, payload: ROUTE.DASHBOARD });
       dispatch(setCurrentUser(decoded));
       dispatch({type: CHECK_USER_ROLE});
       dispatch({type: AUTH_LOADING_ENDS});

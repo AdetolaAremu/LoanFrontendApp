@@ -14,7 +14,7 @@ const initialState = {
 }
 
 const Login = () => {
-  const { allAuths: { loading } } = useSelector(state => state)
+  const { allAuths: { loading, authLoading, isAuthenticated } } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
@@ -129,7 +129,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="submit">
+                <Button className="my-4" color="primary" type="submit" disabled={authLoading}>
                   Sign in
                 </Button>
               </div>

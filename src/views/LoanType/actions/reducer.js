@@ -1,34 +1,35 @@
-import {DATA_ERROR, GET_DATA, DATA_LOADING_STARTS, DATA_LOADING_ENDS, CLEAR_DATA_ERROR} from './types'
+import { CLEAR_LOAN_TYPE_DATA_ERROR, GET_LOAN_TYPE_DATA, GET_LOAN_TYPE_DATA_ERROR, LOAN_TYPE_DATA_LOADING_ENDS, LOAN_TYPE_DATA_LOADING_STARTS } from './types'
 
 const INITIAL_STATE = {
     loading: false,
-    data:[],
+    loanTypeData:[],
     error:{}
  }
+ 
  export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case DATA_LOADING_STARTS:
+        case LOAN_TYPE_DATA_LOADING_STARTS:
             return {
                 ...state,
                 loading:true
             }
-        case GET_DATA:
+        case GET_LOAN_TYPE_DATA:
             return {
                 ...state,
-                data:action.payload
+                loanTypeData:action.payload
             }
-        case DATA_LOADING_ENDS:
+        case LOAN_TYPE_DATA_LOADING_ENDS:
                 return {
                     ...state,
                     loading:false
                 }
 
-        case DATA_ERROR:
+        case GET_LOAN_TYPE_DATA_ERROR:
             return {
                 ...state,
                 error:action.payload
             }
-        case CLEAR_DATA_ERROR:
+        case CLEAR_LOAN_TYPE_DATA_ERROR:
             return {
                 ...state,
                 error:{}

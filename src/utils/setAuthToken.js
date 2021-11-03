@@ -3,7 +3,7 @@ import axios from "axios";
 const setAuthToken = (token) => {
   if(token){
     // To authorize user with bearer token
-    axios.defaults.headers.common["Authorization"] = "Bearer" + token; 
+    axios.defaults.headers.common["Authorization"] = "Bearer " + token; 
   } else {
     // delete auth user bearer token
     delete axios.defaults.headers.common["Authorization"];
