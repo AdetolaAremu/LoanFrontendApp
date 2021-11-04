@@ -28,7 +28,7 @@ const LoanApplication = () => {
   const [toggleLoanApplication, settoggleLoanApplication] = useState(false)
   const [toggleViewModal, settoggleViewModal] = useState(false)
   const [Inputs, setInputs] = useState(initialState)
-  const [currentID, setcurrentID] = useState(null)
+  const [currentID, setcurrentID] = useState({})
 
   const { 
     loanType: { loanTypeData }, 
@@ -41,7 +41,7 @@ const LoanApplication = () => {
     settoggleLoanApplication(!toggleLoanApplication);
   }
 
-  const ViewLoanApplicationModal = (id) => {
+  const ViewLoanApplicationModal = (id, e) => {
     setcurrentID(id)
     settoggleViewModal(!toggleViewModal)
     dispatch(getSingleLoanData(id));
@@ -119,7 +119,7 @@ const LoanApplication = () => {
                           </td>
                           <td>
                             <div className="d-flex align-items-center">
-                              <button onClick={e => ViewLoanApplicationModal(loan.id)} style={{ border:"1px solid white"}}>
+                              <button onClick={(e) => ViewLoanApplicationModal(loan.id, e)} style={{ border:"1px solid white"}}>
                                 {/* <span className='icon icon-shape' style={{ height:"5px !important", width:"5px" }}> */}
                                   <i class="fas fa-eye"></i>
                                 {/* </span> */}
@@ -454,21 +454,22 @@ const LoanApplication = () => {
         <Modal isOpen={toggleViewModal}>
           <ModalHeader toggle={ViewLoanApplicationModal}>Loan Details</ModalHeader>
           <ModalBody>
-            {singleLoan.map((single) =>(
-              <div key={single.id}>
+            {/* {singleLoan?.map((single) =>( */}
+              <div>
                 <Row>
                   <Col>
-                    <span className='h5'>Loan type:</span> { single?.loan_type?.name }
+                  {console.log('single', singleLoan.reason)}
+                    <span className='h5'>Loan type:</span> { singleLoan?.reason }
                   </Col>
                   <Col>
-                    <span className='h5'>Loan Amount:</span> { single?.loan_type?.amount }
+                    <span className='h5'>Loan Amount:</span> { singleLoan?.loan_type?.amount }
                   </Col>
                   <Col>
-                    <span className='h5'>Repayment Amount:</span> { single?.loan_type?.repayment_amount }
+                    <span className='h5'>Repayment Amount:</span> { singleLoan?.loan_type?.repayment_amount }
                   </Col>
                 </Row>
               </div>
-            ))}
+            {/* ))} */}
           </ModalBody>
           <ModalFooter>
               <Button color="success" type="submit" disabled={''}>Submit</Button>

@@ -14,19 +14,23 @@ export const getTypeLoanData = () => {
       dispatch({type: GET_LOAN_TYPE_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
 
-      // if (error.response) {
-      //   if (error.response.status == 422) {
-      //     dispatch({type: GET_APPLICATION_ERROR, payload:error})
-      //     return notify('There are errors in your input', 'error')
-      //   } else if (error.response.status == 500) {
-      //     dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
-      //   } else {
-      //     return notify('Sorry, something went wrong!', 'err')
-      //   }
-      // } else {
-      //   return notify('Sorry, something went wrong! Check your network', 'err')
-      // }
+
+export const createLoanTypeApplication = (data) => {
+  return async(dispatch) => {
+    try {
+      dispatch({type: LOAN_TYPE_DATA_LOADING_STARTS})
+      const response = await axios.post(`${service_url}/loan-types`, data)
+      if (response === 200) {
+        dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS})
+        return notify("Loan created successfully");
+        // dispatch({type: GET_LOAN_DATA, payload:response.data})
+      }
+    } catch (error) {
+      dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
     }
   }
 }

@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Link} from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { getTypeLoanData, createLoanTypeApplication } from './actions/action'
 import {
   Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem,
   UncontrolledDropdown, DropdownToggle, Media, Pagination, PaginationItem, PaginationLink,
@@ -8,12 +10,38 @@ import {
   FormGroup, Input
 } from "reactstrap";
 
+const initialState = {
+  name:"",
+  amount:"",
+  repayment_amount:"",
+  repayment_days:""
+}
+
 function LoanType() {
   const [toggleModal, settoggleModal] = useState(false)
+  const [Inputs, setInputs] = useState(initialState)
+
+  const dispatch = useDispatch()
+
+  const { loanType: { loanTypeData } } = useSelector(state => state)
   
   const toggleSignUpModal = () => {
     settoggleModal(!toggleModal)
   }
+
+  const handleChange = (e) => {
+    setInputs({...Inputs, [e.target.name]: e.target.value})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createLoanTypeApplication(Inputs))
+    console.log('inputs', Inputs)
+  }
+
+  useEffect(() => {
+    dispatch(getTypeLoanData())
+  }, [])
 
   return (
     <>
@@ -28,8 +56,8 @@ function LoanType() {
 
         <Modal isOpen={toggleModal}>
           <ModalHeader toggle={toggleSignUpModal}>Add Loan Type Form</ModalHeader>
-          <ModalBody>
-            <Form>
+          <Form onSubmit={handleSubmit}>
+            <ModalBody>
               <div className="pl-lg-4">
                 <Row>
                   <Col lg="6">
@@ -42,7 +70,9 @@ function LoanType() {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id="input-loan-name"
+                        name='name'
+                        value={Inputs.name}
+                        onChange={handleChange}
                         placeholder="e.g student loan"
                         type="text"
                       />
@@ -58,7 +88,9 @@ function LoanType() {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id="input-aount"
+                        name='amount'
+                        value={Inputs.amount}
+                        onChange={handleChange}
                         placeholder="e.g #15,000"
                         type="number"
                       />
@@ -76,7 +108,9 @@ function LoanType() {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id="input-repaidAount"
+                        name='repayment_amount'
+                        value={Inputs.repayment_amount}
+                        onChange={handleChange}
                         placeholder="e.g 15,500"
                         type="text"
                       />
@@ -92,7 +126,9 @@ function LoanType() {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id="input-dueDate"
+                        name='repayment_days'
+                        value={Inputs.repayment_days}
+                        onChange={handleChange}
                         placeholder="e.g 15 days"
                         type="text"
                       />
@@ -100,12 +136,12 @@ function LoanType() {
                   </Col>
                 </Row>
               </div>
-            </Form>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="success" onClick={''}>Submit</Button>
-            <Button color="danger" onClick={toggleSignUpModal}>Cancel</Button>
-          </ModalFooter>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="success" type="submit">Submit</Button>
+              <Button color="danger" onClick={toggleSignUpModal}>Cancel</Button>
+            </ModalFooter>
+          </Form>
         </Modal>
 
         <Container className="mt-4" fluid>
@@ -123,50 +159,45 @@ function LoanType() {
                       <th scope="col">Loan Amount</th>
                       <th scope="col">Repayment Amount</th>
                       <th scope="col">Repayment Days</th>
-                      <th scope="col">Date Created</th>
+                      {/* <th scope="col">Date Created</th> */}
                       <th scope="col">Actions</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">
-                        <Media className="align-items-center">
-                          <span className="mb-0 text-sm">
-                            Student Loan
-                          </span>
-                        </Media>
-                      </th>
-                      <td>#5000</td>
-                      <td>
-                        #5,500
-                      </td>
-                      <td>
-                        14 days    
-                      </td>
-                      <td>
-                        2021-10-10
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <Link>
-                            <span className='icon icon-shape'>
-                              <i class="fas fa-eye"></i>
+                    {loanTypeData?.data?.map((type) => (
+                      <tr key={type.id}>
+                        <th scope="row">
+                          <Media className="align-items-center">
+                            <span className="mb-0 text-sm">
+                              { type?.name }
                             </span>
-                          </Link>
-                          <Link>    
-                            <span className='icon icon-shape'>
-                              <i class="fas fa-edit"></i>
-                            </span>
-                          </Link>
-                          <Link>
-                            <span className='icon icon-shape'>
-                              <i class="fas fa-trash-alt"></i>
-                            </span>
-                          </Link>
-                        </div>
-                      </td>
-                    </tr>
+                          </Media>
+                        </th>
+                        <td>{ type?.amount }</td>
+                        <td>{ type?.repayment_amount }</td>
+                        <td>{ type?.repayment_days } days</td>
+                        {/* <td>
+                          {new Date(type?.created_at).toLocaleDateString("en-us", {
+                            month:'long', day:'2-digit', year:'numeric' 
+                          })}
+                        </td> */}
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <Link>    
+                              <span className='icon icon-shape'>
+                                <i class="fas fa-edit"></i>
+                              </span>
+                            </Link>
+                            <Link>
+                              <span className='icon icon-shape'>
+                                <i class="fas fa-trash-alt"></i>
+                              </span>
+                            </Link>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
