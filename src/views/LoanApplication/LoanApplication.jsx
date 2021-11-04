@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from "react-router-dom";
-import { getLoanData, createLoanApplication } from "./actions/action";
+import { getLoanData, createLoanApplication, getSingleLoanData } from "./actions/action";
 import { getTypeLoanData } from "../LoanType/actions/action";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,14 +16,24 @@ const initialState = {
   bank_name:'',
   account_number:'',
   account_type:'',
-  loan_status:''
+  loan_status:'',
+  full_name:'',
+  address:'',
+  phone:'',
+  relationship:'',
+  email:''
 }
 
 const LoanApplication = () => {
   const [toggleLoanApplication, settoggleLoanApplication] = useState(false)
+  const [toggleViewModal, settoggleViewModal] = useState(false)
   const [Inputs, setInputs] = useState(initialState)
+  const [currentID, setcurrentID] = useState(null)
 
-  const { loanType: { loanTypeData }, loans: {loanData} } = useSelector(state => state)
+  const { 
+    loanType: { loanTypeData }, 
+    loans: { loanData, loanloading, singleLoan } 
+    } = useSelector(state => state)
 
   const dispatch = useDispatch()
   
@@ -31,13 +41,20 @@ const LoanApplication = () => {
     settoggleLoanApplication(!toggleLoanApplication);
   }
 
-  const handleChange = (e) => {
-    console.log('value', e.target.value)
-    setInputs({...Inputs, [e.target.name]:[e.target.value] })
+  const ViewLoanApplicationModal = (id) => {
+    setcurrentID(id)
+    settoggleViewModal(!toggleViewModal)
+    dispatch(getSingleLoanData(id));
   }
 
-  const handleSubmit = (data) => {
-    dispatch(createLoanApplication(data));
+  const handleChange = (e) => {
+    setInputs({...Inputs, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createLoanApplication(Inputs));
+    console.log('inputs', Inputs)
   }
 
   useEffect(() => {
@@ -75,47 +92,52 @@ const LoanApplication = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">
-                          <Media className="align-items-center">
-                            <span className="mb-0 text-sm">
-                              Student Loan
-                            </span>
-                          </Media>
-                        </th>
-                        <td>#5000</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            pending
-                          </Badge>
-                        </td>
-                        <td>
-                          Not Paid    
-                        </td>
-                        <td>
-                          2021-10-10    
-                        </td>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <Link>
-                              <span className='icon icon-shape'>
-                                <i class="fas fa-eye"></i>
+                      {loanData?.map((loan) => (
+                        <tr key={loan.id}>
+                          <th scope="row">
+                            <Media className="align-items-center">
+                              <span className="mb-0 text-sm">
+                                { loan?.loan_type?.name }
                               </span>
-                            </Link>
-                            {/* <Link>    
-                              <span className='icon icon-shape'>
-                                <i class="fas fa-edit"></i>
-                              </span>
-                            </Link>
-                            <Link>
-                              <span className='icon icon-shape'>
-                                <i class="fas fa-trash-alt"></i>
-                              </span>
-                            </Link> */}
-                          </div>
-                        </td>
-                      </tr>
+                            </Media>
+                          </th>
+                          <td>{ loan?.loan_type?.amount }</td>
+                          <td>
+                            <Badge color="" className="badge-dot mr-4">
+                              <i className="bg-warning" />
+                              { loan.status === 1 ? "Accepted":"Pending" }
+                            </Badge>
+                          </td>
+                          <td>
+                            { loan?.repaid }
+                          </td>
+                          <td>
+                            {/* { loan?.created_at } */}
+                            {new Date(loan?.created_at).toLocaleDateString("en-us", {
+                              month:'long', day:'2-digit', year:'numeric' 
+                            })}    
+                          </td>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <button onClick={e => ViewLoanApplicationModal(loan.id)} style={{ border:"1px solid white"}}>
+                                {/* <span className='icon icon-shape' style={{ height:"5px !important", width:"5px" }}> */}
+                                  <i class="fas fa-eye"></i>
+                                {/* </span> */}
+                              </button>
+                              {/* <Link>    
+                                <span className='icon icon-shape'>
+                                  <i class="fas fa-edit"></i>
+                                </span>
+                              </Link>
+                              <Link>
+                                <span className='icon icon-shape'>
+                                  <i class="fas fa-trash-alt"></i>
+                                </span>
+                              </Link> */}
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </Table>
                   <CardFooter className="py-4">
@@ -176,18 +198,26 @@ const LoanApplication = () => {
         </Container>
         <Modal isOpen={toggleLoanApplication}>
           <ModalHeader toggle={ModalLoanApplication}>Create Loan Application</ModalHeader>
-          <ModalBody>
-            <Form>
+          <Form onSubmit={handleSubmit}>
+            <ModalBody>
               <div className="pl-lg-4">
-                {loanTypeData?.data?.map((type) => (
-                  <div key={type}>
+                {/* {loanTypeData?.data?.map((type) => ( */}
+                  <div>
                     <Row>
                       <Col lg="6">
                         <FormGroup>
                           <Label className="form-control-label">Loan Type</Label>
-                          <Input type="select" name="select" id="exampleSelect">
+                          <Input 
+                            onChange={handleChange} 
+                            value={Inputs.loan_type_id}
+                            type="select" 
+                            name="loan_type_id"
+                            id="exampleSelect"
+                          > 
                             <option defaultValue>Choose Loan type</option>
-                              <option>{ type.name }</option>
+                            {loanTypeData?.data?.map((type) => (
+                              <option key={type.id} value={type.id}>{ type.name }</option>
+                            ))}
                           </Input>
                         </FormGroup>
                       </Col>
@@ -203,7 +233,7 @@ const LoanApplication = () => {
                             className="form-control-alternative"
                             id="input-amount"
                             name='amount'
-                            value={type?.amount}
+                            // value={type?.amount}
                             type="number"
                             disabled
                           />
@@ -222,7 +252,7 @@ const LoanApplication = () => {
                           <Input
                             className="form-control-alternative"
                             // name="repayment_amount"
-                            value={type.repayment_amount}
+                            // value={type.repayment_amount}
                             type="text"
                             disabled
                           />
@@ -239,7 +269,7 @@ const LoanApplication = () => {
                           <Input
                             className="form-control-alternative"
                             id=""
-                            value={type.repayment_days}
+                            // value={type.repayment_days}
                             type="text"
                             disabled
                           />
@@ -247,7 +277,7 @@ const LoanApplication = () => {
                       </Col>
                     </Row>
                   </div>
-                ))}  
+                {/* ))}   */}
                   <Row>
                   <Col lg="6">
                     <FormGroup>
@@ -261,7 +291,8 @@ const LoanApplication = () => {
                         className="form-control-alternative"
                         id="input-amount"
                         name='bank_name'
-                        // value={inputs.bank-}
+                        value={Inputs.bank_name}
+                        onChange={handleChange}
                         placeholder="e.g Access bank"
                         type="text"
                       />
@@ -270,7 +301,13 @@ const LoanApplication = () => {
                   <Col lg="6">
                     <FormGroup>
                       <Label className="form-control-label">Account Type</Label>
-                      <Input type="select" name="select" id="exampleSelect">
+                      <Input 
+                        value={Inputs.account_type} 
+                        onChange={handleChange} 
+                        type="select" 
+                        name="account_type" 
+                        id="exampleSelect"
+                      >
                         <option defaultValue>Choose...</option>
                         <option className='text-capitalize'>savings</option>
                         <option className='text-capitalize'>current</option>
@@ -287,7 +324,9 @@ const LoanApplication = () => {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id=""
+                        name="account_number"
+                        value={Inputs.account_number}
+                        onChange={handleChange}
                         placeholder="e.g 0272637383"
                         type="text"
                       />
@@ -304,7 +343,9 @@ const LoanApplication = () => {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id=""
+                        name="full_name"
+                        value={Inputs.full_name}
+                        onChange={handleChange}
                         placeholder="e.g John Doe"
                         type="text"
                       />
@@ -320,7 +361,9 @@ const LoanApplication = () => {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id=""
+                        name="email"
+                        value={Inputs.email}
+                        onChange={handleChange}
                         placeholder="e.g johndoe@mail.com"
                         type="email"
                       />
@@ -336,7 +379,9 @@ const LoanApplication = () => {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id=""
+                        name="address"
+                        value={Inputs.address}
+                        onChange={handleChange}
                         placeholder="e.g 5 Wall Street"
                         type="text"
                       />
@@ -354,7 +399,9 @@ const LoanApplication = () => {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id=""
+                        name="phone"
+                        value={Inputs.phone}
+                        onChange={handleChange}
                         placeholder="e.g 5 Wall Street"
                         type="text"
                       />
@@ -370,7 +417,9 @@ const LoanApplication = () => {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        id=""
+                        name="relationship"
+                        value={Inputs.relationship}
+                        onChange={handleChange}
                         placeholder="e.g 5 Wall Street"
                         type="text"
                       />
@@ -387,18 +436,44 @@ const LoanApplication = () => {
                       </label>
                       <Input
                         type="textarea"
-                        value="Enu gbe"
+                        value={Inputs.reason}
+                        name='reason'
+                        onChange={handleChange}
                       />
                     </FormGroup>
                   </Col>
                 </Row>
               </div>
-            </Form>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="success" type="submit" disabled={loanloading}>Submit</Button>
+              <Button color="danger" onClick={ModalLoanApplication}>Cancel</Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
+        <Modal isOpen={toggleViewModal}>
+          <ModalHeader toggle={ViewLoanApplicationModal}>Loan Details</ModalHeader>
+          <ModalBody>
+            {singleLoan.map((single) =>(
+              <div key={single.id}>
+                <Row>
+                  <Col>
+                    <span className='h5'>Loan type:</span> { single?.loan_type?.name }
+                  </Col>
+                  <Col>
+                    <span className='h5'>Loan Amount:</span> { single?.loan_type?.amount }
+                  </Col>
+                  <Col>
+                    <span className='h5'>Repayment Amount:</span> { single?.loan_type?.repayment_amount }
+                  </Col>
+                </Row>
+              </div>
+            ))}
           </ModalBody>
           <ModalFooter>
-            <Button color="success" onClick={''}>Submit</Button>
-            <Button color="danger" onClick={ModalLoanApplication}>Cancel</Button>
-          </ModalFooter>
+              <Button color="success" type="submit" disabled={''}>Submit</Button>
+              <Button color="danger" onClick={ViewLoanApplicationModal}>Cancel</Button>
+            </ModalFooter>
         </Modal>
       </div>
     </div>

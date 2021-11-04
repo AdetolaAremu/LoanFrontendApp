@@ -21,14 +21,13 @@ const Login = () => {
   const [Inputs, setInputs] = useState(initialState)
 
   const handleChange = (e) => {
-    console.log('value', e.target.value)
     setInputs({...Inputs, [e.target.name]: e.target.value})
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // console.log('inputs', Inputs)
     dispatch(loginUser(Inputs));
-    console.log('inputs', Inputs);
   }
 
   return (
