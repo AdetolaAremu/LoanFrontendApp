@@ -7,17 +7,19 @@ import { Container } from "reactstrap";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-
 import routes from "routes.js";
+import { getLoggedInUser } from "./actions/action";
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     mainContent.current.scrollTop = 0;
+    dispatch(getLoggedInUser());
   }, [location]);
 
   const getRoutes = (routes) => {
@@ -35,6 +37,10 @@ const Admin = (props) => {
       }
     });
   };
+
+  // useEffect(() => {
+    
+  // }, [])
 
   const getBrandText = (path) => {
     for (let i = 0; i < routes.length; i++) {

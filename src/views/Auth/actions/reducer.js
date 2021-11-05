@@ -1,13 +1,14 @@
 import isEmpty from "utils/isEmpty";
-import { AUTH_LOADING_ENDS, AUTH_LOADING_STARTS, SET_CURRENT_USER, ROLE_LOADING_STARTS, ROLE_LOADING_ENDS, CHECK_USER_ROLE } from "./types";
+import { AUTH_LOADING_ENDS, AUTH_LOADING_STARTS, SET_CURRENT_USER, ROLE_LOADING_STARTS, ROLE_LOADING_ENDS, CHECK_USER_ROLE, GET_LOGGED_IN_USER_DETAILS } from "./types";
 
 const init = {
   isAuthenticated:false,
   user: {},
-  // isAdmin: false,
+  permissions:{},
   user_role:"",
   loading:false,
-  authLoading:false
+  authLoading:false,
+  loggedInUser:{}
 };
 
 export default function(state = init, action){
@@ -41,7 +42,13 @@ export default function(state = init, action){
     case CHECK_USER_ROLE:
       return {
         ...state,
+        permissions:action.payload.data,
         user_role:action.payload.role_id
+      }
+    case GET_LOGGED_IN_USER_DETAILS:
+      return{
+        ...state,
+        loggedInUser:action.payload
       }
     default:
       return state;

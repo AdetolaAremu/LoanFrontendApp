@@ -4,6 +4,7 @@ import authReducer from "views/Auth/actions/reducer";
 import loanReducer from "views/LoanApplication/actions/reducer"
 import loanTypeReducer from "views/LoanType/actions/reducer"
 import kycReducer from "views/KYC/actions/reducer"
+import dashboardReducer from "layouts/actions/reducer"
 // import dashboardReducer from "views/"
 
 export default combineReducers({
@@ -11,6 +12,7 @@ export default combineReducers({
   allAuths:authReducer,
   loans:loanReducer,
   loanType:loanTypeReducer,
-  kyc:kycReducer
+  kyc:kycReducer,
+  dashboard: dashboardReducer
   // dashboard:dashboardReducer
 });

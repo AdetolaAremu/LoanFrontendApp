@@ -5,7 +5,7 @@ import setAuthToken from "utils/setAuthToken";
 import { notify } from "utils/notification";
 import process from "env.js"
 import ROUTE from "Routes/routes.json";
-import { AUTH_LOADING_ENDS, AUTH_LOADING_STARTS, CHECK_USER_ROLE, REDIRECT_TO, SET_CURRENT_USER } from "./types";
+import { AUTH_LOADING_ENDS, AUTH_LOADING_STARTS, CHECK_USER_ROLE, GET_LOGGED_IN_USER_DETAILS, REDIRECT_TO, SET_CURRENT_USER } from "./types";
 // import { REDIRECT_TO } from "stats/statType";
 
 const service_url = process.env.SERVICE_URL
@@ -30,7 +30,6 @@ export const loginUser = (userData) => {
       dispatch(setCurrentUser(decoded));
       dispatch({type: CHECK_USER_ROLE});
       dispatch({type: AUTH_LOADING_ENDS});
-      
     } catch (error) {
       dispatch({type: AUTH_LOADING_ENDS});
     }
