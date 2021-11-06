@@ -2,25 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 // JavaScript plugin that hides or shows a component based on your scroll
 import Headroom from "headroom.js";
-// reactstrap components
+import { connect } from "react-redux";
 import {
-  Button,
-  UncontrolledCollapse,
-  DropdownMenu,
-  DropdownItem,
-  DropdownToggle,
-  UncontrolledDropdown,
-  Media,
-  NavbarBrand,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Container,
-  Row,
-  Col,
-  UncontrolledTooltip
+  Button, UncontrolledCollapse, DropdownMenu, DropdownItem, DropdownToggle,
+  UncontrolledDropdown, Media, NavbarBrand, Navbar, NavItem, NavLink,
+  Nav, Container, Row, Col, UncontrolledTooltip
 } from "reactstrap";
+import { useSelector } from "react-redux";
 
 class DemoNavbar extends React.Component {
   componentDidMount() {
@@ -28,6 +16,7 @@ class DemoNavbar extends React.Component {
     // initialise
     headroom.init();
   }
+
   state = {
     collapseClasses: "",
     collapseOpen: false
@@ -46,6 +35,7 @@ class DemoNavbar extends React.Component {
   };
 
   render() {
+    const { allAuths } = this.props;
     return (
       <>
         <header className="header-global">
@@ -238,21 +228,25 @@ class DemoNavbar extends React.Component {
                       Star us on Github
                     </UncontrolledTooltip>
                   </NavItem>
-                  <NavItem className="d-none d-lg-block ml-lg-4">
-                    <Button
-                      className="btn-neutral btn-icon"
-                      color="default"
-                    >
-                      {/* <span className="btn-inner--icon">
-                        <i className="fa fa-cloud-download mr-2" />
-                      </span> */}
-                      <Link to="/auth/login">
-                        <span className="nav-link-inner--text ml-1">
-                          Login
-                        </span>
+                  { allAuths.isAuthenticated === true ? (
+                    <NavItem className="d-none d-lg-block ml-lg-4">
+                      <Link to="admin/index">
+                        <Button
+                          className="btn-neutral btn-icon"
+                          color="default"
+                        >
+                          {/* <span className="btn-inner--icon">
+                            <i className="fa fa-cloud-download mr-2" />
+                          </span> */}
+                          
+                            <span className="nav-link-inner--text ml-1">
+                              Dashboard
+                            </span>
+                        </Button>
                       </Link>
-                    </Button>
-                    <Link to="/auth/register">
+                    </NavItem>
+                    ):(
+                      <NavItem className="d-none d-lg-block ml-lg-4">
                       <Button
                         className="btn-neutral btn-icon"
                         color="default"
@@ -260,13 +254,29 @@ class DemoNavbar extends React.Component {
                         {/* <span className="btn-inner--icon">
                           <i className="fa fa-cloud-download mr-2" />
                         </span> */}
-                        
+                        <Link to="/auth/login">
                           <span className="nav-link-inner--text ml-1">
-                            Register
+                            Login
                           </span>
+                        </Link>
                       </Button>
-                    </Link>
-                  </NavItem>
+                      <Link to="/auth/register">
+                        <Button
+                          className="btn-neutral btn-icon"
+                          color="default"
+                        >
+                          {/* <span className="btn-inner--icon">
+                            <i className="fa fa-cloud-download mr-2" />
+                          </span> */}
+                          
+                            <span className="nav-link-inner--text ml-1">
+                              Register
+                            </span>
+                        </Button>
+                      </Link>
+                      </NavItem>
+                    )
+                  }
                 </Nav>
               </UncontrolledCollapse>
             </Container>
@@ -277,4 +287,8 @@ class DemoNavbar extends React.Component {
   }
 }
 
-export default DemoNavbar;
+const mapStateToProps = ({ allAuths }) => ({
+  allAuths,
+});
+
+export default connect(mapStateToProps)(DemoNavbar);
