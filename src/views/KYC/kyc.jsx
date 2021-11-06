@@ -63,6 +63,18 @@ const KYC = () => {
     makeCountryApiCall()
   }, [])
 
+  const statusColor = (status) => {
+    if (status == 'pending') {
+      return 'orange'
+    }
+    if (status == 'approved') {
+      return 'green'
+    }
+    if (status == 'rejected') {
+      return 'red'
+    }
+  }
+
   return(
     <>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -77,12 +89,14 @@ const KYC = () => {
                     </Col>
                     <Col className="text-right" xs="4">
                       <Button
-                        color="primary"
+                        // color="primary"
                         href="#pablo"
+                        className="text-capitalize text-white"
                         onClick={(e) => e.preventDefault()}
+                        style={{ background: statusColor(data?.data?.kyc?.status)}}
                         size="sm"
                       >
-                        Status
+                        {data?.data?.kyc?.status}
                       </Button>
                     </Col>
                   </Row>

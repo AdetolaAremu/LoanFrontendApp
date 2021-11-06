@@ -3,6 +3,7 @@ import axios from 'axios';
 import process from 'env.js';
 import CONSTANTS from 'Routes/routes.json'
 import { notify } from 'utils/notification';
+import  { getLoggedInUser } from "layouts/actions/action"
 
 const service_url = process.env.SERVICE_URL
 
@@ -37,11 +38,10 @@ export const createKYCApplication = (KYCData) => {
     try {
       dispatch({type: KYC_DATA_LOADING_STARTS})
       const response = await axios.post(`${service_url}/user/verify`, KYCData)
-      if (response === 200) {
-        dispatch({type: KYC_DATA_LOADING_ENDS})
-        return notify("KYC created successfully");
-        // dispatch({type: GET_KYC_DATA, payload:response.data})
-      }
+      dispatch( getLoggedInUser() )
+      dispatch({type: KYC_DATA_LOADING_ENDS})
+      return notify("KYC created successfully");
+      // dispatch({type: GET_KYC_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: KYC_DATA_LOADING_ENDS, payload:error})
     }
