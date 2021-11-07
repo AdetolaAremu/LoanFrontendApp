@@ -72,7 +72,7 @@ export const getSingleLoanType = (id) => {
   return async(dispatch) => {
     try {
       dispatch({type: LOAN_TYPE_CRUD_OPERATIONS_STARTS})
-      const response = await axios.get(`${service_url}/loan-application/${id}`)
+      const response = await axios.get(`${service_url}/loan-types/${id}`)
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS})
       dispatch({type: GET_SINGLE_LOAN_TYPE_DATA, payload:response.data})     
     } catch (error) {

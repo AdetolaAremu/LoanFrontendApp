@@ -45,7 +45,8 @@ function LoanType() {
 
   const handleToggleEditModal = (id, e) => {
     setupdateCurrentID(id)
-    // settoggleEditMOdal(!toggleEditMOdal)
+    loadUpdateData(id);
+    settoggleEditMOdal(!toggleEditMOdal)
   }
 
   const handleEditModal = () => {
@@ -54,6 +55,8 @@ function LoanType() {
 
   const deleteType = (id, e) => {
     dispatch(deleteLoanType(currentID))
+
+    settoggleDeleteMOdal(toggleDeleteMOdal == false)
   }
 
   const handleChange = (e) => {
@@ -68,8 +71,8 @@ function LoanType() {
 
   const loadUpdateData = (id) => {
     axios.get(`${service_url}/loan-types/${id}`)
-    .then(res => {
-        setupdateInputs(res.data)
+    .then((res) => {
+        setupdateInputs(res.data.data)
     })
     .catch(err => {
         // getErrorStatusCode(err.response)

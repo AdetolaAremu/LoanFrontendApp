@@ -39,7 +39,7 @@ const INITIAL_STATE = {
         case DELETE_LOAN_TYPE:
             return{
                 ...state,
-                deleteLoanType: state.deleteLoanType.filter(item => item.id !== action.payload)
+                loanTypeData: state.loanTypeData.filter(item => item.id !== action.payload)
             }
         case LOAN_TYPE_CRUD_OPERATIONS_STARTS:
             return{
