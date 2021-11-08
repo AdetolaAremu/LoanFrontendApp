@@ -32,7 +32,8 @@ const LoanApplication = () => {
 
   const { 
     loanType: { loanTypeData }, 
-    loans: { loanData, loanloading, singleLoan } 
+    loans: { loanData, loanloading, singleLoan },
+    dashboard: { data }
     } = useSelector(state => state)
 
   const dispatch = useDispatch()
@@ -41,10 +42,11 @@ const LoanApplication = () => {
     settoggleLoanApplication(!toggleLoanApplication);
   }
 
-  const ViewLoanApplicationModal = (id, e) => {
+  const ViewLoanApplicationModal = (id) => {
     setcurrentID(id)
-    settoggleViewModal(!toggleViewModal)
     dispatch(getSingleLoanData(id));
+    settoggleViewModal(!toggleViewModal)
+
   }
 
   const handleChange = (e) => {
@@ -53,8 +55,8 @@ const LoanApplication = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createLoanApplication(Inputs));
-    console.log('inputs', Inputs)
+    console.log('inputs', Inputs);
+    // dispatch(createLoanApplication(Inputs));
   }
 
   useEffect(() => {
@@ -62,12 +64,29 @@ const LoanApplication = () => {
     dispatch(getTypeLoanData());
   }, [])
 
+  const loanColor = (loan_status) => {
+    if (loan_status == 'pending') {
+      return 'orange'
+    }
+    if (loan_status == 'rejected') {
+      return 'red'
+    }
+    if (loan_status == 'approved') {
+      return 'green'
+    }
+  }
+
   return (
     <div>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <div className='text-right'>
           <Link>
-            <Button onClick={ModalLoanApplication} className='mx-5'>
+            <Button onClick={ModalLoanApplication} 
+              // disabled={data?.data?.kyc?.status == 'pending' 
+              //   || data?.data?.kyc?.status == 'rejected' || data?.data?.kyc == null 
+              // } 
+              className='mx-5'
+            >
               Create Loan Application
             </Button>
           </Link>
@@ -451,25 +470,113 @@ const LoanApplication = () => {
             </ModalFooter>
           </Form>
         </Modal>
-        <Modal isOpen={toggleViewModal}>
+        <Modal isOpen={toggleViewModal} size="lg">
           <ModalHeader toggle={ViewLoanApplicationModal}>Loan Details</ModalHeader>
           <ModalBody>
-            {/* {singleLoan?.map((single) =>( */}
-              <div>
-                <Row>
-                  <Col>
-                  {console.log('single', singleLoan.reason)}
-                    <span className='h5'>Loan type:</span> { singleLoan?.reason }
-                  </Col>
-                  <Col>
-                    <span className='h5'>Loan Amount:</span> { singleLoan?.loan_type?.amount }
-                  </Col>
-                  <Col>
-                    <span className='h5'>Repayment Amount:</span> { singleLoan?.loan_type?.repayment_amount }
-                  </Col>
-                </Row>
+            <div>
+              <div className='text-center font-weight-bold' >
+                <Button
+                  // color="primary"
+                  href="#pablo"
+                  className="text-capitalize text-white"
+                  onClick={(e) => e.preventDefault()}
+                  style={{ background: loanColor(singleLoan?.loan_status )}}
+                  size="sm"
+                >
+                  {singleLoan?.loan_status}
+                </Button>
               </div>
-            {/* ))} */}
+              <Row>
+                <Col>
+                  <small>Account Number:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.account_number }</div>
+                </Col>
+                <Col>
+                  <small>Account type:</small>
+                  <div className='text-capitalize font-weight-bold'>{ singleLoan?.account_type }</div>
+                </Col>
+                <Col>
+                  <small>Bank Name:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.bank_name }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <hr className="my-3" />
+                  <h6 className="heading-small text-muted">
+                   Loan Category
+                  </h6>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Category Name:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.name }</div>
+                </Col>
+                <Col>
+                  <small>Amount:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.amount }</div>
+                </Col>
+                <Col>
+                  <small>Repayment Amount:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.repayment_amount }</div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Payment Due In:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.repayment_days }</div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <hr className="my-3" />
+                  <h6 className="heading-small text-muted">
+                    Guarantor's Data
+                  </h6>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Full Name:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.guarantor?.full_name }</div>
+                </Col>
+                <Col>
+                  <small>Phone Number:</small>
+                  <div className='text-capitalize font-weight-bold'>{ singleLoan?.guarantor?.phone }</div>
+                </Col>
+                <Col>
+                  <small>Email:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.guarantor?.email }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Relationship:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.guarantor?.relationship }
+                  </div>
+                </Col>
+                <Col>
+                  <small>Address:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.guarantor?.address }
+                  </div>
+                </Col>
+              </Row>
+              <Row className='text-center mt-2'>
+                <Col>
+                  <small>Reason for Loan Reqest:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.reason }
+                  </div>
+                </Col>
+              </Row>
+            </div>
           </ModalBody>
           <ModalFooter>
               <Button color="success" type="submit" disabled={''}>Submit</Button>
