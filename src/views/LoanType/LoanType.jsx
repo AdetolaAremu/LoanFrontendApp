@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import process from 'env.js';
 import { getTypeLoanData, createLoanTypeApplication, deleteLoanType, updateLoanType, getSingleLoanType } from './actions/action'
+import { RectSpinner } from "utils/loader/Loader"
 import {
   Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem,
   UncontrolledDropdown, DropdownToggle, Media, Pagination, PaginationItem, PaginationLink,
@@ -21,7 +22,7 @@ const initialState = {
   repayment_days:""
 }
 
-function LoanType() {
+const LoanType = () => {
   const [toggleModal, settoggleModal] = useState(false)
   const [toggleDeleteMOdal, settoggleDeleteMOdal] = useState(false)
   const [toggleEditMOdal, settoggleEditMOdal] = useState(false)
@@ -49,8 +50,13 @@ function LoanType() {
     settoggleEditMOdal(!toggleEditMOdal)
   }
 
-  const handleEditModal = () => {
-    dispatch(updateLoanType(updateCurrentID))
+  const handleSubmitEdit = (e) => {
+    e.preventDefault()
+    dispatch(updateLoanType(updateCurrentID, updateInputs))
+  }
+
+  const handleEditChange = (e) => {
+    setupdateInputs({...updateInputs, [e.target.name]: e.target.value})
   }
 
   const deleteType = (id, e) => {
@@ -74,14 +80,12 @@ function LoanType() {
     .then((res) => {
         setupdateInputs(res.data.data)
     })
-    .catch(err => {
-        // getErrorStatusCode(err.response)
-    })  
   }
+ 
+ 
 
   useEffect(() => {
     dispatch(getTypeLoanData())
-    loadUpdateData();
   }, [])
 
   return (
@@ -108,7 +112,7 @@ function LoanType() {
 
         <Modal isOpen={toggleEditMOdal}>
           <ModalHeader toggle={handleToggleEditModal}>Edit Loan Type Form</ModalHeader>
-          <Form onSubmit={handleEditModal}>
+          <Form onSubmit={handleSubmitEdit}>
             <ModalBody>
               <div className="pl-lg-4">
                 <Row>
@@ -124,7 +128,7 @@ function LoanType() {
                         className="form-control-alternative"
                         name='name'
                         value={updateInputs.name}
-                        onChange={handleChange}
+                        onChange={handleEditChange}
                         placeholder="e.g student loan"
                         type="text"
                       />
@@ -142,7 +146,7 @@ function LoanType() {
                         className="form-control-alternative"
                         name='amount'
                         value={updateInputs.amount}
-                        onChange={handleChange}
+                        onChange={handleEditChange}
                         placeholder="e.g #15,000"
                         type="number"
                       />
@@ -162,7 +166,7 @@ function LoanType() {
                         className="form-control-alternative"
                         name='repayment_amount'
                         value={updateInputs.repayment_amount}
-                        onChange={handleChange}
+                        onChange={handleEditChange}
                         placeholder="e.g 15,500"
                         type="text"
                       />
@@ -180,7 +184,7 @@ function LoanType() {
                         className="form-control-alternative"
                         name='repayment_days'
                         value={updateInputs.repayment_days}
-                        onChange={handleChange}
+                        onChange={handleEditChange}
                         placeholder="e.g 15 days"
                         type="text"
                       />

@@ -52,11 +52,11 @@ export const deleteLoanType = (id) => {
   }
 }
 
-export const updateLoanType = (id) => {
+export const updateLoanType = (id, data) => {
   return async(dispatch) => {
     try {
       dispatch({type: LOAN_TYPE_CRUD_OPERATIONS_STARTS})
-      const res = await axios.put(`${service_url}/loan-types/${id}`)
+      const res = await axios.put(`${service_url}/loan-types/${id}`, data)
       if (res.status === 200) {
         dispatch({type: LOAN_TYPE_CRUD_OPERATIONS_ENDS})
         dispatch(getTypeLoanData())
