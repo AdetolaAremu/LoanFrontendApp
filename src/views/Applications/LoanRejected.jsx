@@ -1,27 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getRejectedLoanApplication } from "./actions/action";
+import { getSingleLoanData } from 'views/LoanApplication/actions/action';
 import {
-  Badge,
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Button,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
+  Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown,
+  DropdownToggle, Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Form,
+  Table, Container, Row, UncontrolledTooltip, Spinner, Modal, ModalHeader, ModalBody, Col, ModalFooter
 } from "reactstrap";
 
 const LoanRejected = () => {
+  const [toggleModal, settoggleModal] = useState(false)
+  const [currentID, setcurrentID] = useState(null)
+  const dispatch = useDispatch()
+
+  const { applications: { adminLoanData }, loans: { singleLoan } } = useSelector(state => state)
+
+  const handleModal = (id) => {
+    setcurrentID(id);
+    settoggleModal(!toggleModal);
+    dispatch(getSingleLoanData(id));
+  }
+
+  useEffect(() => {
+    dispatch(getRejectedLoanApplication())
+  }, [])
+
   return (
     <div>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -33,48 +37,56 @@ const LoanRejected = () => {
                   <CardHeader className="border-0">
                     <h3 className="mb-0">Loan Rejected Table</h3>
                   </CardHeader>
-                  <Table className="align-items-center table-flush" responsive>
-                    <thead className="thead-light">
-                      <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Request Type</th>
-                        <th scope="col">Loan Status</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col">Actions</th>
-                        {/* <th scope="col" /> */}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">
-                          <Media className="align-items-center">
-                            <span className="mb-0 text-sm">
-                              Ajala
-                            </span>
-                          </Media>
-                        </th>
-                        <td>Loan</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-danger" />
-                            rejected
-                          </Badge>
-                        </td>
-                        <td>
-                          2021-10-10   
-                        </td>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <Link>
-                              <Button className="bg-gradient-primary text-white">
-                                Take Action
-                              </Button>
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
+                  { !adminLoanData.length ? (<Spinner className='m-auto' animation="border" 
+                    style={{ width:"4rem", height:"4rem" }} />)
+                    : adminLoanData.length ? (
+                    <Table className="align-items-center table-flush" responsive>
+                      <thead className="thead-light">
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Request Type</th>
+                          <th scope="col">Loan Status</th>
+                          <th scope="col">Date Created</th>
+                          <th scope="col">Actions</th>
+                          {/* <th scope="col" /> */}
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {adminLoanData.map((rejectedLoan) => (
+                        <tr key={rejectedLoan.id}>
+                          <th scope="row">
+                            <Media className="align-items-center">
+                              <span className="mb-0 text-sm">
+                                { rejectedLoan?.user?.first_name } { rejectedLoan?.user?.last_name }
+                              </span>
+                            </Media>
+                          </th>
+                          <td>Loan</td>
+                          <td className=''>
+                            <Badge color="" className="badge-dot mr-4 text-capitalize">
+                              <i className="bg-warning" />
+                              { rejectedLoan?.loan_status }
+                            </Badge>
+                          </td>
+                          <td>
+                          { new Date(rejectedLoan?.created_at).toLocaleDateString("en-us", 
+                            { day:"2-digit", month:"2-digit", year:"numeric" }
+                          ) }   
+                          </td>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <Link>
+                                <Button onClick={(e) => handleModal(rejectedLoan.id, e)} className="bg-gradient-primary text-white">
+                                  Take Action
+                                </Button>
+                              </Link>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                      </tbody>
+                    </Table>
+                   ):"No data"}
                   <CardFooter className="py-4">
                     <nav aria-label="...">
                       <Pagination
@@ -107,23 +119,6 @@ const LoanRejected = () => {
                             2 <span className="sr-only">(current)</span>
                           </PaginationLink>
                         </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            3
-                          </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            <i className="fas fa-angle-right" />
-                            <span className="sr-only">Next</span>
-                          </PaginationLink>
-                        </PaginationItem>
                       </Pagination>
                     </nav>
                   </CardFooter>
@@ -132,6 +127,119 @@ const LoanRejected = () => {
             </Row>
         </Container>
       </div>
+      <Modal isOpen={toggleModal} size="lg">
+        <ModalHeader toggle={handleModal}>Take Action on Loan Request</ModalHeader>
+          <ModalBody>
+            <div>
+              <Row>
+                <Col>
+                  <small>Account Number:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.account_number }</div>
+                </Col>
+                <Col>
+                  <small>Account type:</small>
+                  <div className='text-capitalize font-weight-bold'>{ singleLoan?.account_type }</div>
+                </Col>
+                <Col>
+                  <small>Bank Name:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.bank_name }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <hr className="my-3" />
+                  <h6 className="heading-small text-muted">
+                    Loan Category
+                  </h6>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Category Name:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.name }</div>
+                </Col>
+                <Col>
+                  <small>Amount:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.amount }</div>
+                </Col>
+                <Col>
+                  <small>Repayment Amount:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.repayment_amount }</div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Payment Due In:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.repayment_days }</div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <hr className="my-3" />
+                  <h6 className="heading-small text-muted">
+                    Guarantor's Data
+                  </h6>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Full Name:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.guarantor?.full_name }</div>
+                </Col>
+                <Col>
+                  <small>Phone Number:</small>
+                  <div className='text-capitalize font-weight-bold'>{ singleLoan?.guarantor?.phone }</div>
+                </Col>
+                <Col>
+                  <small>Email:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.guarantor?.email }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Relationship:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.guarantor?.relationship }
+                  </div>
+                </Col>
+                <Col>
+                  <small>Address:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.guarantor?.address }
+                  </div>
+                </Col>
+                <Col></Col>
+              </Row>
+              <Row className='mt-2'>
+                <Col>
+                  <small>Reason for Loan Reqest:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.reason }
+                  </div>
+                </Col>
+              </Row>
+              {!singleLoan?.rejection_reason == null || singleLoan?.status === 'failed' ? ( '' ): (
+                <Row className='mt-2'>
+                  <Col>
+                    <small>Loan Rejection Due to:</small> 
+                    <div className='text-capitalize font-weight-bold'>
+                      { singleLoan?.rejection_reason }
+                    </div>
+                  </Col>
+                </Row>
+              ) }
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary">Recycle</Button>
+            {/* <Button color="danger" type='submit' onClick={handleReject}>Reject</Button> */}
+            <Button color="danger" onClick={handleModal}>Close</Button>
+          </ModalFooter>
+      </Modal>
     </div>
   )
 }

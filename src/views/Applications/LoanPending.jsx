@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import  { getPendingLoanApplication, approveLoan, rejectLoan } from "./actions/action"
+import { getSingleLoanData } from 'views/LoanApplication/actions/action';
 import {
   Badge,Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown,
   DropdownToggle, Media, Pagination, PaginationItem, PaginationLink,Progress, Button, Form,
   Table, Container, Row, UncontrolledTooltip, Spinner, Modal, ModalHeader, ModalBody, Col, ModalFooter
 } from "reactstrap";
-import { getSingleLoanData } from 'views/LoanApplication/actions/action';
 
 const init = {
   comment:''
@@ -23,12 +23,6 @@ const LoanPending = () => {
   
   const dispatch = useDispatch()
 
-  const handleInputs = (e) => {
-    // e.preventDefault();
-    console.log('inputs', Inputs)
-    setInputs(Inputs)
-  }
-
   const toggleModal = (id,e) => {
     settoggleLoan(!toggleLoan);
     setcurrentID(id)
@@ -38,15 +32,17 @@ const LoanPending = () => {
   const handleApprove = (e) => {
     e.preventDefault()
     dispatch(approveLoan(currentID))
+    settoggleLoan(!toggleLoan);
   }
 
   const handleChange = (e) => {
-    setInputs({...Inputs, [e.target.name] : e.target.name})
+    setInputs({...Inputs, [e.target.name]: e.target.value})
   }
 
   const handleReject = (e) => {
     e.preventDefault();
     dispatch(rejectLoan(currentID, Inputs))
+    settoggleLoan(!toggleLoan);
   }
 
   useEffect(() => {
@@ -175,18 +171,6 @@ const LoanPending = () => {
         <Form>
           <ModalBody>
             <div>
-              {/* <div className='text-center font-weight-bold' >
-                <Button
-                  // color="primary"
-                  href="#pablo"
-                  className="text-capitalize text-white"
-                  onClick={(e) => e.preventDefault()}
-                  style={{ background: loanColor(singleLoan?.loan_status )}}
-                  size="sm"
-                >
-                  {singleLoan?.loan_status}
-                </Button>
-              </div> */}
               <Row>
                 <Col>
                   <small>Account Number:</small> 
@@ -281,10 +265,10 @@ const LoanPending = () => {
               <div className='text-center mt-2'>    
                 <strong>Admin Comment:</strong> 
                 <textarea
-                  name='comment'
+                  name="comment"
                   onChange={handleChange} 
-                  value={Inputs.comment} 
-                  className='text-capitalize font-weight-bold' 
+                  value={Inputs.comment}
+                  className='font-weight-bold' 
                   style={{ minWidth:"100%" }} 
                 />
               </div>

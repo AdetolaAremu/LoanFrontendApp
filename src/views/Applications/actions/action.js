@@ -18,6 +18,33 @@ export const getPendingLoanApplication = () => {
   }
 }
 
+export const getRejectedLoanApplication = () => {
+  return async(dispatch) => {
+    try {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_STARTS})
+      const response = await axios.get(`${service_url}/loan/failed`)
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS})
+      dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
+    } catch (error) {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+export const getAcceptedLoanApplication = () => {
+  return async(dispatch) => {
+    try {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_STARTS})
+      const response = await axios.get(`${service_url}/loan/accepted`)
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS})
+      dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
+    } catch (error) {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+
 export const approveLoan = (id, data) => {
   return async(dispatch) => {
     try {
