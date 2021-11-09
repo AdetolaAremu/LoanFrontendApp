@@ -102,7 +102,6 @@ const KYC = () => {
                   </Row>
                 </CardHeader>
                 <CardBody>
-                  {console.log('data', data?.data?.kyc?.status)}
                   {data?.data?.kyc?.status === 'pending' ? (
                     <div>
                       <div>

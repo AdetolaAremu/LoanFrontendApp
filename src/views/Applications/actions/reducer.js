@@ -1,30 +1,32 @@
-import {CLEAR_APPLICATION_ERROR, GET_APPLICATION_ERROR, GET_KYC_DATA, GET_KYC_SINGLE_DATA, KYC_DATA_LOADING_ENDS, KYC_DATA_LOADING_STARTS} from './types'
+import {ADMIN_GET_KYC_DATA, ADMIN_GET_KYC_SINGLE_DATA, ADMIN_GET_LOAN_DATA, ADMIN_KYC_DATA_LOADING_ENDS, ADMIN_KYC_DATA_LOADING_STARTS, ADMIN_LOAN_DATA_LOADING_ENDS, ADMIN_LOAN_DATA_LOADING_STARTS, CLEAR_APPLICATION_ERROR, GET_APPLICATION_ERROR} from './types'
 
 const INITIAL_STATE = {
-    loading: false,
-    data:[],
+    loadingAdminKYC: false,
+    loadingAdminLoan:false,
+    adminKYCData:[],
+    adminLoanData:[],
     error:{},
     singleData:{}
  }
  
  export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case KYC_DATA_LOADING_STARTS:
+        case ADMIN_KYC_DATA_LOADING_STARTS:
             return {
                 ...state,
-                loading:true
+                loadingAdminKYC:true
             }
-        case KYC_DATA_LOADING_ENDS:
+        case ADMIN_KYC_DATA_LOADING_ENDS:
                 return {
                     ...state,
-                    loading:false
+                    loadingAdminKYC:false
                 }
-        case GET_KYC_DATA:
+        case ADMIN_GET_KYC_DATA:
             return {
                 ...state,
-                data:action.payload
+                adminKYCData:action.payload
             }
-        case GET_KYC_SINGLE_DATA:
+        case ADMIN_GET_KYC_SINGLE_DATA:
             return {
                 ...state,
                 singleData:action.payload
@@ -39,6 +41,23 @@ const INITIAL_STATE = {
                 ...state,
                 error:{}
             }
+        
+
+            case ADMIN_LOAN_DATA_LOADING_STARTS:
+                return {
+                    ...state,
+                    loadingAdminLoan:true
+                }
+            case ADMIN_LOAN_DATA_LOADING_ENDS:
+                    return {
+                        ...state,
+                        loadingAdminLoan:false
+                    }
+            case ADMIN_GET_LOAN_DATA:
+                return {
+                    ...state,
+                    adminLoanData:action.payload
+                }
         default:
             return state
     }

@@ -567,8 +567,9 @@ const LoanApplication = () => {
                     { singleLoan?.guarantor?.address }
                   </div>
                 </Col>
+                <Col></Col>
               </Row>
-              <Row className='text-center mt-2'>
+              <Row className='mt-2'>
                 <Col>
                   <small>Reason for Loan Reqest:</small> 
                   <div className='text-capitalize font-weight-bold'>
@@ -576,12 +577,21 @@ const LoanApplication = () => {
                   </div>
                 </Col>
               </Row>
+              {!singleLoan?.rejection_reason == null || singleLoan?.status == 'rejected' ? (
+                <Row className='mt-2'>
+                  <Col>
+                    <small>Loan Rejection Due to:</small> 
+                    <div className='text-capitalize font-weight-bold'>
+                      { singleLoan?.rejection_reason }
+                    </div>
+                  </Col>
+                </Row>
+              ): '' }
             </div>
           </ModalBody>
           <ModalFooter>
-              <Button color="success" type="submit" disabled={''}>Submit</Button>
-              <Button color="danger" onClick={ViewLoanApplicationModal}>Cancel</Button>
-            </ModalFooter>
+            <Button color="danger" onClick={ViewLoanApplicationModal}>Close</Button>
+          </ModalFooter>
         </Modal>
       </div>
     </div>
