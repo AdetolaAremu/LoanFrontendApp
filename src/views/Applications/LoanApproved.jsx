@@ -29,95 +29,95 @@ const LoanApproved = () => {
   return (
     <div>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
-          <Container className="mt-4" fluid>
-              {/* Table */}
-              <Row>
-                <div className="col">
-                  <Card className="shadow">
-                    <CardHeader className="border-0">
-                      <h3 className="mb-0">Loan Approved Table</h3>
-                    </CardHeader>
-                    { !adminLoanData.length ? (<Spinner className='m-auto' animation="border" 
+        <Container className="mt-4" fluid>
+            {/* Table */}
+            <Row>
+              <div className="col">
+                <Card className="shadow">
+                  <CardHeader className="border-0">
+                    <h3 className="mb-0">Loan Approved Table</h3>
+                  </CardHeader>
+                  { !adminLoanData.length ? (<Spinner className='m-auto' animation="border" 
                     style={{ width:"4rem", height:"4rem" }} />)
                     : adminLoanData.length ? (
-                      <Table className="align-items-center table-flush" responsive>
-                        <thead className="thead-light">
-                          <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Request Type</th>
-                            <th scope="col">Loan Status</th>
-                            <th scope="col">Date Created</th>
-                            <th scope="col">Actions</th>
-                            {/* <th scope="col" /> */}
-                          </tr>
-                        </thead>
-                        <tbody>
-                        {adminLoanData.map((acceptedLoan) => (
-                          <tr key={acceptedLoan.id}>
-                            <th scope="row">
-                              <Media className="align-items-center">
-                                <span className="mb-0 text-sm">
-                                  { acceptedLoan?.user?.first_name } { acceptedLoan?.user?.last_name }
-                                </span>
-                              </Media>
-                            </th>
-                            <td>Loan</td>
-                            <td className=''>
-                              <Badge color="" className="badge-dot mr-4 text-capitalize">
-                                <i className="bg-warning" />
-                                { acceptedLoan?.loan_status }
-                              </Badge>
-                            </td>
-                            <td>
-                            { new Date(acceptedLoan?.created_at).toLocaleDateString("en-us", 
-                              { day:"2-digit", month:"2-digit", year:"numeric" }
-                            ) }   
-                            </td>
-                            <td>
-                              <div className="d-flex align-items-center">
-                                <Link>
-                                  <Button onClick={(e) => handleModal(acceptedLoan.id, e)} className="bg-gradient-primary text-white">
-                                    Take Action
-                                  </Button>
-                                </Link>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                        </tbody>
-                      </Table>
-                    ):"No data"}
-                    <CardFooter className="py-4">
-                      <nav aria-label="...">
-                        <Pagination
-                          className="pagination justify-content-end mb-0"
-                          listClassName="justify-content-end mb-0"
-                        >
-                          <PaginationItem className="disabled">
-                            <PaginationLink
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                              tabIndex="-1"
-                            >
-                              <i className="fas fa-angle-left" />
-                              <span className="sr-only">Previous</span>
-                            </PaginationLink>
-                          </PaginationItem>
-                          <PaginationItem className="active">
-                            <PaginationLink
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              1
-                            </PaginationLink>
-                          </PaginationItem>
-                        </Pagination>
-                      </nav>
-                    </CardFooter>
-                  </Card>
-                </div>
-              </Row>
-          </Container>
+                    <Table className="align-items-center table-flush" responsive>
+                      <thead className="thead-light">
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Request Type</th>
+                          <th scope="col">Loan Status</th>
+                          <th scope="col">Date Created</th>
+                          <th scope="col">Actions</th>
+                          {/* <th scope="col" /> */}
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {adminLoanData.map((acceptedLoan) => (
+                        <tr key={acceptedLoan.id}>
+                          <th scope="row">
+                            <Media className="align-items-center">
+                              <span className="mb-0 text-sm">
+                                { acceptedLoan?.user?.first_name } { acceptedLoan?.user?.last_name }
+                              </span>
+                            </Media>
+                          </th>
+                          <td>Loan</td>
+                          <td className=''>
+                            <Badge color="" className="badge-dot mr-4 text-capitalize">
+                              <i className="bg-warning" />
+                              { acceptedLoan?.loan_status }
+                            </Badge>
+                          </td>
+                          <td>
+                          { new Date(acceptedLoan?.created_at).toLocaleDateString("en-us", 
+                            { day:"2-digit", month:"2-digit", year:"numeric" }
+                          ) }   
+                          </td>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <Link>
+                                <Button onClick={(e) => handleModal(acceptedLoan.id, e)} className="bg-gradient-primary text-white">
+                                  Take Action
+                                </Button>
+                              </Link>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                      </tbody>
+                    </Table>
+                  ) : "No data" }
+                  <CardFooter className="py-4">
+                    <nav aria-label="...">
+                      <Pagination
+                        className="pagination justify-content-end mb-0"
+                        listClassName="justify-content-end mb-0"
+                      >
+                        <PaginationItem className="disabled">
+                          <PaginationLink
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}
+                            tabIndex="-1"
+                          >
+                            <i className="fas fa-angle-left" />
+                            <span className="sr-only">Previous</span>
+                          </PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem className="active">
+                          <PaginationLink
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}
+                          >
+                            1
+                          </PaginationLink>
+                        </PaginationItem>
+                      </Pagination>
+                    </nav>
+                  </CardFooter>
+                </Card>
+              </div>
+            </Row>
+        </Container>
       </div>
       <Modal isOpen={toggleModal} size="lg">
         <ModalHeader toggle={handleModal}>Take Action on Loan Request</ModalHeader>

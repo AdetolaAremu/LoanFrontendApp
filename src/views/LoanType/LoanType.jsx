@@ -9,8 +9,7 @@ import {
   Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem,
   UncontrolledDropdown, DropdownToggle, Media, Pagination, PaginationItem, PaginationLink,
   Progress, Table, Container, Row, UncontrolledTooltip, Form,
-  Button, Modal, ModalBody, ModalHeader, ModalFooter, Col,
-  FormGroup, Input
+  Button, Modal, ModalBody, ModalHeader, ModalFooter, Col, FormGroup, Input
 } from "reactstrap";
 
 const service_url = process.env.SERVICE_URL
@@ -61,7 +60,6 @@ const LoanType = () => {
 
   const deleteType = (id, e) => {
     dispatch(deleteLoanType(currentID))
-
     settoggleDeleteMOdal(toggleDeleteMOdal == false)
   }
 
@@ -72,7 +70,6 @@ const LoanType = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createLoanTypeApplication(Inputs))
-    settoggleModal(toggleModal == false)
   }
 
   const loadUpdateData = (id) => {
@@ -81,8 +78,6 @@ const LoanType = () => {
         setupdateInputs(res.data.data)
     })
   }
- 
- 
 
   useEffect(() => {
     dispatch(getTypeLoanData())
@@ -109,8 +104,7 @@ const LoanType = () => {
             <Button color="success" onClick={handleToggleDeleteModal}>Cancel</Button>
           </ModalFooter>
         </Modal>
-
-        <Modal isOpen={toggleEditMOdal}>
+        <Modal isOpen={toggleEditMOdal} id="edit_type_modal">
           <ModalHeader toggle={handleToggleEditModal}>Edit Loan Type Form</ModalHeader>
           <Form onSubmit={handleSubmitEdit}>
             <ModalBody>
@@ -200,7 +194,7 @@ const LoanType = () => {
           </Form>
         </Modal>
 
-        <Modal isOpen={toggleModal}>
+        <Modal isOpen={toggleModal} id="add_type_modal">
           <ModalHeader toggle={toggleSignUpModal}>Add Loan Type Form</ModalHeader>
           <Form onSubmit={handleSubmit}>
             <ModalBody>
