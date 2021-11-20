@@ -71,11 +71,11 @@ export const rejectLoan = (id, data) => {
   }
 }
 
-const getPendingKYC = () => {
+export const getPendingKYC = () => {
   return async(dispatch) => {
     try {
       dispatch({type: ADMIN_KYC_DATA_LOADING_STARTS})
-      const response = await axios.get(`${service_url}pending/kyc`)
+      const response = await axios.get(`${service_url}/kyc/pending`)
       if (response === 200) {
         dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
         dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data.data})

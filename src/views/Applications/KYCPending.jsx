@@ -1,28 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import  { getPendingKYC } from "./actions/action";
 import {
-  Badge,
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Button,
-  Table,
-  Container,
-  Row,
+  Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle,
+  Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Table, Container, Row,
   UncontrolledTooltip,
 } from "reactstrap";
-import Header from "components/Headers/Header.js";
 
 const KYCPending = () => {
+
+  const { applications: { adminKYCData } } = useSelector(state => state)
+  const dispatch = useDispatch();
+
+  console.log('kyc', adminKYCData)
+
+  useEffect(() => {
+   dispatch(getPendingKYC());
+  }, [])
+
   return (
     <div>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -42,7 +38,6 @@ const KYCPending = () => {
                         <th scope="col">KYC Status</th>
                         <th scope="col">Date Created</th>
                         <th scope="col">Actions</th>
-                        {/* <th scope="col" /> */}
                       </tr>
                     </thead>
                     <tbody>

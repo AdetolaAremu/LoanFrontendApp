@@ -47,16 +47,3 @@ export const createKYCApplication = (KYCData) => {
     }
   }
 }
-
-// export const getSingleKYCData = (id) => {
-//   return async(dispatch) => {
-//     try {
-//       dispatch({type: KYC_DATA_LOADING_STARTS})
-//       const response = await axios.get(`${service_url}/KYC-application/${id}`)
-//       dispatch({type: KYC_DATA_LOADING_ENDS})
-//       dispatch({type: GET_A_KYC_DATA, payload:response.data})     
-//     } catch (error) {
-//       dispatch({type: KYC_DATA_LOADING_ENDS, payload:error})
-//     }
-//   }
-// }

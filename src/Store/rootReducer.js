@@ -6,7 +6,9 @@ import loanTypeReducer from "views/LoanType/actions/reducer";
 import kycReducer from "views/KYC/actions/reducer";
 import dashboardReducer from "layouts/actions/reducer";
 import applicationReducer from "views/Applications/actions/reducer";
-import notifiationReducer from "utils/actions/reducer"
+import notifiationReducer from "utils/actions/reducer";
+import adminReducer from "layouts/actions/reducer";
+import profileReducer from "views/Profile/actions/reducer"
 // import dashboardReducer from "views/"
 
 export default combineReducers({
@@ -17,6 +19,7 @@ export default combineReducers({
   kyc:kycReducer,
   dashboard: dashboardReducer,
   applications:applicationReducer,
-  notifier:notifiationReducer
-  // dashboard:dashboardReducer
+  notifier:notifiationReducer,
+  admin: adminReducer,
+  profiler: profileReducer
 });

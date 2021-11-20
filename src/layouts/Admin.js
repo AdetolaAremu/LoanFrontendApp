@@ -20,7 +20,7 @@ const Admin = (props) => {
     document.scrollingElement.scrollTop = 0;
     mainContent.current.scrollTop = 0;
     dispatch(getLoggedInUser());
-  }, [location]);
+  }, []);
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {

@@ -2,7 +2,7 @@ import { DASHBOARD_DATA_LOADING_ENDS, DASHBOARD_DATA_LOADING_STARTS, GET_DASHBOA
 
 const INITIAL_STATE = {
     dashboardDataLoading: false,
-    data:[],
+    dashboardData:[],
  }
  
  export default (state = INITIAL_STATE, action) => {
@@ -20,23 +20,8 @@ const INITIAL_STATE = {
         case GET_DASHBOARD_DATA:
             return {
                 ...state,
-                data:action.payload
+                dashboardData:action.payload
             }
-        // case GET_KYC_SINGLE_DATA:
-        //     return {
-        //         ...state,
-        //         singleData:action.payload
-        //     }
-        // case GET_APPLICATION_ERROR:
-        //     return {
-        //         ...state,
-        //         error:action.payload
-        //     }
-        // case CLEAR_APPLICATION_ERROR:
-        //     return {
-        //         ...state,
-        //         error:{}
-        //     }
         default:
             return state
     }

@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import PrivateRoute from "layouts/PrivateRoute";
 import ReactDOM from "react-dom";
@@ -25,7 +8,6 @@ import setAuthToken from "utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { setCurrentUser } from "views/Auth/actions/actions";
 
-
 import "assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-dashboard-react.scss";
@@ -34,6 +16,7 @@ import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import Landing from "views/Landing/Landing"
 import KYCPending from "views/Applications/KYCPending";
+import { logoutUser } from "views/Auth/actions/actions";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -48,7 +31,7 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     // Logout user
-    // store.dispatch(logoutUser());
+    store.dispatch(logoutUser());
     // Clear current Profile
     // store.dispatch(clearCurrentProfile());
     // Redirect to login

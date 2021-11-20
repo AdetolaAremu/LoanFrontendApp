@@ -3,7 +3,6 @@ import Index from "views/Index.js";
 import Profile from "views/Profile/Profile";
 import Register from "views/Auth/Register.js";
 import Login from "views/Auth/Login.js";
-import Tables from "views/examples/Tables.js";
 import Kyc from "views/KYC/kyc";
 import Applications from "views/Applications/Applications";
 import LoanApplication from "views/LoanApplication/LoanApplication";
@@ -113,20 +112,12 @@ const routes = [
     show:true
   },
   {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
-    layout: "/admin",
-    show:true
-  },
-  {
     path: CONSTANTS.LOGIN,
     name: "Login",
     icon: "ni ni-key-25 text-info",
     component: Login,
     layout: "/auth",
-    show:true
+    show:false
   },
   {
     path: CONSTANTS.REGISTER,
@@ -134,7 +125,7 @@ const routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Register,
     layout: "/auth",
-    show:true
+    show:false
   },
 ];
 

@@ -37,7 +37,7 @@ const LoanRejected = () => {
                   <CardHeader className="border-0">
                     <h3 className="mb-0">Loan Rejected Table</h3>
                   </CardHeader>
-                  { !adminLoanData.length ? (<Spinner className='m-auto' animation="border" 
+                  { !adminLoanData ? (<Spinner className='m-auto' animation="border" 
                     style={{ width:"4rem", height:"4rem" }} />)
                     : adminLoanData.length ? (
                     <Table className="align-items-center table-flush" responsive>

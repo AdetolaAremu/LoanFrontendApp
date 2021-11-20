@@ -41,23 +41,21 @@ const INITIAL_STATE = {
                 ...state,
                 error:{}
             }
-        
-
-            case ADMIN_LOAN_DATA_LOADING_STARTS:
+        case ADMIN_LOAN_DATA_LOADING_STARTS:
+            return {
+                ...state,
+                loadingAdminLoan:true
+            }
+        case ADMIN_LOAN_DATA_LOADING_ENDS:
                 return {
                     ...state,
-                    loadingAdminLoan:true
+                    loadingAdminLoan:false
                 }
-            case ADMIN_LOAN_DATA_LOADING_ENDS:
-                    return {
-                        ...state,
-                        loadingAdminLoan:false
-                    }
-            case ADMIN_GET_LOAN_DATA:
-                return {
-                    ...state,
-                    adminLoanData:action.payload
-                }
+        case ADMIN_GET_LOAN_DATA:
+            return {
+                ...state,
+                adminLoanData:action.payload
+            }
         default:
             return state
     }

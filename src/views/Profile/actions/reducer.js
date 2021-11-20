@@ -1,34 +1,33 @@
-import {DATA_ERROR, GET_DATA, DATA_LOADING_STARTS, DATA_LOADING_ENDS, CLEAR_DATA_ERROR} from './types'
+import { CLEAR_PROFILE_DATA_ERROR, GET_PROFILE_DATA, PROFILE_DATA_ERROR, PROFILE_DATA_LOADING_ENDS, PROFILE_DATA_LOADING_STARTS } from './types'
 
 const INITIAL_STATE = {
-    loading: false,
-    data:[],
+    profileLoading: false,
+    profileData:[],
     error:{}
  }
  export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case DATA_LOADING_STARTS:
+        case PROFILE_DATA_LOADING_STARTS:
             return {
                 ...state,
-                loading:true
+                profileLoading:true
             }
-        case GET_DATA:
+        case GET_PROFILE_DATA:
             return {
                 ...state,
-                data:action.payload
+                profileData:action.payload
             }
-        case DATA_LOADING_ENDS:
-                return {
-                    ...state,
-                    loading:false
-                }
-
-        case DATA_ERROR:
+        case PROFILE_DATA_LOADING_ENDS:
+            return {
+                ...state,
+                profileLoading:false
+            }
+        case PROFILE_DATA_ERROR:
             return {
                 ...state,
                 error:action.payload
             }
-        case CLEAR_DATA_ERROR:
+        case CLEAR_PROFILE_DATA_ERROR:
             return {
                 ...state,
                 error:{}
