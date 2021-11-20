@@ -71,32 +71,44 @@ export const rejectLoan = (id, data) => {
   }
 }
 
+// kyc status
+
 export const getPendingKYC = () => {
   return async(dispatch) => {
     try {
       dispatch({type: ADMIN_KYC_DATA_LOADING_STARTS})
       const response = await axios.get(`${service_url}/kyc/pending`)
-      if (response === 200) {
-        dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
-        dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data.data})
-      }
+      dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
+      dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
     }
   }
 }
 
-// const getAcceptedKYC = () => {
-//   return async(dispatch) => {
-//     try {
-//       dispatch({type: KYC_DATA_LOADING_STARTS})
-//       const response = await axios.get(`${service_url}accpeted/kyc`)
-//       if (response === 200) {
-//         dispatch({type: KYC_DATA_LOADING_ENDS})
-//         dispatch({type: GET_KYC_DATA, payload:response.data.data})
-//       }
-//     } catch (error) {
-//       dispatch({type: KYC_DATA_LOADING_ENDS, payload:error})
-//     }
-//   }
-// }
+export const getApprovedKYC = () => {
+  return async(dispatch) => {
+    try {
+      dispatch({type: ADMIN_KYC_DATA_LOADING_STARTS})
+      const response = await axios.get(`${service_url}/kyc/successful`)
+      dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
+      dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
+    } catch (error) {
+      dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+
+export const getRejectedKYC = () => {
+  return async(dispatch) => {
+    try {
+      dispatch({type: ADMIN_KYC_DATA_LOADING_STARTS})
+      const response = await axios.get(`${service_url}/kyc/failed`)
+      dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
+      dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
+    } catch (error) {
+      dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}

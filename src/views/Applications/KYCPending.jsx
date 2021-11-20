@@ -5,15 +5,24 @@ import  { getPendingKYC } from "./actions/action";
 import {
   Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle,
   Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Table, Container, Row,
-  UncontrolledTooltip,
+  UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, Form, Row, Col, FormGroup
 } from "reactstrap";
+import { RectSpinner } from 'utils/loader/Loader';
 
 const KYCPending = () => {
+  const [togglePending, settogglePending] = useState(false)
+  const [inputs, setinputs] = useState(null)
 
   const { applications: { adminKYCData } } = useSelector(state => state)
   const dispatch = useDispatch();
 
-  console.log('kyc', adminKYCData)
+  const toggleModal = () => {
+    settogglePending(!togglePending)
+  }
+
+  const getsingleKYC = () => {
+    // axios request for a sinle Kyc
+  }
 
   useEffect(() => {
    dispatch(getPendingKYC());
@@ -30,47 +39,55 @@ const KYCPending = () => {
                   <CardHeader className="border-0">
                     <h3 className="mb-0">KYC Pending Table</h3>
                   </CardHeader>
-                  <Table className="align-items-center table-flush" responsive>
-                    <thead className="thead-light">
-                      <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Request Type</th>
-                        <th scope="col">KYC Status</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">
-                          <Media className="align-items-center">
-                            <span className="mb-0 text-sm">
-                              Ajala
-                            </span>
-                          </Media>
-                        </th>
-                        <td>KYC</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            pending
-                          </Badge>
-                        </td>
-                        <td>
-                          2021-10-10   
-                        </td>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <Link>
-                              <Button className="bg-gradient-primary text-white">
-                                Take Action
-                              </Button>
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
+                  {!adminKYCData ? (<RectSpinner />) : adminKYCData.length ? (
+                    <Table className="align-items-center table-flush" responsive>
+                      <thead className="thead-light">
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Request Type</th>
+                          <th scope="col">KYC Status</th>
+                          <th scope="col">Date Created</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          {adminKYCData.map((pending) => (
+                            <tr>
+                              <th scope="row">
+                                <Media className="align-items-center">
+                                  <span className="mb-0 text-sm">
+                                    { pending?.user?.first_name } { pending?.user?.last_name }
+                                  </span>
+                                </Media>
+                              </th>
+                              <td>KYC</td>
+                              <td>
+                                <Badge color="" className="badge-dot mr-4 text-capitalize">
+                                  <i className="bg-warning" />
+                                  { pending?.status }
+                                </Badge>
+                              </td>
+                              <td>
+                                {
+                                  new Date(pending?.created_at).toLocaleDateString("en-us", {
+                                    day:"2-digit", month:"2-digit", year:"numeric"
+                                  })
+                                }   
+                              </td>
+                              <td>
+                                <div className="d-flex align-items-center">
+                                  <Link>
+                                    <Button className="bg-gradient-primary text-white">
+                                      Take Action
+                                    </Button>
+                                  </Link>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </Table>
+                   ) : (<div className='text-center'>No data to display</div>)}
                   <CardFooter className="py-4">
                     <nav aria-label="...">
                       <Pagination
@@ -128,6 +145,53 @@ const KYCPending = () => {
             </Row>
         </Container>
       </div>
+      <Modal>
+        <ModalHeader>Pending Loan Request</ModalHeader>
+        <Form>
+          <ModalBody>
+            <Row>
+              <Col lg="6">
+                <FormGroup>
+                  <label
+                    className="form-control-label"
+                  >
+                    First Name
+                  </label>
+                  <Input
+                    className="form-control-alternative"
+                    name='name'
+                    value={Inputs.name}
+                    onChange={handleChange}
+                    placeholder="e.g student loan"
+                    type="text"
+                  />
+                </FormGroup>
+              </Col>
+              <Col lg="6">
+                <FormGroup>
+                  <label
+                    className="form-control-label"
+                    htmlFor="input-amount"
+                  >
+                    Amount
+                  </label>
+                  <Input
+                    className="form-control-alternative"
+                    name='amount'
+                    value={Inputs.amount}
+                    onChange={handleChange}
+                    placeholder="e.g #15,000"
+                    type="number"
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+          </ModalBody>
+          <ModalFooter>
+
+          </ModalFooter>
+        </Form>
+      </Modal>
     </div>
   )
 }

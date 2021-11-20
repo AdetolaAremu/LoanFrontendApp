@@ -86,7 +86,7 @@ const LoanRejected = () => {
                       ))}
                       </tbody>
                     </Table>
-                   ):"No data"}
+                   ):(<div className='text-center'>No data to display</div>)}
                   <CardFooter className="py-4">
                     <nav aria-label="...">
                       <Pagination

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RectSpinner } from "utils/loader/Loader";
 import { Link } from 'react-router-dom';
 import {
   Badge,
@@ -20,61 +22,75 @@ import {
   Row,
   UncontrolledTooltip,
 } from "reactstrap";
+import { getRejectedKYC } from "./actions/action";
 
 const KYCRejected = ()=> {
+  const { applications: { adminKYCData } } = useSelector(state => state)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+   dispatch(getRejectedKYC());
+  }, [])
+
  return(
    <>
     <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
-            {/* Table */}
             <Row>
               <div className="col">
                 <Card className="shadow">
                   <CardHeader className="border-0">
-                    <h3 className="mb-0">KYC Pending Table</h3>
+                    <h3 className="mb-0">KYC Rejected Table</h3>
                   </CardHeader>
-                  <Table className="align-items-center table-flush" responsive>
-                    <thead className="thead-light">
-                      <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Request Type</th>
-                        <th scope="col">KYC Status</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col">Actions</th>
-                        {/* <th scope="col" /> */}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">
-                          <Media className="align-items-center">
-                            <span className="mb-0 text-sm">
-                              Ajala
-                            </span>
-                          </Media>
-                        </th>
-                        <td>KYC</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-danger" />
-                            rejected
-                          </Badge>
-                        </td>
-                        <td>
-                          2021-10-10   
-                        </td>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <Link>
-                              <Button className="bg-gradient-primary text-white">
-                                Take Action
-                              </Button>
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
+                  {!adminKYCData ? (<RectSpinner />) : adminKYCData.length ? (
+                    <Table className="align-items-center table-flush" responsive>
+                      <thead className="thead-light">
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Request Type</th>
+                          <th scope="col">KYC Status</th>
+                          <th scope="col">Date Created</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          {adminKYCData.map((failed) => (
+                            <tr>
+                              <th scope="row">
+                                <Media className="align-items-center">
+                                  <span className="mb-0 text-sm">
+                                    { failed?.user?.first_name } { failed?.user?.last_name }
+                                  </span>
+                                </Media>
+                              </th>
+                              <td>KYC</td>
+                              <td>
+                                <Badge color="" className="badge-dot mr-4 text-capitalize">
+                                  <i className="bg-warning" />
+                                  { failed?.status }
+                                </Badge>
+                              </td>
+                              <td>
+                                {
+                                  new Date(failed?.created_at).toLocaleDateString("en-us", {
+                                    day:"2-digit", month:"2-digit", year:"numeric"
+                                  })
+                                }   
+                              </td>
+                              <td>
+                                <div className="d-flex align-items-center">
+                                  <Link>
+                                    <Button className="bg-gradient-primary text-white">
+                                      Take Action
+                                    </Button>
+                                  </Link>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </Table>
+                   ) : (<div className='text-center'>No data to display</div>)}
                   <CardFooter className="py-4">
                     <nav aria-label="...">
                       <Pagination

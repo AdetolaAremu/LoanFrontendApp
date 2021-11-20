@@ -60,7 +60,7 @@ const LoanPending = () => {
                   <CardHeader className="border-0">
                     <h3 className="mb-0">Loan Pending Table</h3>
                   </CardHeader>
-                  { !adminLoanData.length ? (<Spinner className='m-auto' animation="border" 
+                  { !adminLoanData ? (<Spinner className='m-auto' animation="border" 
                     style={{ width:"4rem", height:"4rem" }} />)
                     : adminLoanData.length ? (
                     <Table className="align-items-center table-flush" responsive>
@@ -108,7 +108,7 @@ const LoanPending = () => {
                         ))}             
                       </tbody>
                     </Table>
-                  ):"No data"}
+                  ): (<div className='text-center'>No data to display</div>) }
                   <CardFooter className="py-4">
                     <nav aria-label="...">
                       <Pagination

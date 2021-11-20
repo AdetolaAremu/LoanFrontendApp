@@ -1,4 +1,4 @@
-import {ADMIN_GET_KYC_DATA, ADMIN_GET_KYC_SINGLE_DATA, ADMIN_GET_LOAN_DATA, ADMIN_KYC_DATA_LOADING_ENDS, ADMIN_KYC_DATA_LOADING_STARTS, ADMIN_LOAN_DATA_LOADING_ENDS, ADMIN_LOAN_DATA_LOADING_STARTS, CLEAR_APPLICATION_ERROR, GET_APPLICATION_ERROR} from './types'
+import {ADMIN_GET_KYC_DATA, ADMIN_GET_KYC_SINGLE_DATA, ADMIN_GET_LOAN_DATA, ADMIN_KYC_DATA_LOADING_ENDS, ADMIN_KYC_DATA_LOADING_STARTS, ADMIN_LOAN_DATA_LOADING_ENDS, ADMIN_LOAN_DATA_LOADING_STARTS, CLEAR_APPLICATION_ERROR, GET_ADMIN_LOAN_SINGLE_DATA, GET_APPLICATION_ERROR} from './types'
 
 const INITIAL_STATE = {
     loadingAdminKYC: false,
@@ -6,7 +6,8 @@ const INITIAL_STATE = {
     adminKYCData:[],
     adminLoanData:[],
     error:{},
-    singleData:{}
+    singleLoanData:{},
+    singleKYCData:{}
  }
  
  export default (state = INITIAL_STATE, action) => {
@@ -29,7 +30,7 @@ const INITIAL_STATE = {
         case ADMIN_GET_KYC_SINGLE_DATA:
             return {
                 ...state,
-                singleData:action.payload
+                singleKYCData:action.payload
             }
         case GET_APPLICATION_ERROR:
             return {
@@ -55,6 +56,11 @@ const INITIAL_STATE = {
             return {
                 ...state,
                 adminLoanData:action.payload
+            }
+        case GET_ADMIN_LOAN_SINGLE_DATA:
+            return {
+                ...state,
+                singleLoanData:action.payload
             }
         default:
             return state
