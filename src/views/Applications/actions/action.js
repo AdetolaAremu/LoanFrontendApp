@@ -44,14 +44,14 @@ export const getAcceptedLoanApplication = () => {
   }
 }
 
-
 export const approveLoan = (id, data) => {
   return async(dispatch) => {
     try {
       const response = await axios.put(`${service_url}/loan-application/approve/${id}`, data)
-      if (response === 200) {
-        return notify('Loan approved successfully')
-      }
+      .then((response) => {
+        dispatch(getPendingLoanApplication())
+        return notify('Loan Approved')
+      })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
     }
@@ -62,16 +62,31 @@ export const rejectLoan = (id, data) => {
   return async(dispatch) => {
     try {
       const response = await axios.put(`${service_url}/loan-application/reject/${id}`, data)
-      if (response === 200) {
+      .then((response) => {
+        dispatch(getPendingLoanApplication())
         return notify('Loan rejected')
-      }
+      })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
     }
   }
 }
 
-// kyc status
+export const recycleLoan = (id, data) => {
+  return async(dispatch) => {
+    try {
+      const response = await axios.put(`${service_url}/loan-application/recycle/${id}`, data)
+      .then((response) => {
+        dispatch(getRejectedLoanApplication())
+        return notify('Loan recycled')
+      })
+    } catch (error) {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+// kyc status and approvals
 
 export const getPendingKYC = () => {
   return async(dispatch) => {
@@ -109,6 +124,49 @@ export const getRejectedKYC = () => {
       dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+
+export const approveKYC = (id, data) => {
+  return async(dispatch) => {
+    try {
+      const response = await axios.put(`${service_url}/user/verify/approve/${id}`, data)
+      .then((response) => {
+        dispatch(getPendingKYC())
+        return notify('KYC Approved')
+      })
+    } catch (error) {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+export const rejectKYC = (id, data) => {
+  return async(dispatch) => {
+    try {
+      const response = await axios.put(`${service_url}/user/verify/reject/${id}`, data)
+      .then((response) => {
+        dispatch(getPendingKYC())
+        return notify('KYC rejected')
+      })
+    } catch (error) {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+export const recycleKYC = (id, data) => {
+  return async(dispatch) => {
+    try {
+      const response = await axios.put(`${service_url}/user/verify/recycle/${id}`, data)
+      .then((response) => {
+        dispatch(getRejectedKYC())
+        return notify('KYC recycled')
+      })
+    } catch (error) {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
     }
   }
 }

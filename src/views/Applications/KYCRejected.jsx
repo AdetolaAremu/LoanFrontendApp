@@ -1,32 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RectSpinner } from "utils/loader/Loader";
 import { Link } from 'react-router-dom';
 import {
-  Badge,
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Button,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
+  Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink,
+  Progress, Button, Table, Container, Row, UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, 
+  Form, Col, FormGroup, Input
 } from "reactstrap";
-import { getRejectedKYC } from "./actions/action";
+import { getRejectedKYC, recycleKYC } from "./actions/action";
+import { getSingleKYCData } from "views/KYC/actions/action";
 
 const KYCRejected = ()=> {
-  const { applications: { adminKYCData } } = useSelector(state => state)
+  const [toggleFailed, settoggleFailed] = useState(false)
+  const [currentID, setcurrentID] = useState(null)
+
+  const { applications: { adminKYCData }, kyc: { singleKYC } } = useSelector(state => state)
+  
   const dispatch = useDispatch();
+
+  const toggleModal = (id) => {
+    setcurrentID(id)
+    dispatch(getSingleKYCData(id))
+    settoggleFailed(!toggleFailed)
+  }
+
+  const handleRecycle = (e) => {
+    e.preventDefault();
+    dispatch(recycleKYC(currentID));
+  }
 
   useEffect(() => {
    dispatch(getRejectedKYC());
@@ -66,7 +67,7 @@ const KYCRejected = ()=> {
                               <td>KYC</td>
                               <td>
                                 <Badge color="" className="badge-dot mr-4 text-capitalize">
-                                  <i className="bg-warning" />
+                                  <i className="bg-danger" />
                                   { failed?.status }
                                 </Badge>
                               </td>
@@ -80,7 +81,7 @@ const KYCRejected = ()=> {
                               <td>
                                 <div className="d-flex align-items-center">
                                   <Link>
-                                    <Button className="bg-gradient-primary text-white">
+                                    <Button onClick={e => toggleModal(failed?.id)} className="bg-gradient-primary text-white">
                                       Take Action
                                     </Button>
                                   </Link>
@@ -148,6 +149,137 @@ const KYCRejected = ()=> {
             </Row>
         </Container>
     </div>
+    <Modal isOpen={toggleFailed} size="lg">
+      <ModalHeader toggle={toggleModal}>Pending KYC Request</ModalHeader>
+      <Form>
+        <ModalBody>
+            <Row>
+              <Col>
+                <small>First Name:</small> 
+                <div className='font-weight-bold'>{ singleKYC?.user?.first_name }</div>
+              </Col>
+              <Col>
+                <small>Last name:</small>
+                <div className='text-capitalize font-weight-bold'>{ singleKYC?.user?.last_name }</div>
+              </Col>
+              <Col>
+                <small>Phone Number:</small> 
+                <div className='text-capitalize font-weight-bold'>
+                  { singleKYC?.user?.phone }
+                </div>
+              </Col>
+              <Col>
+                <small>Email:</small> 
+                <div className='font-weight-bold'>
+                  { singleKYC?.user?.email }
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <small>House Address:</small> 
+                <div className='font-weight-bold'>{ singleKYC?.address }</div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <hr className="my-3" />
+                <h6 className="heading-small text-muted">
+                  More Personal Information
+                </h6>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <small>Nationality:</small> 
+                <div className='font-weight-bold'>{ singleKYC?.country?.name }</div>
+              </Col>
+              <Col>
+                <small>State:</small> 
+                <div className='font-weight-bold'>{ singleKYC?.state?.name }</div>
+              </Col>
+              <Col>
+                <small>Identification Type:</small> 
+                <div className='font-weight-bold text-capitalize'>
+                  { singleKYC?.identification_type }
+                </div>
+              </Col>
+              <Col>
+                <small>ID Number:</small>
+                <div className='font-weight-bold'>{singleKYC?.id_number}</div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <small>City:</small> 
+                <div className='font-weight-bold'>{ singleKYC?.city }</div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <hr className="my-3" />
+                <h6 className="heading-small text-muted">
+                  Next of Kin Data
+                </h6>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <small>NOK First Name:</small> 
+                <div className='font-weight-bold'>{ singleKYC?.nok_first_name }</div>
+              </Col>
+              <Col>
+                <small>NOK Last Name:</small>
+                <div className='text-capitalize font-weight-bold'>{ singleKYC?.nok_last_name }</div>
+              </Col>
+              <Col>
+                <small>NOK Email:</small> 
+                <div className='text-capitalize font-weight-bold'>
+                  { singleKYC?.nok_email }
+                </div>
+              </Col>
+              <Col>
+                <small>NOK Phone Number:</small> 
+                <div className='text-capitalize font-weight-bold'>
+                  { singleKYC?.nok_phone }
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <small>NOK Country:</small> 
+                <div className='text-capitalize font-weight-bold'>
+                  { singleKYC?.nokcountry?.name }
+                </div>
+              </Col>
+              <Col>
+                <small>NOK State:</small> 
+                <div className='text-capitalize font-weight-bold'>
+                  { singleKYC?.nokstate?.name }
+                </div>
+              </Col>
+              <Col>
+                <small>NOK City:</small> 
+                <div className='text-capitalize font-weight-bold'>
+                  { singleKYC?.nok_city }
+                </div>
+              </Col>
+            </Row>
+            <Row className='mt-2'>
+              <Col>
+                <small>NOK Address:</small> 
+                <div className='text-capitalize font-weight-bold'>
+                  { singleKYC?.nok_address }
+                </div>
+              </Col>
+            </Row>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="info" type='submit' onClick={handleRecycle}>Recycle</Button>
+          <Button color="danger" onClick={toggleModal}>Close</Button>
+        </ModalFooter>
+      </Form>
+    </Modal>
    </>
  ) 
 }

@@ -1,27 +1,44 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import  { getPendingKYC } from "./actions/action";
+import  { approveKYC, getPendingKYC, rejectKYC } from "./actions/action";
+import axios from "axios";
+import process from 'env.js';
 import {
   Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle,
   Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Table, Container, Row,
-  UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, Form, Row, Col, FormGroup
+  UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, Form, Col, FormGroup, Input
 } from "reactstrap";
 import { RectSpinner } from 'utils/loader/Loader';
+import { getSingleKYCData } from 'views/KYC/actions/action';
+
+const service_url = process.env.SERVICE_URL
+
 
 const KYCPending = () => {
   const [togglePending, settogglePending] = useState(false)
+  const [currentID, setcurrentID] = useState(null)
+  const [states, setStates] = useState(null)
+  const [country, setCountry] = useState(null)
   const [inputs, setinputs] = useState(null)
 
-  const { applications: { adminKYCData } } = useSelector(state => state)
+  const { applications: { adminKYCData }, kyc: { singleKYC } } = useSelector(state => state)
   const dispatch = useDispatch();
 
-  const toggleModal = () => {
+  const toggleModal = (id, country_id) => {
+    setcurrentID(id)
+    dispatch(getSingleKYCData(id))
     settogglePending(!togglePending)
   }
 
-  const getsingleKYC = () => {
-    // axios request for a sinle Kyc
+  const handleApproval = (e) => {
+    e.preventDefault();
+    dispatch(approveKYC(currentID))
+  }
+
+  const handleRejection = (e) => {
+    e.preventDefault();
+    dispatch(rejectKYC(currentID))
   }
 
   useEffect(() => {
@@ -77,7 +94,7 @@ const KYCPending = () => {
                               <td>
                                 <div className="d-flex align-items-center">
                                   <Link>
-                                    <Button className="bg-gradient-primary text-white">
+                                    <Button onClick={e => toggleModal(pending?.id)} className="bg-gradient-primary text-white">
                                       Take Action
                                     </Button>
                                   </Link>
@@ -145,50 +162,135 @@ const KYCPending = () => {
             </Row>
         </Container>
       </div>
-      <Modal>
-        <ModalHeader>Pending Loan Request</ModalHeader>
+      <Modal isOpen={togglePending} size="lg">
+        <ModalHeader toggle={toggleModal}>Pending KYC Request</ModalHeader>
         <Form>
           <ModalBody>
-            <Row>
-              <Col lg="6">
-                <FormGroup>
-                  <label
-                    className="form-control-label"
-                  >
-                    First Name
-                  </label>
-                  <Input
-                    className="form-control-alternative"
-                    name='name'
-                    value={Inputs.name}
-                    onChange={handleChange}
-                    placeholder="e.g student loan"
-                    type="text"
-                  />
-                </FormGroup>
-              </Col>
-              <Col lg="6">
-                <FormGroup>
-                  <label
-                    className="form-control-label"
-                    htmlFor="input-amount"
-                  >
-                    Amount
-                  </label>
-                  <Input
-                    className="form-control-alternative"
-                    name='amount'
-                    value={Inputs.amount}
-                    onChange={handleChange}
-                    placeholder="e.g #15,000"
-                    type="number"
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
+              <Row>
+                <Col>
+                  <small>First Name:</small> 
+                  <div className='font-weight-bold'>{ singleKYC?.user?.first_name }</div>
+                </Col>
+                <Col>
+                  <small>Last name:</small>
+                  <div className='text-capitalize font-weight-bold'>{ singleKYC?.user?.last_name }</div>
+                </Col>
+                <Col>
+                  <small>Phone Number:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleKYC?.user?.phone }
+                  </div>
+                </Col>
+                <Col>
+                  <small>Email:</small> 
+                  <div className='font-weight-bold'>
+                    { singleKYC?.user?.email }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>House Address:</small> 
+                  <div className='font-weight-bold'>{ singleKYC?.address }</div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <hr className="my-3" />
+                  <h6 className="heading-small text-muted">
+                    More Personal Information
+                  </h6>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Nationality:</small> 
+                  <div className='font-weight-bold'>{ singleKYC?.country?.name }</div>
+                </Col>
+                <Col>
+                  <small>State:</small> 
+                  <div className='font-weight-bold'>{ singleKYC?.state?.name }</div>
+                </Col>
+                <Col>
+                  <small>Identification Type:</small> 
+                  <div className='font-weight-bold text-capitalize'>
+                    { singleKYC?.identification_type }
+                  </div>
+                </Col>
+                <Col>
+                  <small>ID Number:</small>
+                  <div className='font-weight-bold'>{singleKYC?.id_number}</div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>City:</small> 
+                  <div className='font-weight-bold'>{ singleKYC?.city }</div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <hr className="my-3" />
+                  <h6 className="heading-small text-muted">
+                    Next of Kin Data
+                  </h6>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>NOK First Name:</small> 
+                  <div className='font-weight-bold'>{ singleKYC?.nok_first_name }</div>
+                </Col>
+                <Col>
+                  <small>NOK Last Name:</small>
+                  <div className='text-capitalize font-weight-bold'>{ singleKYC?.nok_last_name }</div>
+                </Col>
+                <Col>
+                  <small>NOK Email:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleKYC?.nok_email }
+                  </div>
+                </Col>
+                <Col>
+                  <small>NOK Phone Number:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleKYC?.nok_phone }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>NOK Country:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleKYC?.nokcountry?.name }
+                  </div>
+                </Col>
+                <Col>
+                  <small>NOK State:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleKYC?.nokstate?.name }
+                  </div>
+                </Col>
+                <Col>
+                  <small>NOK City:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleKYC?.nok_city }
+                  </div>
+                </Col>
+              </Row>
+              <Row className='mt-2'>
+                <Col>
+                  <small>NOK Address:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleKYC?.nok_address }
+                  </div>
+                </Col>
+              </Row>
           </ModalBody>
           <ModalFooter>
-
+            <Button color="success" type='submit' onClick={handleApproval}>Approve</Button>
+            <Button color="danger" type='submit' onClick={handleRejection}>Reject</Button>
+            <Button color="info" onClick={toggleModal}>Close</Button>
           </ModalFooter>
         </Form>
       </Modal>

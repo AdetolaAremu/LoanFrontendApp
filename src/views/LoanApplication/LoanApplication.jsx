@@ -122,10 +122,24 @@ const LoanApplication = () => {
                           </th>
                           <td>{ loan?.loan_type?.amount }</td>
                           <td>
-                            <Badge color="" className="badge-dot mr-4">
-                              <i className="bg-warning" />
-                              { loan.status === 1 ? "Accepted":"Pending" }
-                            </Badge>
+                            {loan.loan_status == 'pending' ?
+                               ( <Badge color="" className="badge-dot mr-4 text-capitalize">
+                                  <i className="bg-warning" />
+                                  { loan.loan_status }
+                                </Badge>)
+                              : loan.loan_status == 'accepted' ? (
+                                <Badge color="" className="badge-dot mr-4 text-capitalize">
+                                  <i className="bg-success" />
+                                  { loan.loan_status }
+                                </Badge>
+                              ) : loan.loan_status == 'failed' ? (
+                                <Badge color="" className="badge-dot mr-4 text-capitalize">
+                                  <i className="bg-danger" />
+                                  { loan.loan_status }
+                                </Badge>
+                              ) : "" 
+                            }
+                            
                           </td>
                           <td>
                             { loan?.repaid }

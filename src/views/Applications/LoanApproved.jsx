@@ -64,7 +64,7 @@ const LoanApproved = () => {
                           <td>Loan</td>
                           <td className=''>
                             <Badge color="" className="badge-dot mr-4 text-capitalize">
-                              <i className="bg-warning" />
+                              <i className="bg-success" />
                               { acceptedLoan?.loan_status }
                             </Badge>
                           </td>
@@ -227,8 +227,6 @@ const LoanApproved = () => {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary">Recycle</Button>
-            {/* <Button color="danger" type='submit' onClick={handleReject}>Reject</Button> */}
             <Button color="danger" onClick={handleModal}>Close</Button>
           </ModalFooter>
       </Modal>

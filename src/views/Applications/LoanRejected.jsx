@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getRejectedLoanApplication } from "./actions/action";
 import { getSingleLoanData } from 'views/LoanApplication/actions/action';
+import { recycleLoan } from "./actions/action"
 import {
   Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown,
   DropdownToggle, Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Form,
@@ -20,6 +21,10 @@ const LoanRejected = () => {
     setcurrentID(id);
     settoggleModal(!toggleModal);
     dispatch(getSingleLoanData(id));
+  }
+
+  const handleRecycle = () => {
+    dispatch(recycleLoan(currentID))
   }
 
   useEffect(() => {
@@ -223,11 +228,11 @@ const LoanRejected = () => {
                 </Col>
               </Row>
               {!singleLoan?.rejection_reason == null || singleLoan?.status === 'failed' ? ( '' ): (
-                <Row className='mt-2'>
+                <Row className='mt-2 text-center'>
                   <Col>
                     <small>Loan Rejection Due to:</small> 
                     <div className='text-capitalize font-weight-bold'>
-                      { singleLoan?.rejection_reason }
+                      { singleLoan?.comment?.comment }
                     </div>
                   </Col>
                 </Row>
@@ -235,8 +240,7 @@ const LoanRejected = () => {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary">Recycle</Button>
-            {/* <Button color="danger" type='submit' onClick={handleReject}>Reject</Button> */}
+            <Button color="info" type='submit' onClick={handleRecycle}>Recycle</Button>
             <Button color="danger" onClick={handleModal}>Close</Button>
           </ModalFooter>
       </Modal>

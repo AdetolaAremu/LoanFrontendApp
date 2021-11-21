@@ -32,7 +32,7 @@ const LoanPending = () => {
   const handleApprove = (e) => {
     e.preventDefault()
     dispatch(approveLoan(currentID))
-    settoggleLoan(!toggleLoan);
+    // settoggleLoan(!toggleLoan);
   }
 
   const handleChange = (e) => {
@@ -40,9 +40,9 @@ const LoanPending = () => {
   }
 
   const handleReject = (e) => {
-    e.preventDefault();
+    e.preventDefault();   
     dispatch(rejectLoan(currentID, Inputs))
-    settoggleLoan(!toggleLoan);
+    // settoggleLoan(!toggleLoan);
   }
 
   useEffect(() => {
