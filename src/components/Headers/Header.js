@@ -17,9 +17,23 @@
 */
 
 // reactstrap components
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
+import { dashboardCount } from 'views/Applications/actions/action';
 
 const Header = () => {
+
+  const { applications: { adminDashboardData } } = {} = useSelector(state => state)
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(dashboardCount())
+  }, [])
+
+  console.log('adminData', adminDashboardData)
+
   return (
     <>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">

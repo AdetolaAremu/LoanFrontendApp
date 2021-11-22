@@ -25,7 +25,7 @@ const KYCPending = () => {
   const { applications: { adminKYCData }, kyc: { singleKYC } } = useSelector(state => state)
   const dispatch = useDispatch();
 
-  const toggleModal = (id, country_id) => {
+  const toggleModal = (id) => {
     setcurrentID(id)
     dispatch(getSingleKYCData(id))
     settogglePending(!togglePending)

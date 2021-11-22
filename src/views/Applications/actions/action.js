@@ -2,6 +2,7 @@ import {ADMIN_GET_KYC_DATA, ADMIN_GET_LOAN_DATA, ADMIN_KYC_DATA_LOADING_ENDS, AD
 import axios from 'axios';
 import process from 'env.js';
 import { notify } from 'utils/notification';
+import { GET_DASHBOARD_DATA } from 'layouts/actions/types';
 
 const service_url = process.env.SERVICE_URL
 
@@ -165,6 +166,48 @@ export const recycleKYC = (id, data) => {
         dispatch(getRejectedKYC())
         return notify('KYC recycled')
       })
+    } catch (error) {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+// All applications count
+
+export const countKYC = () => {
+  return async(dispatch) => {
+    try {
+      dispatch({type: ADMIN_KYC_DATA_LOADING_STARTS})
+      const response = await axios.get(`${service_url}/kyc-count`)
+      dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
+      dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
+    } catch (error) {
+      dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+export const countLoan = () => {
+  return async(dispatch) => {
+    try {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_STARTS})
+      const response = await axios.get(`${service_url}/loan-count`)
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS})
+      dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
+    } catch (error) {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+    }
+  }
+}
+
+// dashboard counts
+export const dashboardCount = () => {
+  return async(dispatch) => {
+    try {
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_STARTS})
+      const response = await axios.get(`${service_url}/dashboard-count`)
+      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS})
+      dispatch({type: GET_DASHBOARD_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
     }

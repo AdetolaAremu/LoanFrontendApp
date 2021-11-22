@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { countKYC, countLoan } from "./actions/action";
 import {
-  Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem,
-  UncontrolledDropdown, DropdownToggle, Media, Pagination, PaginationItem,
-  PaginationLink, Progress, Table, Container, Row, UncontrolledTooltip,
-  Button, CardBody, CardTitle, Col,
+  Card, Container, Row, CardBody, CardTitle, Col,
 } from "reactstrap";
 import ROUTES from "Routes/routes.json"
-import Header from "components/Headers/Header.js";
 
 function Applications() {
+
+  const { applications: { adminKYCData, adminLoanData } } = useSelector(state => state)
+  
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(countKYC());
+    dispatch(countLoan());
+  }, [])
+
   return (
     <>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -30,7 +38,7 @@ function Applications() {
                               Pending Loan Applications
                             </CardTitle>
                             <span className="h2 font-weight-bold">
-                              350,897
+                              { adminLoanData?.Pending }
                             </span>
                           </div>
                           <Col className="col-auto mt-3">
@@ -58,7 +66,7 @@ function Applications() {
                           >
                             Approved Loan Application
                           </CardTitle>
-                          <span className="h2 font-weight-bold">2,356</span>
+                          <span className="h2 font-weight-bold">{ adminLoanData?.Successful }</span>
                         </div>
                         <Col className="col-auto mt-3">
                           <div className="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -85,7 +93,7 @@ function Applications() {
                             >
                               Rejected Loan Applications
                             </CardTitle>
-                            <span className="h2 font-weight-bold">924</span>
+                            <span className="h2 font-weight-bold">{ adminLoanData?.Failed }</span>
                           </div>
                           <Col className="col-auto mt-3">
                             <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -120,7 +128,7 @@ function Applications() {
                             KYC Pending
                           </CardTitle>
                           <span className="h2 font-weight-bold">
-                            350,897
+                            { adminKYCData?.Pending }
                           </span>
                         </div>
                         <Col className="col-auto mt-3">
@@ -148,7 +156,7 @@ function Applications() {
                         >
                           KYC Approved
                         </CardTitle>
-                        <span className="h2 font-weight-bold">2,356</span>
+                        <span className="h2 font-weight-bold">{ adminKYCData?.Successful }</span>
                       </div>
                       <Col className="col-auto mt-3">
                         <div className="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -175,7 +183,7 @@ function Applications() {
                           >
                             KYC Rejected
                           </CardTitle>
-                          <span className="h2 font-weight-bold">924</span>
+                          <span className="h2 font-weight-bold">{ adminKYCData?.Failed }</span>
                         </div>
                         <Col className="col-auto mt-3">
                           <div className="icon icon-shape bg-danger text-white rounded-circle shadow">

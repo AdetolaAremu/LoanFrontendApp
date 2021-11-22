@@ -1,3 +1,4 @@
+import { GET_DASHBOARD_DATA } from 'layouts/actions/types'
 import {ADMIN_GET_KYC_DATA, ADMIN_GET_KYC_SINGLE_DATA, ADMIN_GET_LOAN_DATA, ADMIN_KYC_DATA_LOADING_ENDS, ADMIN_KYC_DATA_LOADING_STARTS, ADMIN_LOAN_DATA_LOADING_ENDS, ADMIN_LOAN_DATA_LOADING_STARTS, CLEAR_APPLICATION_ERROR, GET_ADMIN_LOAN_SINGLE_DATA, GET_APPLICATION_ERROR} from './types'
 
 const INITIAL_STATE = {
@@ -7,7 +8,8 @@ const INITIAL_STATE = {
     adminLoanData:[],
     error:{},
     singleLoanData:{},
-    singleKYCData:{}
+    singleKYCData:{},
+    adminDashboardData:[]
  }
  
  export default (state = INITIAL_STATE, action) => {
@@ -61,6 +63,11 @@ const INITIAL_STATE = {
             return {
                 ...state,
                 singleLoanData:action.payload
+            }
+        case GET_DASHBOARD_DATA:
+            return {
+                ...state,
+                adminDashboardData:action.payload
             }
         default:
             return state
