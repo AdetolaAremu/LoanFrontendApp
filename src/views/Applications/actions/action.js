@@ -15,6 +15,17 @@ export const getPendingLoanApplication = () => {
       dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 500) {
+           dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+         } else if(error.response.status == 401){
+            return notify("You are unauthorized")
+         } else {
+           return notify('Sorry, something went wrong!', 'error')
+         }
+       } else {
+         return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -28,6 +39,17 @@ export const getRejectedLoanApplication = () => {
       dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 500) {
+           dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+         } else if(error.response.status == 401){
+            return notify("You are unauthorized")
+         } else {
+           return notify('Sorry, something went wrong!', 'error')
+         }
+       } else {
+         return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -41,6 +63,17 @@ export const getAcceptedLoanApplication = () => {
       dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 500) {
+           dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+         } else if(error.response.status == 401){
+            return notify("You are unauthorized")
+         } else {
+           return notify('Sorry, something went wrong!', 'error')
+         }
+       } else {
+         return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -49,12 +82,24 @@ export const approveLoan = (id, data) => {
   return async(dispatch) => {
     try {
       const response = await axios.put(`${service_url}/loan-application/approve/${id}`, data)
-      .then((response) => {
+      .then(() => {
         dispatch(getPendingLoanApplication())
-        return notify('Loan Approved')
+        notify(response?.data?.message)
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 422) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error})
+          return notify('There are errors in your input', 'error')
+        } else if (error.response.status == 500) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'error')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -63,12 +108,24 @@ export const rejectLoan = (id, data) => {
   return async(dispatch) => {
     try {
       const response = await axios.put(`${service_url}/loan-application/reject/${id}`, data)
-      .then((response) => {
+      .then(() => {
         dispatch(getPendingLoanApplication())
-        return notify('Loan rejected')
+        notify(response?.data?.message)
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 422) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error})
+          return notify('There are errors in your input', 'error')
+        } else if (error.response.status == 500) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'error')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -77,12 +134,24 @@ export const recycleLoan = (id, data) => {
   return async(dispatch) => {
     try {
       const response = await axios.put(`${service_url}/loan-application/recycle/${id}`, data)
-      .then((response) => {
+      .then(() => {
         dispatch(getRejectedLoanApplication())
-        return notify('Loan recycled')
+        notify(response?.data?.message)
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 422) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error})
+          return notify('There are errors in your input', 'error')
+        } else if (error.response.status == 500) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'error')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -98,6 +167,17 @@ export const getPendingKYC = () => {
       dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 500) {
+           dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+         } else if(error.response.status == 401){
+            return notify("You are unauthorized")
+         } else {
+           return notify('Sorry, something went wrong!', 'error')
+         }
+       } else {
+         return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -111,6 +191,17 @@ export const getApprovedKYC = () => {
       dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 500) {
+           dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+         } else if(error.response.status == 401){
+            return notify("You are unauthorized")
+         } else {
+           return notify('Sorry, something went wrong!', 'error')
+         }
+       } else {
+         return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -125,21 +216,43 @@ export const getRejectedKYC = () => {
       dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 500) {
+           dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+         } else if(error.response.status == 401){
+            return notify("You are unauthorized")
+         } else {
+           return notify('Sorry, something went wrong!', 'error')
+         }
+       } else {
+         return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
-
 
 export const approveKYC = (id, data) => {
   return async(dispatch) => {
     try {
       const response = await axios.put(`${service_url}/user/verify/approve/${id}`, data)
-      .then((response) => {
+      .then(() => {
         dispatch(getPendingKYC())
-        return notify('KYC Approved')
+        notify(response?.data?.message)
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 422) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error})
+          return notify('There are errors in your input', 'error')
+        } else if (error.response.status == 500) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'error')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -148,12 +261,24 @@ export const rejectKYC = (id, data) => {
   return async(dispatch) => {
     try {
       const response = await axios.put(`${service_url}/user/verify/reject/${id}`, data)
-      .then((response) => {
+      .then(() => {
         dispatch(getPendingKYC())
-        return notify('KYC rejected')
+        notify(response?.data?.message)
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 422) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error})
+          return notify('There are errors in your input', 'error')
+        } else if (error.response.status == 500) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'error')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -162,12 +287,24 @@ export const recycleKYC = (id, data) => {
   return async(dispatch) => {
     try {
       const response = await axios.put(`${service_url}/user/verify/recycle/${id}`, data)
-      .then((response) => {
+      .then(() => {
         dispatch(getRejectedKYC())
-        return notify('KYC recycled')
+        notify(response?.data?.message)
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 422) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error})
+          return notify('There are errors in your input', 'error')
+        } else if (error.response.status == 500) {
+          dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'error')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -183,6 +320,17 @@ export const countKYC = () => {
       dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 500) {
+           dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+         } else if(error.response.status == 401){
+            return notify("You are unauthorized")
+         } else {
+           return notify('Sorry, something went wrong!', 'error')
+         }
+       } else {
+         return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -196,20 +344,17 @@ export const countLoan = () => {
       dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
-    }
-  }
-}
-
-// dashboard counts
-export const dashboardCount = () => {
-  return async(dispatch) => {
-    try {
-      dispatch({type: ADMIN_LOAN_DATA_LOADING_STARTS})
-      const response = await axios.get(`${service_url}/dashboard-count`)
-      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS})
-      dispatch({type: GET_DASHBOARD_DATA, payload:response.data})
-    } catch (error) {
-      dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 500) {
+           dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
+         } else if(error.response.status == 401){
+            return notify("You are unauthorized")
+         } else {
+           return notify('Sorry, something went wrong!', 'error')
+         }
+       } else {
+         return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }

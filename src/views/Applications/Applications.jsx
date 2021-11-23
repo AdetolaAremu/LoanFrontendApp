@@ -6,6 +6,7 @@ import {
   Card, Container, Row, CardBody, CardTitle, Col,
 } from "reactstrap";
 import ROUTES from "Routes/routes.json"
+import { ToastContainer } from 'react-toastify';
 
 function Applications() {
 
@@ -20,6 +21,7 @@ function Applications() {
 
   return (
     <>
+      <ToastContainer />
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container fluid>
             <div className="header-body">

@@ -11,6 +11,7 @@ import {
   Progress, Table, Container, Row, UncontrolledTooltip, Form,
   Button, Modal, ModalBody, ModalHeader, ModalFooter, Col, FormGroup, Input
 } from "reactstrap";
+import { ToastContainer } from 'react-toastify';
 
 const service_url = process.env.SERVICE_URL
 
@@ -85,6 +86,7 @@ const LoanType = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <div className='text-right'>
           <Link>
@@ -305,7 +307,7 @@ const LoanType = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {loanTypeData?.data?.map((type) => (
+                    {loanTypeData?.map((type) => (
                       <tr key={type.id}>
                         <th scope="row">
                           <Media className="align-items-center">
@@ -324,17 +326,13 @@ const LoanType = () => {
                         </td> */}
                         <td>
                           <div className="d-flex align-items-center">
-                            <Button onClick={(e) => handleToggleEditModal(type?.id, e)}>    
-                              <span className='icon icon-shape'>
-                                <i class="fas fa-edit"></i>
-                              </span>
-                            </Button>
+                            <button onClick={(e) => handleToggleEditModal(type?.id, e)} style={{ border:"1px solid white"}}>    
+                              <i class="fas fa-edit"></i>
+                            </button>
                             {/* {console.log('id', handleToggleDeleteModal(type?.id, e)=)} */}
-                            <Button onClick={(e) => handleToggleDeleteModal(type?.id, e)}>
-                              <span className='icon icon-shape'>
+                            <button onClick={(e) => handleToggleDeleteModal(type?.id, e)} style={{ border:"1px solid white"}}>
                                 <i class="fas fa-trash-alt"></i>
-                              </span>
-                            </Button>
+                            </button>
                           </div>
                         </td>
                       </tr>

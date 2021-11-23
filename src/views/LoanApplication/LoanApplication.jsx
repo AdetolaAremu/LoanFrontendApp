@@ -68,10 +68,10 @@ const LoanApplication = () => {
     if (loan_status == 'pending') {
       return 'orange'
     }
-    if (loan_status == 'rejected') {
+    if (loan_status == 'failed') {
       return 'red'
     }
-    if (loan_status == 'approved') {
+    if (loan_status == 'accepted') {
       return 'green'
     }
   }
@@ -488,7 +488,7 @@ const LoanApplication = () => {
           <ModalHeader toggle={ViewLoanApplicationModal}>Loan Details</ModalHeader>
           <ModalBody>
             <div>
-              <div className='text-center font-weight-bold' >
+              <div className='text-right font-weight-bold' >
                 <Button
                   // color="primary"
                   href="#pablo"

@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import { getRejectedKYC, recycleKYC } from "./actions/action";
 import { getSingleKYCData } from "views/KYC/actions/action";
+import { ToastContainer } from "react-toastify";
 
 const KYCRejected = ()=> {
   const [toggleFailed, settoggleFailed] = useState(false)
@@ -35,6 +36,7 @@ const KYCRejected = ()=> {
 
  return(
    <>
+    <ToastContainer />
     <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
             <Row>

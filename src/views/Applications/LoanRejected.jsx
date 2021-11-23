@@ -9,6 +9,7 @@ import {
   DropdownToggle, Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Form,
   Table, Container, Row, UncontrolledTooltip, Spinner, Modal, ModalHeader, ModalBody, Col, ModalFooter
 } from "reactstrap";
+import { ToastContainer } from 'react-toastify';
 
 const LoanRejected = () => {
   const [toggleModal, settoggleModal] = useState(false)
@@ -33,6 +34,7 @@ const LoanRejected = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
             {/* Table */}

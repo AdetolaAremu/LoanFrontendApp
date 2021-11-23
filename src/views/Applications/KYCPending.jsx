@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { RectSpinner } from 'utils/loader/Loader';
 import { getSingleKYCData } from 'views/KYC/actions/action';
+import { ToastContainer } from 'react-toastify';
 
 const service_url = process.env.SERVICE_URL
 
@@ -47,6 +48,7 @@ const KYCPending = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
             {/* Table */}

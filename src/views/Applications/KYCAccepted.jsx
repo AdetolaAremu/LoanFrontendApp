@@ -10,6 +10,7 @@ import {
   Container, Row, UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, Form, Col, FormGroup, 
   Input
 } from "reactstrap";
+import { ToastContainer } from 'react-toastify';
 
 
 const KYCAccepted = () => {
@@ -31,6 +32,7 @@ const KYCAccepted = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
             {/* Table */}

@@ -9,9 +9,11 @@ import applicationReducer from "views/Applications/actions/reducer";
 import notifiationReducer from "utils/actions/reducer";
 import adminReducer from "layouts/actions/reducer";
 import profileReducer from "views/Profile/actions/reducer"
+import statsReducer from "views/DashbordActions/reducer";
 // import dashboardReducer from "views/"
 
 export default combineReducers({
+  mainStats:statsReducer,
   landing:landingReducer,
   allAuths:authReducer,
   loans:loanReducer,

@@ -2,30 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import classnames from "classnames";
 import Chart from "chart.js";
-import { Line, Bar } from "react-chartjs-2";
-import {
-  Button, Card, CardHeader, CardBody, NavItem, NavLink, Nav, Progress, Table, Container, Row, Col, CardTitle
+import { Button, Card, CardHeader, CardBody, NavItem, NavLink, Nav, Progress, Table, Container, 
+  Row, Col, CardTitle, Badge, ModalBody, ModalFooter, Modal, ModalHeader 
 } from "reactstrap";
-
-// core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2,
-} from "variables/charts.js";
-
+import { chartOptions, parseOptions,chartExample1,chartExample2 } from "variables/charts.js";
 import Header from "components/Headers/Header.js";
-import { dashboardCount } from "./Applications/actions/action";
+import { allUsersCount, dashboardCount, lastFiveUsers } from "../views/DashbordActions/action";
+import { getTypeLoanData } from "./LoanType/actions/action";
 
 const Index = (props) => {
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
+  const [toggleUsers, settoggleUsers] = useState(false)
 
-  const { applications: { adminDashboardData } } = {} = useSelector(state => state)
+  const { mainStats: { adminStats, allUsersStats, lastfiveUsers }, loanType: { loanTypeData } } 
+  = useSelector(state => state)
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
+  }
+
+  const toggleUsersModal = () => {
+    settoggleUsers(!toggleUsers)
+    dispatch(allUsersCount())
   }
 
   const toggleNavs = (e, index) => {
@@ -38,17 +37,15 @@ const Index = (props) => {
 
   useEffect(() => {
     dispatch(dashboardCount())
+    dispatch(getTypeLoanData())
+    dispatch(lastFiveUsers())
   }, [])
-
-  console.log('data', adminDashboardData)
 
   return (
     <>
-   
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container fluid>
           <div className="header-body">
-            {/* Card stats */}
             <Row>
               <Col lg="6" xl="3">
                 <Card className="card-stats mb-4 mb-xl-0">
@@ -59,10 +56,32 @@ const Index = (props) => {
                           tag="h5"
                           className="text-uppercase text-muted mb-0"
                         >
-                          Active Loans
+                          Total Users Count
+                        </CardTitle>
+                        <span className="h2 font-weight-bold mb-0">{ adminStats?.Users }</span>
+                      </div>
+                      <Col className="col-auto">
+                        <div className="icon icon-shape bg-warning text-white rounded-circle shadow">
+                          <i className="fas fa-chart-pie" />
+                        </div>
+                      </Col>
+                    </Row>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col lg="6" xl="3">
+                <Card className="card-stats mb-4 mb-xl-0">
+                  <CardBody>
+                    <Row>
+                      <div className="col">
+                        <CardTitle
+                          tag="h5"
+                          className="text-uppercase text-muted mb-0"
+                        >
+                          Active Loans Count
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">
-                          350,897
+                          { adminStats?.LoanCount }
                         </span>
                       </div>
                       <Col className="col-auto">
@@ -71,12 +90,6 @@ const Index = (props) => {
                         </div>
                       </Col>
                     </Row>
-                    <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-success mr-2">
-                        <i className="fa fa-arrow-up" /> 3.48%
-                      </span>{" "}
-                      <span className="text-nowrap">Since last month</span>
-                    </p>
                   </CardBody>
                 </Card>
               </Col>
@@ -89,65 +102,9 @@ const Index = (props) => {
                           tag="h5"
                           className="text-uppercase text-muted mb-0"
                         >
-                          Users
+                          Daily Loan Count
                         </CardTitle>
-                        <span className="h2 font-weight-bold mb-0">2,356</span>
-                      </div>
-                      <Col className="col-auto">
-                        <div className="icon icon-shape bg-warning text-white rounded-circle shadow">
-                          <i className="fas fa-chart-pie" />
-                        </div>
-                      </Col>
-                    </Row>
-                    <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-danger mr-2">
-                        <i className="fas fa-arrow-down" /> 3.48%
-                      </span>{" "}
-                      <span className="text-nowrap">Since last week</span>
-                    </p>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col lg="6" xl="3">
-                <Card className="card-stats mb-4 mb-xl-0">
-                  <CardBody>
-                    <Row>
-                      <div className="col">
-                        <CardTitle
-                          tag="h5"
-                          className="text-uppercase text-muted mb-0"
-                        >
-                          Loan Types
-                        </CardTitle>
-                        <span className="h2 font-weight-bold mb-0">924</span>
-                      </div>
-                      <Col className="col-auto">
-                        <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                          <i className="fas fa-users" />
-                        </div>
-                      </Col>
-                    </Row>
-                    <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-warning mr-2">
-                        <i className="fas fa-arrow-down" /> 1.10%
-                      </span>{" "}
-                      <span className="text-nowrap">Since yesterday</span>
-                    </p>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col lg="6" xl="3">
-                <Card className="card-stats mb-4 mb-xl-0">
-                  <CardBody>
-                    <Row>
-                      <div className="col">
-                        <CardTitle
-                          tag="h5"
-                          className="text-uppercase text-muted mb-0"
-                        >
-                          Total Loans
-                        </CardTitle>
-                        <span className="h2 font-weight-bold mb-0">49,65%</span>
+                        <span className="h2 font-weight-bold mb-0">{ adminStats?.dailyLoanCount }</span>
                       </div>
                       <Col className="col-auto">
                         <div className="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -155,12 +112,28 @@ const Index = (props) => {
                         </div>
                       </Col>
                     </Row>
-                    <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-success mr-2">
-                        <i className="fas fa-arrow-up" /> 12%
-                      </span>{" "}
-                      <span className="text-nowrap">Since last month</span>
-                    </p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col lg="6" xl="3">
+                <Card className="card-stats mb-4 mb-xl-0">
+                  <CardBody>
+                    <Row>
+                      <div className="col">
+                        <CardTitle
+                          tag="h5"
+                          className="text-uppercase text-muted mb-0"
+                        >
+                          All Loans Count
+                        </CardTitle>
+                        <span className="h2 font-weight-bold mb-0">{ adminStats?.allLoans }</span>
+                      </div>
+                      <Col className="col-auto">
+                        <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                          <i className="fas fa-users" />
+                        </div>
+                      </Col>
+                    </Row>
                   </CardBody>
                 </Card>
               </Col>
@@ -170,97 +143,19 @@ const Index = (props) => {
       </div>
 
       <Container className="mt--7" fluid>
-        <Row>
-          <Col className="mb-5 mb-xl-0" xl="8">
-            <Card className="bg-gradient-default shadow">
-              <CardHeader className="bg-transparent">
-                <Row className="align-items-center">
-                  <div className="col">
-                    <h6 className="text-uppercase text-light ls-1 mb-1">
-                      Overview
-                    </h6>
-                    <h2 className="text-white mb-0">Sales value</h2>
-                  </div>
-                  <div className="col">
-                    <Nav className="justify-content-end" pills>
-                      <NavItem>
-                        <NavLink
-                          className={classnames("py-2 px-3", {
-                            active: activeNav === 1,
-                          })}
-                          href="#pablo"
-                          onClick={(e) => toggleNavs(e, 1)}
-                        >
-                          <span className="d-none d-md-block">Month</span>
-                          <span className="d-md-none">M</span>
-                        </NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink
-                          className={classnames("py-2 px-3", {
-                            active: activeNav === 2,
-                          })}
-                          data-toggle="tab"
-                          href="#pablo"
-                          onClick={(e) => toggleNavs(e, 2)}
-                        >
-                          <span className="d-none d-md-block">Week</span>
-                          <span className="d-md-none">W</span>
-                        </NavLink>
-                      </NavItem>
-                    </Nav>
-                  </div>
-                </Row>
-              </CardHeader>
-              <CardBody>
-                {/* Chart */}
-                <div className="chart">
-                  <Line
-                    data={chartExample1[chartExample1Data]}
-                    options={chartExample1.options}
-                    getDatasetAtEvent={(e) => console.log(e)}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xl="4">
-            <Card className="shadow">
-              <CardHeader className="bg-transparent">
-                <Row className="align-items-center">
-                  <div className="col">
-                    <h6 className="text-uppercase text-muted ls-1 mb-1">
-                      Performance
-                    </h6>
-                    <h2 className="mb-0">Total orders</h2>
-                  </div>
-                </Row>
-              </CardHeader>
-              <CardBody>
-                {/* Chart */}
-                <div className="chart">
-                  <Bar
-                    data={chartExample2.data}
-                    options={chartExample2.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
         <Row className="mt-5">
           <Col className="mb-5 mb-xl-0" xl="8">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Page visits</h3>
+                    <h3 className="mb-0">Last Five Registered Users</h3>
                   </div>
                   <div className="col text-right">
                     <Button
                       color="primary"
                       href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={toggleUsersModal}
                       size="sm"
                     >
                       See all
@@ -271,56 +166,35 @@ const Index = (props) => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Page name</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col">Unique users</th>
-                    <th scope="col">Bounce rate</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">KYC Status</th>
+                    <th scope="col">Date Registered</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">/argon/</th>
-                    <td>4,569</td>
-                    <td>340</td>
+                  {lastfiveUsers?.data?.map((last) => (
+                    <tr>
+                    <th scope="row">{ last?.first_name } { last?.last_name }</th>
+                    <td>{ last.email }</td>
                     <td>
-                      <i className="fas fa-arrow-up text-success mr-3" /> 46,53%
+                      { last?.kyc == null ? (<div>Not Applied</div>) : last?.kyc?.status == 'pending' ? 
+                        (<div>
+                           <Badge color="" className="badge-dot mr-4 text-capitalize">
+                          <i className="bg-warning" />Pending</Badge>
+                        </div>) : last?.kyc?.status == 'failed' ? (<div><Badge color="" className="badge-dot mr-4 text-capitalize">
+                          <i className="bg-warning" />Failed</Badge></div>) :
+                        last?.kyc?.status == 'successful' ? (<div>Verified</div>) : ""
+                      }
+                    </td>
+                    <td>
+                      { new Date(last?.created_at).toLocaleDateString("en-us", { "day":"2-digit",
+                        "month":"2-digit", "year":"numeric" 
+                      }) }
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">/argon/index.html</th>
-                    <td>3,985</td>
-                    <td>319</td>
-                    <td>
-                      <i className="fas fa-arrow-down text-warning mr-3" />{" "}
-                      46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">/argon/charts.html</th>
-                    <td>3,513</td>
-                    <td>294</td>
-                    <td>
-                      <i className="fas fa-arrow-down text-warning mr-3" />{" "}
-                      36,49%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">/argon/tables.html</th>
-                    <td>2,050</td>
-                    <td>147</td>
-                    <td>
-                      <i className="fas fa-arrow-up text-success mr-3" /> 50,87%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">/argon/profile.html</th>
-                    <td>1,795</td>
-                    <td>190</td>
-                    <td>
-                      <i className="fas fa-arrow-down text-danger mr-3" />{" "}
-                      46,53%
-                    </td>
-                  </tr>
+                  ))}
+                  
                 </tbody>
               </Table>
             </Card>
@@ -330,111 +204,74 @@ const Index = (props) => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Social traffic</h3>
-                  </div>
-                  <div className="col text-right">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      See all
-                    </Button>
+                    <h3 className="mb-0">Loan Types</h3>
                   </div>
                 </Row>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
-                <thead className="thead-light">
+                <thead className="thead-light">               
                   <tr>
-                    <th scope="col">Referral</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col" />
+                    <th scope="col">Type</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Loans Count</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">Facebook</th>
-                    <td>1,480</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">60%</span>
-                        <div>
-                          <Progress
-                            max="100"
-                            value="60"
-                            barClassName="bg-gradient-danger"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Facebook</th>
-                    <td>5,480</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">70%</span>
-                        <div>
-                          <Progress
-                            max="100"
-                            value="70"
-                            barClassName="bg-gradient-success"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Google</th>
-                    <td>4,807</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">80%</span>
-                        <div>
-                          <Progress max="100" value="80" />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Instagram</th>
-                    <td>3,678</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">75%</span>
-                        <div>
-                          <Progress
-                            max="100"
-                            value="75"
-                            barClassName="bg-gradient-info"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">twitter</th>
-                    <td>2,645</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">30%</span>
-                        <div>
-                          <Progress
-                            max="100"
-                            value="30"
-                            barClassName="bg-gradient-warning"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                  {loanTypeData.map((type) => (
+                    <tr key={type.id}>
+                      <th scope="row">{ type?.name }</th>
+                      <td>{ type?.amount }</td>
+                      <td>{ type?.loan_application_count }</td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table>
             </Card>
           </Col>
         </Row>
       </Container>
+      <Modal isOpen={toggleUsers} size="lg">
+        <ModalHeader toggle={toggleUsersModal}>All Users</ModalHeader>
+        <ModalBody>
+          <Table className="align-items-center table-flush" responsive>
+            <thead className="thead-light">
+              <tr>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">KYC Status</th>
+                <th scope="col">Date Registered</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allUsersStats?.data?.map((all) => (
+                <tr key={all.id}>
+                  <th scope="row">{ all?.first_name } { all?.last_name }</th>
+                  <td>{ all.email }</td>
+                  <td>
+                    { all?.kyc == null ? (<div>Not Applied</div>) : all?.kyc?.status == 'pending' ? 
+                      (<div>
+                          <Badge color="" className="badge-dot mr-4 text-capitalize">
+                        <i className="bg-warning" />Pending</Badge>
+                      </div>) : all?.kyc?.status == 'failed' ? (<div><Badge color="" className="badge-dot mr-4 text-capitalize">
+                        <i className="bg-warning" />Failed</Badge></div>) :
+                      all?.kyc?.status == 'successful' ? (<div>Verified</div>) : ""
+                    }
+                  </td>
+                  <td>
+                    { new Date(all?.created_at).toLocaleDateString("en-us", { "day":"2-digit",
+                      "month":"2-digit", "year":"numeric" 
+                    }) }
+                  </td>
+                </tr>
+              ))}
+              
+            </tbody>
+          </Table>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="danger" onClick={toggleUsersModal}>Close</Button>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };
