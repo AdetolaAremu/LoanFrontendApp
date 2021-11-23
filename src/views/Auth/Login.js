@@ -7,6 +7,7 @@ import {
   Input, InputGroupAddon, InputGroupText,InputGroup, Row,Col,
 } from "reactstrap";
 import { loginUser } from './actions/actions';
+import { ToastContainer } from 'react-toastify';
 
 const initialState = {
   "email":'',
@@ -14,7 +15,7 @@ const initialState = {
 }
 
 const Login = () => {
-  const { allAuths: { loading, authLoading, isAuthenticated } } = useSelector(state => state)
+  const { allAuths: { authLoading } } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
@@ -31,6 +32,7 @@ const Login = () => {
 
   return (
     <>
+      <ToastContainer />
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
           <CardHeader className="bg-transparent pb-5">

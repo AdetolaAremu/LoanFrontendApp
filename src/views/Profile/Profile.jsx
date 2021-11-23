@@ -24,6 +24,10 @@ const Profile = () => {
     getEditData()
   }
 
+  const closeModal = () => {
+    seteditProfileModal(editProfileModal === false)
+  }
+
   const getEditData = () => {
     axios.get(`${service_url}/user/currentuser`)
     .then((res) => {
@@ -42,6 +46,7 @@ const Profile = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="header pt-5 pt-lg-8 d-flex bg-gradient-info align-items-center">
         <ToastContainer />
         <Container className="mb-2" fluid>
@@ -138,7 +143,7 @@ const Profile = () => {
         </Container>
 
         <Modal isOpen={editProfileModal} size="lg">
-          <ModalHeader toggle={toggleEditModal}>Edit Profile</ModalHeader>
+          <ModalHeader toggle={closeModal}>Edit Profile</ModalHeader>
             <Form onClick={handleSubmit}>
               <ModalBody>
                   <Row>
@@ -205,7 +210,7 @@ const Profile = () => {
               </ModalBody>
               <ModalFooter>
                 <Button className='btn-success' type='submit'>Submit</Button>
-                <Button className='btn-danger' onClick={toggleEditModal}>Cancel</Button>
+                <Button className='btn-danger' onClick={closeModal}>Cancel</Button>
               </ModalFooter>
             </Form>
         </Modal>

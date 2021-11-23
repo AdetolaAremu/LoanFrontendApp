@@ -1,5 +1,5 @@
 import isEmpty from "utils/isEmpty";
-import { AUTH_LOADING_ENDS, AUTH_LOADING_STARTS, SET_CURRENT_USER, ROLE_LOADING_STARTS, ROLE_LOADING_ENDS, CHECK_USER_ROLE, GET_LOGGED_IN_USER_DETAILS } from "./types";
+import { AUTH_LOADING_ENDS, AUTH_LOADING_STARTS, SET_CURRENT_USER, ROLE_LOADING_STARTS, ROLE_LOADING_ENDS, CHECK_USER_ROLE, GET_LOGGED_IN_USER_DETAILS, GET_AUTH_ERROR } from "./types";
 
 const init = {
   isAuthenticated:false,
@@ -49,6 +49,11 @@ export default function(state = init, action){
       return{
         ...state,
         loggedInUser:action.payload
+      }
+    case GET_AUTH_ERROR:
+      return{
+        ...state,
+        error:action.payload
       }
     default:
       return state;

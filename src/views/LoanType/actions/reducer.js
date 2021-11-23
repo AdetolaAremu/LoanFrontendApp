@@ -3,7 +3,7 @@ import { CLEAR_LOAN_TYPE_DATA_ERROR, GET_LOAN_TYPE_DATA, GET_LOAN_TYPE_DATA_ERRO
 const INITIAL_STATE = {
     loading: false,
     loanTypeData:[],
-    error:{},
+    errors:{},
     deleteLoanType:undefined,
     singleLoanTypeData:{}
  }
@@ -29,12 +29,12 @@ const INITIAL_STATE = {
         case GET_LOAN_TYPE_DATA_ERROR:
             return {
                 ...state,
-                error:action.payload
+                errors:action.payload
             }
         case CLEAR_LOAN_TYPE_DATA_ERROR:
             return {
                 ...state,
-                error:{}
+                errors:{}
             }
         case DELETE_LOAN_TYPE:
             return{

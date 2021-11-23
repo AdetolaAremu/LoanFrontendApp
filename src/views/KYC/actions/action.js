@@ -1,4 +1,4 @@
-import { GET_A_KYC_DATA, GET_KYC_DATA, KYC_DATA_LOADING_ENDS, KYC_DATA_LOADING_STARTS } from './types'
+import { GET_A_KYC_DATA, GET_KYC_DATA, KYC_DATA_LOADING_ENDS, KYC_DATA_LOADING_STARTS, GET_KYC_DATA_ERROR } from './types'
 import axios from 'axios';
 import process from 'env.js';
 import CONSTANTS from 'Routes/routes.json'
@@ -17,18 +17,20 @@ export const getKYCData = () => {
       
     } catch (error) {
       dispatch({type: KYC_DATA_LOADING_ENDS, payload:error})
-      // if (error.response) {
-      //   if (error.response.status == 422) {
-      //     dispatch({type: GET_APPLICATION_ERROR, payload:error})
-      //     return notify('There are errors in your input', 'error')
-      //   } else if (error.response.status == 500) {
-      //     dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
-      //   } else {
-      //     return notify('Sorry, something went wrong!', 'err')
-      //   }
-      // } else {
-      //   return notify('Sorry, something went wrong! Check your network', 'err')
-      // }
+      if (error.response) {
+        if (error.response.status == 422) {
+          dispatch({type: GET_KYC_DATA_ERROR, payload:error})
+          return notify('There are errors in your input', 'error')
+        } else if (error.response.status == 500) {
+          dispatch({type: GET_KYC_DATA_ERROR, payload:error.response})
+        } else if(error.response.status == 401) {
+          return notify("You are unauthorized!")
+        } else {
+          return notify('Sorry, something went wrong!', 'err')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'err')
+      }
     }
   }
 }

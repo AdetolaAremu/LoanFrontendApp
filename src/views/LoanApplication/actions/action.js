@@ -1,4 +1,4 @@
-import { GET_A_LOAN_DATA, GET_LOAN_DATA, LOAN_DATA_LOADING_ENDS, LOAN_DATA_LOADING_STARTS } from './types'
+import { GET_A_LOAN_DATA, GET_LOAN_DATA, GET_LOAN_DATA_ERROR, LOAN_DATA_LOADING_ENDS, LOAN_DATA_LOADING_STARTS } from './types'
 import axios from 'axios';
 import process from 'env.js';
 import CONSTANTS from 'Routes/routes.json'
@@ -17,18 +17,15 @@ export const getLoanData = () => {
       
     } catch (error) {
       dispatch({type: LOAN_DATA_LOADING_ENDS, payload:error})
-      // if (error.response) {
-      //   if (error.response.status == 422) {
-      //     dispatch({type: GET_APPLICATION_ERROR, payload:error})
-      //     return notify('There are errors in your input', 'error')
-      //   } else if (error.response.status == 500) {
-      //     dispatch({type: GET_APPLICATION_ERROR, payload:error.response})
-      //   } else {
-      //     return notify('Sorry, something went wrong!', 'err')
-      //   }
-      // } else {
-      //   return notify('Sorry, something went wrong! Check your network', 'err')
-      // }
+      if (error.response) {
+        if (error.response.status == 500) {
+          dispatch({type: GET_LOAN_DATA_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'err')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'err')
+      }
     }
   }
 }
@@ -38,13 +35,24 @@ export const createLoanApplication = (loanData) => {
     try {
       dispatch({type: LOAN_DATA_LOADING_STARTS})
       const response = await axios.post(`${service_url}/loan-application`, loanData)
-      if (response === 200) {
+      .then(() => {
         dispatch({type: LOAN_DATA_LOADING_ENDS})
-        return notify("Loan created successfully");
-        // dispatch({type: GET_LOAN_DATA, payload:response.data})
-      }
+        notify(response?.data?.message);
+      })
     } catch (error) {
       dispatch({type: LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 422) {
+          dispatch({type: GET_LOAN_DATA_ERROR, payload:error})
+          return notify('There are errors in your input', 'error')
+        } else if (error.response.status == 500) {
+          dispatch({type: GET_LOAN_DATA_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'error')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -59,6 +67,15 @@ export const getSingleLoanData = (id) => {
       console.log('payload', response.data)     
     } catch (error) {
       dispatch({type: LOAN_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error.response.status == 500) {
+          dispatch({type: GET_LOAN_DATA_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'err')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'err')
+      }
     }
   }
 }

@@ -9,6 +9,7 @@ import {
   Progress, Table, Container, Row, UncontrolledTooltip, Modal, ModalBody,
   ModalHeader, ModalFooter, Col, FormGroup, Input, Form, Label
 } from "reactstrap";
+import { ToastContainer } from 'react-toastify';
 
 const initialState = {
   loan_type_id:'',
@@ -78,6 +79,7 @@ const LoanApplication = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <div className='text-right'>
           <Link>

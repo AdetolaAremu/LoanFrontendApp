@@ -5,6 +5,7 @@ import {
   Button, Card, CardHeader, CardBody, FormGroup, Form,
   Input, InputGroupAddon, InputGroupText,InputGroup, Row, Col,
 } from "reactstrap";
+import { ToastContainer } from 'react-toastify';
 
 const initialState = {
   first_name: "", last_name:"", email:"", phone:"", password:"", confirm_password:""
@@ -36,6 +37,7 @@ const Register = () => {
 
   return (
     <>
+      <ToastContainer />
       <Col lg="6" md="8">
         <Card className="bg-secondary shadow border-0">
           <CardBody className="px-lg-5 py-lg-5">

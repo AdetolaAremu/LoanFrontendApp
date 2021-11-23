@@ -21,7 +21,7 @@ export const getTypeLoanData = () => {
          } else if(error.response.status == 401){
             return notify("You are not unauthorized")
          } else {
-           return notify('Sorry, something went wrong!', 'error')
+           return notify('Sorry, something went wrong!', 'errors')
          }
        } else {
          return notify('Sorry, something went wrong! Check your network', 'error')
@@ -41,10 +41,11 @@ export const createLoanTypeApplication = (data) => {
         notify(res?.data?.message);
       })
     } catch (error) {
+      console.log('check', error.response)
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
         if (error.response.status == 422) {
-          dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error})
+          dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error.response})
           return notify('There are errors in your input', 'error')
         } else if (error.response.status == 500) {
           dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error.response})

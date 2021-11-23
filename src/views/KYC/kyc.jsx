@@ -8,6 +8,8 @@ import Header from "components/Headers/Header.js";
 import {
   Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col,
 } from "reactstrap";
+import { ToastContainer } from "react-toastify";
+import isEmpty from "utils/isEmpty"
 
 const initialState = {
   country_id:"", state_id:"", city:"", address:"", identification_type:"",
@@ -77,6 +79,7 @@ const KYC = () => {
 
   return(
     <>
+      <ToastContainer />
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
           <Row>

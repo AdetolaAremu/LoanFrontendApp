@@ -1,10 +1,11 @@
-import { ADMIN_DASHBOARD_DATA_LOADING_ENDS, ADMIN_DASHBOARD_DATA_LOADING_STARTS, GET_ADMIN_DASHBOARD_DATA, GET_ALL_USERS_COUNT, GET_LAST_FIVE_USERS } from './types'
+import { ADMIN_DASHBOARD_DATA_LOADING_ENDS, ADMIN_DASHBOARD_DATA_LOADING_STARTS, GET_ADMIN_DASHBOARD_DATA, GET_ALL_USERS_COUNT, GET_ERROR, GET_LAST_FIVE_USERS } from './types'
 
 const INITIAL_STATE = {
     adminDataLoading: false,
     adminStats:[],
     allUsersStats:[],
-    lastfiveUsers:[]
+    lastfiveUsers:[],
+    error:{}
  }
  
  export default (state = INITIAL_STATE, action) => {
@@ -33,6 +34,11 @@ const INITIAL_STATE = {
             return {
                 ...state,
                 lastfiveUsers:action.payload
+            }
+        case GET_ERROR:
+            return {
+                ...state,
+                error:action.payload
             }
         default:
             return state

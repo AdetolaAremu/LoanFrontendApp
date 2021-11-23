@@ -12,6 +12,7 @@ import {
   Button, Modal, ModalBody, ModalHeader, ModalFooter, Col, FormGroup, Input
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
+import isEmpty from 'utils/isEmpty';
 
 const service_url = process.env.SERVICE_URL
 
@@ -33,7 +34,7 @@ const LoanType = () => {
 
   const dispatch = useDispatch()
 
-  const { loanType: { loanTypeData } } = useSelector(state => state)
+  const { loanType: { loanTypeData, errors } } = useSelector(state => state)
   
   const toggleSignUpModal = () => {
     settoggleModal(!toggleModal)
@@ -211,13 +212,19 @@ const LoanType = () => {
                         Loan Name
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors) ? "" : "is-invalid"}`}
                         name='name'
                         value={Inputs.name}
                         onChange={handleChange}
                         placeholder="e.g student loan"
                         type="text"
                       />
+                      {console.log('err', errors?.data?.errors.name)}
+                      <div className="invalid-feedback">
+                        {isEmpty(errors?.data?.erros?.name)
+                          ? null : errors?.data?.erros?.name
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                   <Col lg="6">
