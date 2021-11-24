@@ -316,7 +316,6 @@ export const countStatus = () => {
     try {
       dispatch({type: APPLICATION_LOADING_STARTS})
       const response = await axios.get(`${service_url}/status-count`)
-      console.log('res', response.data)
       dispatch({type: APPLICATION_LOADING_ENDS})
       dispatch({type: GET_APPLICATION_DATA, payload:response.data})
     } catch (error) {

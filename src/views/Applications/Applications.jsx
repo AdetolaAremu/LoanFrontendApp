@@ -8,6 +8,9 @@ import {
 import ROUTES from "Routes/routes.json"
 import { ToastContainer } from 'react-toastify';
 import { FormLazyLoad } from 'utils/LazyLoads';
+import { DashBoardLazy } from 'utils/LazyLoads';
+// import MyLoader from "utils/MyLoader"
+import { AppLoader } from 'utils/MyLoader';
 
 function Applications() {
 
@@ -22,29 +25,120 @@ function Applications() {
   return (
     <>
       <ToastContainer />
+      {/* <MyLoader /> */}
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
-        <Container fluid>
+      {applicationLoading ? (<AppLoader />) : (
+        <div>
+          <Container fluid>
+              <div className="header-body">
+                {/* Card stats */}
+                <Row>
+                  <Col lg="6" xl="4">
+                    <Card className="card-stats mb-4 mb-xl-0">
+                      <Link to="pending-loan">
+                        <CardBody>
+                          <Row>   
+                          <div className="col">
+                            <CardTitle
+                              tag="h5"
+                              className="text-uppercase mb-3"
+                            >
+                              Pending Loan Applications
+                            </CardTitle>
+                            <span className="h2 font-weight-bold">
+                              { applicationData?.loanPending }
+                            </span>
+                          </div>
+                            <Col className="col-auto mt-3">
+                              <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                <i class="fas fa-spinner" />
+                              </div>
+                            </Col>
+                          </Row>
+                          <p className="mt-1 mb-0 text-muted text-sm">
+                            <span>Click to View</span>
+                          </p>
+                        </CardBody>
+                      </Link>
+                    </Card>
+                  </Col>
+                  <Col lg="6" xl="4">
+                    <Card className="card-stats mb-4 mb-xl-0">
+                      <Link to="approved-loan">
+                        <CardBody>
+                        <Row>
+                          <div className="col">
+                            <CardTitle
+                              tag="h5"
+                              className="text-uppercase mb-3"
+                            >
+                              Approved Loan Application
+                            </CardTitle>
+                            <span className="h2 font-weight-bold">{ applicationData?.loanSuccessful }</span>
+                          </div>
+                          <Col className="col-auto mt-3">
+                            <div className="icon icon-shape bg-success text-white rounded-circle shadow">
+                              <i class="fas fa-check-circle" />
+                            </div>
+                          </Col>
+                        </Row>
+                        <p className="mt-1 mb-0 text-muted text-sm">
+                          <span>Click to View</span>
+                        </p>
+                        </CardBody>
+                      </Link>
+                    </Card>
+                  </Col>
+                  <Col lg="6" xl="4">
+                    <Card className="card-stats mb-4 mb-xl-0">
+                      <Link to="rejected-loan">
+                        <CardBody>
+                          <Row>
+                            <div className="col">
+                              <CardTitle
+                                tag="h5"
+                                className="text-uppercase mb-3"
+                              >
+                                Rejected Loan Applications
+                              </CardTitle>
+                              <span className="h2 font-weight-bold">{ applicationData?.loanFailed }</span>
+                            </div>
+                            <Col className="col-auto mt-3">
+                              <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                <i class="fas fa-exclamation-triangle" />
+                              </div>
+                            </Col>
+                          </Row>
+                          <p className="mt-1 mb-0 text-sm">
+                            <span>Click to View</span>
+                          </p>
+                        </CardBody>
+                      </Link>
+                    </Card>
+                  </Col>
+                </Row>
+              </div>
+          </Container>
+          <Container fluid style={{ marginTop:"3.8rem" }}>
             <div className="header-body">
               {/* Card stats */}
               <Row>
                 <Col lg="6" xl="4">
                   <Card className="card-stats mb-4 mb-xl-0">
-                    <Link to="pending-loan">
+                    <Link to="pending-kyc">
                       <CardBody>
                         <Row>
-                          {applicationLoading ? (
-                            <Spinner />
-                          ) : <div className="col">
-                          <CardTitle
-                            tag="h5"
-                            className="text-uppercase mb-3"
-                          >
-                            Pending Loan Applications
-                          </CardTitle>
-                          <span className="h2 font-weight-bold">
-                            { applicationData?.loanPending }
-                          </span>
-                        </div>}
+                          <div className="col">
+                            <CardTitle
+                              tag="h5"
+                              className="text-uppercase mb-3"
+                            >
+                              KYC Pending
+                            </CardTitle>
+                            <span className="h2 font-weight-bold">
+                              { applicationData?.kycPending }
+                            </span>
+                          </div>
                           <Col className="col-auto mt-3">
                             <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
                               <i class="fas fa-spinner" />
@@ -60,7 +154,7 @@ function Applications() {
                 </Col>
                 <Col lg="6" xl="4">
                   <Card className="card-stats mb-4 mb-xl-0">
-                    <Link to="approved-loan">
+                    <Link to="approved-kyc">
                       <CardBody>
                       <Row>
                         <div className="col">
@@ -68,9 +162,9 @@ function Applications() {
                             tag="h5"
                             className="text-uppercase mb-3"
                           >
-                            Approved Loan Application
+                            KYC Approved
                           </CardTitle>
-                          <span className="h2 font-weight-bold">{ applicationData?.loanSuccessful }</span>
+                          <span className="h2 font-weight-bold">{ applicationData?.kycSuccessful }</span>
                         </div>
                         <Col className="col-auto mt-3">
                           <div className="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -87,7 +181,7 @@ function Applications() {
                 </Col>
                 <Col lg="6" xl="4">
                   <Card className="card-stats mb-4 mb-xl-0">
-                    <Link to="rejected-loan">
+                    <Link to="rejected-kyc">
                       <CardBody>
                         <Row>
                           <div className="col">
@@ -95,9 +189,9 @@ function Applications() {
                               tag="h5"
                               className="text-uppercase mb-3"
                             >
-                              Rejected Loan Applications
+                              KYC Rejected
                             </CardTitle>
-                            <span className="h2 font-weight-bold">{ applicationData?.loanFailed }</span>
+                            <span className="h2 font-weight-bold">{ applicationData?.kycFailed }</span>
                           </div>
                           <Col className="col-auto mt-3">
                             <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -114,97 +208,9 @@ function Applications() {
                 </Col>
               </Row>
             </div>
-        </Container>
-        <Container fluid style={{ marginTop:"3.8rem" }}>
-          <div className="header-body">
-            {/* Card stats */}
-            <Row>
-              <Col lg="6" xl="4">
-                <Card className="card-stats mb-4 mb-xl-0">
-                  <Link to="pending-kyc">
-                    <CardBody>
-                      <Row>
-                        <div className="col">
-                          <CardTitle
-                            tag="h5"
-                            className="text-uppercase mb-3"
-                          >
-                            KYC Pending
-                          </CardTitle>
-                          <span className="h2 font-weight-bold">
-                            { applicationData?.kycPending }
-                          </span>
-                        </div>
-                        <Col className="col-auto mt-3">
-                          <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                            <i class="fas fa-spinner" />
-                          </div>
-                        </Col>
-                      </Row>
-                      <p className="mt-1 mb-0 text-muted text-sm">
-                        <span>Click to View</span>
-                      </p>
-                    </CardBody>
-                  </Link>
-                </Card>
-              </Col>
-              <Col lg="6" xl="4">
-                <Card className="card-stats mb-4 mb-xl-0">
-                  <Link to="approved-kyc">
-                    <CardBody>
-                    <Row>
-                      <div className="col">
-                        <CardTitle
-                          tag="h5"
-                          className="text-uppercase mb-3"
-                        >
-                          KYC Approved
-                        </CardTitle>
-                        <span className="h2 font-weight-bold">{ applicationData?.kycSuccessful }</span>
-                      </div>
-                      <Col className="col-auto mt-3">
-                        <div className="icon icon-shape bg-success text-white rounded-circle shadow">
-                          <i class="fas fa-check-circle" />
-                        </div>
-                      </Col>
-                    </Row>
-                    <p className="mt-1 mb-0 text-muted text-sm">
-                      <span>Click to View</span>
-                    </p>
-                    </CardBody>
-                  </Link>
-                </Card>
-              </Col>
-              <Col lg="6" xl="4">
-                <Card className="card-stats mb-4 mb-xl-0">
-                  <Link to="rejected-kyc">
-                    <CardBody>
-                      <Row>
-                        <div className="col">
-                          <CardTitle
-                            tag="h5"
-                            className="text-uppercase mb-3"
-                          >
-                            KYC Rejected
-                          </CardTitle>
-                          <span className="h2 font-weight-bold">{ applicationData?.kycFailed }</span>
-                        </div>
-                        <Col className="col-auto mt-3">
-                          <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                            <i class="fas fa-exclamation-triangle" />
-                          </div>
-                        </Col>
-                      </Row>
-                      <p className="mt-1 mb-0 text-sm">
-                        <span>Click to View</span>
-                      </p>
-                    </CardBody>
-                  </Link>
-                </Card>
-              </Col>
-            </Row>
-          </div>
-        </Container>
+          </Container>
+        </div>
+      )}
       </div>
       {/* <div className='mt-2'>
         
