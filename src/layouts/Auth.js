@@ -40,7 +40,7 @@ const Auth = (props) => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     mainContent.current.scrollTop = 0;
-  }, [location]);
+  }, []);
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
@@ -63,19 +63,6 @@ const Auth = (props) => {
       <div className="main-content" ref={mainContent}>
         <AuthNavbar />
         <div className="header bg-gradient-info py-7 py-lg-8">
-          <Container>
-            <div className="header-body text-center mb-7">
-              <Row className="justify-content-center">
-                <Col lg="5" md="6">
-                  <h1 className="text-white">Welcome!</h1>
-                  <p className="text-lead text-light">
-                    Use these awesome forms to login or create new account in
-                    your project for free.
-                  </p>
-                </Col>
-              </Row>
-            </div>
-          </Container>
           <div className="separator separator-bottom separator-skew zindex-100">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +84,7 @@ const Auth = (props) => {
           <Row className="justify-content-center">
             <Switch>
               {getRoutes(routes)}
-              <Redirect from="*" to="/auth/login" />
+              {/* <Redirect from="*" to="/auth/login" /> */}
             </Switch>
           </Row>
         </Container>

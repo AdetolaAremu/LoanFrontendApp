@@ -34,11 +34,11 @@ const Login = () => {
                   href="https://www.creative-tim.com?ref=adr-auth-footer"
                   target="_blank"
                 >
-                  Creative Tim
+                 Loaney
                 </a>
               </div>
             </Col>
-            <Col xl="6">
+            {/* <Col xl="6">
               <Nav className="nav-footer justify-content-center justify-content-xl-end">
                 <NavItem>
                   <NavLink
@@ -73,7 +73,7 @@ const Login = () => {
                   </NavLink>
                 </NavItem>
               </Nav>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </footer>

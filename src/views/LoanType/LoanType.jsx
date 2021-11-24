@@ -185,6 +185,7 @@ const LoanType = () => {
                         placeholder="e.g 15 days"
                         type="text"
                       />
+
                     </FormGroup>
                   </Col>
                 </Row>
@@ -212,20 +213,20 @@ const LoanType = () => {
                         Loan Name
                       </label>
                       <Input
-                        className={`form-control-alternative ${isEmpty(errors) ? "" : "is-invalid"}`}
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.name) ? "" : "border border-danger"}`}
                         name='name'
                         value={Inputs.name}
                         onChange={handleChange}
                         placeholder="e.g student loan"
                         type="text"
-                      />
-                      {console.log('err', errors?.data?.errors.name)}
-                      <div className="invalid-feedback">
-                        {isEmpty(errors?.data?.erros?.name)
-                          ? null : errors?.data?.erros?.name
+                      />  
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.name) ? null : errors?.data?.errors?.name
                         }
-                      </div>
+                      </div>                
                     </FormGroup>
+                    
                   </Col>
                   <Col lg="6">
                     <FormGroup>
@@ -236,13 +237,18 @@ const LoanType = () => {
                         Amount
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.amount) ? "" : "border border-danger"}`}
                         name='amount'
                         value={Inputs.amount}
                         onChange={handleChange}
-                        placeholder="e.g #15,000"
+                        placeholder="e.g 15,000"
                         type="number"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.amount) ? null : errors?.data?.errors?.amount
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                 </Row>
@@ -256,13 +262,18 @@ const LoanType = () => {
                         Amount to be Repaid
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.repayment_amount) ? "" : "border border-danger"}`}
                         name='repayment_amount'
                         value={Inputs.repayment_amount}
                         onChange={handleChange}
                         placeholder="e.g 15,500"
                         type="text"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.repayment_amount) ? null : errors?.data?.errors?.repayment_amount
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                   <Col lg="6">
@@ -274,13 +285,18 @@ const LoanType = () => {
                         Repayment Due in (days):
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.repayment_days) ? "" : "border border-danger"}`}
                         name='repayment_days'
                         value={Inputs.repayment_days}
                         onChange={handleChange}
                         placeholder="e.g 15 days"
                         type="text"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.repayment_days) ? null : errors?.data?.errors?.repayment_days
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                 </Row>

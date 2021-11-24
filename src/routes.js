@@ -16,12 +16,13 @@ import LoanRejected from "views/Applications/LoanRejected";
 
 const routes = [
   {
-    path: CONSTANTS.DASHBOARD,
+    path: "/index",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
     layout: "/admin",
-    show:true
+    show:true,
+    checkadmin:true
   },
   {
     path: CONSTANTS.ALL_APPLICATION,
@@ -29,7 +30,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: Applications,
     layout: "/admin",
-    show:true
+    show:true,
+    checkadmin:true
   },
   {
     path: CONSTANTS.KYC_PENDING,
@@ -37,7 +39,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: KYCPending,
     layout: "/admin",
-    show:false
+    show:false,
+    checkadmin:false
   },
   {
     path: CONSTANTS.KYC_APPROVED,
@@ -45,7 +48,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: KYCAccepted,
     layout: "/admin",
-    show:false
+    show:false,
+    checkadmin:false
   },
   {
     path: CONSTANTS.KYC_REJECTED,
@@ -53,7 +57,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: KYCRejected,
     layout: "/admin",
-    show:false
+    show:false,
+    checkadmin:false
   },
   {
     path: CONSTANTS.LOAN_PENDING,
@@ -61,7 +66,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: LoanPending,
     layout: "/admin",
-    show:false
+    show:false,
+    checkadmin:false
   },
   {
     path: CONSTANTS.LOAN_APPROVED,
@@ -69,7 +75,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: LoanApproved,
     layout: "/admin",
-    show:false
+    show:false,
+    checkadmin:false
   },
   {
     path: CONSTANTS.LOAN_REJECTED,
@@ -77,7 +84,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: LoanRejected,
     layout: "/admin",
-    show:false
+    show:false,
+    checkadmin:true
   },
   {
     path: CONSTANTS.LOAN_TYPE,
@@ -85,7 +93,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: LoanType,
     layout: "/admin",
-    show:true
+    show:true,
+    checkadmin:true
   },
   {
     path: CONSTANTS.LOAN_APPLICATION,
@@ -93,7 +102,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: LoanApplication,
     layout: "/admin",
-    show:true
+    show:true,
+    checkadmin:false
   },
   {
     path: CONSTANTS.KYC_VIEW,
@@ -101,7 +111,8 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: Kyc,
     layout: "/admin",
-    show:true
+    show:true,
+    checkadmin:false
   },
   {
     path: CONSTANTS.USER_PROFILE_VIEW,
@@ -109,15 +120,17 @@ const routes = [
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
     layout: "/admin",
-    show:true
+    show:true,
+    checkadmin:false
   },
   {
-    path: CONSTANTS.LOGIN,
+    path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
     component: Login,
     layout: "/auth",
-    show:false
+    show:false,
+    checkadmin:false
   },
   {
     path: CONSTANTS.REGISTER,
@@ -125,7 +138,8 @@ const routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Register,
     layout: "/auth",
-    show:false
+    show:false,
+    checkadmin:false
   },
 ];
 

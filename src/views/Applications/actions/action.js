@@ -1,4 +1,4 @@
-import {ADMIN_GET_KYC_DATA, ADMIN_GET_LOAN_DATA, ADMIN_KYC_DATA_LOADING_ENDS, ADMIN_KYC_DATA_LOADING_STARTS, ADMIN_LOAN_DATA_LOADING_ENDS, ADMIN_LOAN_DATA_LOADING_STARTS, CLEAR_APPLICATION_ERROR, GET_APPLICATION_ERROR, GET_KYC_DATA, GET_KYC_SINGLE_DATA, GET_LOAN_DATA, KYC_DATA_LOADING_ENDS, KYC_DATA_LOADING_STARTS } from './types'
+import {ADMIN_GET_KYC_DATA, ADMIN_GET_LOAN_DATA, ADMIN_KYC_DATA_LOADING_ENDS, ADMIN_KYC_DATA_LOADING_STARTS, ADMIN_LOAN_DATA_LOADING_ENDS, ADMIN_LOAN_DATA_LOADING_STARTS, APPLICATION_LOADING_ENDS, APPLICATION_LOADING_STARTS, CLEAR_APPLICATION_ERROR, GET_APPLICATION_DATA, GET_APPLICATION_ERROR, GET_KYC_DATA, GET_KYC_SINGLE_DATA, GET_LOAN_DATA, KYC_DATA_LOADING_ENDS, KYC_DATA_LOADING_STARTS } from './types'
 import axios from 'axios';
 import process from 'env.js';
 import { notify } from 'utils/notification';
@@ -311,15 +311,16 @@ export const recycleKYC = (id, data) => {
 
 // All applications count
 
-export const countKYC = () => {
+export const countStatus = () => {
   return async(dispatch) => {
     try {
-      dispatch({type: ADMIN_KYC_DATA_LOADING_STARTS})
-      const response = await axios.get(`${service_url}/kyc-count`)
-      dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
-      dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
+      dispatch({type: APPLICATION_LOADING_STARTS})
+      const response = await axios.get(`${service_url}/status-count`)
+      console.log('res', response.data)
+      dispatch({type: APPLICATION_LOADING_ENDS})
+      dispatch({type: GET_APPLICATION_DATA, payload:response.data})
     } catch (error) {
-      dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
+      dispatch({type: APPLICATION_LOADING_ENDS, payload:error})
       if (error.response) {
         if (error.response.status == 500) {
            dispatch({type: GET_APPLICATION_ERROR, payload:error.response})

@@ -20,9 +20,7 @@ export const getLoanData = () => {
       if (error.response) {
         if (error.response.status == 500) {
           dispatch({type: GET_LOAN_DATA_ERROR, payload:error.response})
-        } else {
-          return notify('Sorry, something went wrong!', 'err')
-        }
+        } 
       } else {
         return notify('Sorry, something went wrong! Check your network', 'err')
       }
@@ -64,14 +62,11 @@ export const getSingleLoanData = (id) => {
       const response = await axios.get(`${service_url}/loan-application/${id}`)
       dispatch({type: LOAN_DATA_LOADING_ENDS})
       dispatch({type: GET_A_LOAN_DATA, payload:response.data})
-      console.log('payload', response.data)     
     } catch (error) {
       dispatch({type: LOAN_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
         if (error.response.status == 500) {
           dispatch({type: GET_LOAN_DATA_ERROR, payload:error.response})
-        } else {
-          return notify('Sorry, something went wrong!', 'err')
         }
       } else {
         return notify('Sorry, something went wrong! Check your network', 'err')

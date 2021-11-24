@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { countKYC, countLoan } from "./actions/action";
+import { countStatus } from "./actions/action";
 import {
-  Card, Container, Row, CardBody, CardTitle, Col,
+  Card, Container, Row, CardBody, CardTitle, Col, Spinner,
 } from "reactstrap";
 import ROUTES from "Routes/routes.json"
 import { ToastContainer } from 'react-toastify';
+import { FormLazyLoad } from 'utils/LazyLoads';
 
 function Applications() {
 
-  const { applications: { adminKYCData, adminLoanData } } = useSelector(state => state)
+  const { applications: { applicationData, applicationLoading } } = useSelector(state => state)
   
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(countKYC());
-    dispatch(countLoan());
+    dispatch(countStatus());
   }, [])
 
   return (
@@ -32,17 +32,19 @@ function Applications() {
                     <Link to="pending-loan">
                       <CardBody>
                         <Row>
-                          <div className="col">
-                            <CardTitle
-                              tag="h5"
-                              className="text-uppercase mb-3"
-                            >
-                              Pending Loan Applications
-                            </CardTitle>
-                            <span className="h2 font-weight-bold">
-                              { adminLoanData?.Pending }
-                            </span>
-                          </div>
+                          {applicationLoading ? (
+                            <Spinner />
+                          ) : <div className="col">
+                          <CardTitle
+                            tag="h5"
+                            className="text-uppercase mb-3"
+                          >
+                            Pending Loan Applications
+                          </CardTitle>
+                          <span className="h2 font-weight-bold">
+                            { applicationData?.loanPending }
+                          </span>
+                        </div>}
                           <Col className="col-auto mt-3">
                             <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
                               <i class="fas fa-spinner" />
@@ -68,7 +70,7 @@ function Applications() {
                           >
                             Approved Loan Application
                           </CardTitle>
-                          <span className="h2 font-weight-bold">{ adminLoanData?.Successful }</span>
+                          <span className="h2 font-weight-bold">{ applicationData?.loanSuccessful }</span>
                         </div>
                         <Col className="col-auto mt-3">
                           <div className="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -95,7 +97,7 @@ function Applications() {
                             >
                               Rejected Loan Applications
                             </CardTitle>
-                            <span className="h2 font-weight-bold">{ adminLoanData?.Failed }</span>
+                            <span className="h2 font-weight-bold">{ applicationData?.loanFailed }</span>
                           </div>
                           <Col className="col-auto mt-3">
                             <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -130,7 +132,7 @@ function Applications() {
                             KYC Pending
                           </CardTitle>
                           <span className="h2 font-weight-bold">
-                            { adminKYCData?.Pending }
+                            { applicationData?.kycPending }
                           </span>
                         </div>
                         <Col className="col-auto mt-3">
@@ -158,7 +160,7 @@ function Applications() {
                         >
                           KYC Approved
                         </CardTitle>
-                        <span className="h2 font-weight-bold">{ adminKYCData?.Successful }</span>
+                        <span className="h2 font-weight-bold">{ applicationData?.kycSuccessful }</span>
                       </div>
                       <Col className="col-auto mt-3">
                         <div className="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -185,7 +187,7 @@ function Applications() {
                           >
                             KYC Rejected
                           </CardTitle>
-                          <span className="h2 font-weight-bold">{ adminKYCData?.Failed }</span>
+                          <span className="h2 font-weight-bold">{ applicationData?.kycFailed }</span>
                         </div>
                         <Col className="col-auto mt-3">
                           <div className="icon icon-shape bg-danger text-white rounded-circle shadow">

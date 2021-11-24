@@ -10,6 +10,7 @@ import {
   ModalHeader, ModalFooter, Col, FormGroup, Input, Form, Label
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
+import isEmpty from 'utils/isEmpty';
 
 const initialState = {
   loan_type_id:'',
@@ -41,6 +42,7 @@ const LoanApplication = () => {
   
   const ModalLoanApplication = () => {
     settoggleLoanApplication(!toggleLoanApplication);
+    dispatch(getTypeLoanData());
   }
 
   const ViewLoanApplicationModal = (id) => {
@@ -57,12 +59,11 @@ const LoanApplication = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('inputs', Inputs);
-    // dispatch(createLoanApplication(Inputs));
+    dispatch(createLoanApplication(Inputs));
   }
 
   useEffect(() => {
     dispatch(getLoanData());
-    dispatch(getTypeLoanData());
   }, [])
 
   const loanColor = (loan_status) => {
@@ -236,83 +237,31 @@ const LoanApplication = () => {
           <Form onSubmit={handleSubmit}>
             <ModalBody>
               <div className="pl-lg-4">
-                {/* {loanTypeData?.data?.map((type) => ( */}
                   <div>
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup>
-                          <Label className="form-control-label">Loan Type</Label>
-                          <Input 
-                            onChange={handleChange} 
-                            value={Inputs.loan_type_id}
-                            type="select" 
-                            name="loan_type_id"
-                            id="exampleSelect"
-                          > 
-                            <option defaultValue>Choose Loan type</option>
-                            {loanTypeData?.data?.map((type) => (
-                              <option key={type.id} value={type.id}>{ type.name }</option>
-                            ))}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-amount"
-                          >
-                            Loan Amount
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-amount"
-                            name='amount'
-                            // value={type?.amount}
-                            type="number"
-                            disabled
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-amount"
-                          >
-                            Amount to be repaid
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            // name="repayment_amount"
-                            // value={type.repayment_amount}
-                            type="text"
-                            disabled
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-amount"
-                          >
-                            Loan due in (days)
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id=""
-                            // value={type.repayment_days}
-                            type="text"
-                            disabled
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
+                    <div>
+                      <Row>
+                        <Col lg="12">
+                          <FormGroup>
+                            <Label className="form-control-label">Loan Type</Label>
+                            <Input 
+                              onChange={handleChange} 
+                              value={Inputs.loan_type_id}
+                              type="select" 
+                              name="loan_type_id"
+                              id="exampleSelect"
+                            >
+                              <option defaultValue>Choose Loan type</option>
+                              {loanTypeData?.map((type) => (
+                                <option className='font-weight-bold' key={type.id} value={type.id}>
+                                  { type?.name } | Amount: { type?.amount } | To Repay: { type?.repayment_amount }
+                                </option>
+                              ))}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    </div>
                   </div>
-                {/* ))}   */}
                   <Row>
                   <Col lg="6">
                     <FormGroup>

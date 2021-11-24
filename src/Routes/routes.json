@@ -1,8 +1,9 @@
 {
   "HOME": "/",
-  "LOGIN": "/login",
+  "HELLO":"/hello",
+  "LOGIN": "/auth/login",
   "REGISTER": "/register",
-  "DASHBOARD": "/index",
+  "DASHBOARD": "/admin/index",
   "ALL_APPLICATION": "/applications",
   "LOAN_TYPE": "/loan-type",
   "LOAN_APPLICATION": "/loan-application",

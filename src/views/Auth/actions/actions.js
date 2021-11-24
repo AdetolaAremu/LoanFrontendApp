@@ -26,6 +26,7 @@ export const loginUser = (userData) => {
       localStorage.setItem("jwtToken", token);
       setAuthToken(localStorage.jwtToken);
       const decoded =  jwtdecode(token);
+      notify(response?.data?.message);
       window.location.href = CONSTANTS.DASHBOARD;
       dispatch(setCurrentUser(decoded));
       dispatch({type: CHECK_USER_ROLE});
@@ -41,8 +42,6 @@ export const loginUser = (userData) => {
         } else {
           return notify('Sorry, something went wrong!', 'error')
         }
-      } else {
-        return notify('Sorry, something went wrong! Check your network', 'error')
       }
     }
   }
@@ -75,10 +74,9 @@ export const registerNewUser = (userData) => dispatch =>{
 export const logoutUser = (userData) => dispatch =>{
   dispatch({ type:AUTH_LOADING_STARTS });
   axios.post(`${service_url}/logout`, userData)
-  .then(()=>{
-    localStorage.clear()
+  .then(() => {
+    localStorage.clear();
     window.location.href = CONSTANTS.LOGIN
-    return notify("Registration successful, you can now login");
   }).catch((error) => {
     dispatch({type: AUTH_LOADING_ENDS});
   })

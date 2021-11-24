@@ -24,23 +24,15 @@ const Admin = (props) => {
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
+      return (
+        <Route
+          path={prop.layout + prop.path}
+          component={prop.component}
+          key={key}
+        />
+      );
     });
   };
-
-  // useEffect(() => {
-    
-  // }, [])
 
   const getBrandText = (path) => {
     for (let i = 0; i < routes.length; i++) {
@@ -72,7 +64,7 @@ const Admin = (props) => {
         />
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/admin/index" />
+          {/* <Redirect from="*" to="/admin/index" /> */}
         </Switch>
         <Container fluid>
           <AdminFooter />
