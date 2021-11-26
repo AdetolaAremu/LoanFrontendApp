@@ -7,7 +7,7 @@ import {
   Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown,
   DropdownToggle, Media, Pagination, PaginationItem, PaginationLink, Button,
   Progress, Table, Container, Row, UncontrolledTooltip, Modal, ModalBody,
-  ModalHeader, ModalFooter, Col, FormGroup, Input, Form, Label
+  ModalHeader, ModalFooter, Col, FormGroup, Input, Form, Label, Spinner
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
 import isEmpty from 'utils/isEmpty';
@@ -32,11 +32,8 @@ const LoanApplication = () => {
   const [Inputs, setInputs] = useState(initialState)
   const [currentID, setcurrentID] = useState({})
 
-  const { 
-    loanType: { loanTypeData }, 
-    loans: { loanData, loanloading, singleLoan },
-    dashboard: { data }
-    } = useSelector(state => state)
+  const {  loanType: { loanTypeData }, loans: { loanData, loanloading, singleLoan }, dashboard: { data }} 
+    = useSelector(state => state)
 
   const dispatch = useDispatch()
   
@@ -58,7 +55,6 @@ const LoanApplication = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('inputs', Inputs);
     dispatch(createLoanApplication(Inputs));
   }
 
@@ -81,7 +77,7 @@ const LoanApplication = () => {
   return (
     <div>
       <ToastContainer />
-      <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+      <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <div className='text-right'>
           <Link>
             <Button onClick={ModalLoanApplication} 
@@ -95,87 +91,94 @@ const LoanApplication = () => {
           </Link>
         </div>
         <Container className="mt-4" fluid>
-            {/* Table */}
             <Row>
               <div className="col">
                 <Card className="shadow">
                   <CardHeader className="border-0">
                     <h3 className="mb-0">Loan Application</h3>
                   </CardHeader>
-                  <Table className="align-items-center table-flush" responsive>
-                    <thead className="thead-light">
-                      <tr>
-                        <th scope="col">Loan Type</th>
-                        <th scope="col">Loan Amount</th>
-                        <th scope="col">Loan Status</th>
-                        <th scope="col">Repayment Status</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {loanData?.map((loan) => (
-                        <tr key={loan.id}>
-                          <th scope="row">
-                            <Media className="align-items-center">
-                              <span className="mb-0 text-sm">
-                                { loan?.loan_type?.name }
-                              </span>
-                            </Media>
-                          </th>
-                          <td>{ loan?.loan_type?.amount }</td>
-                          <td>
-                            {loan.loan_status == 'pending' ?
-                               ( <Badge color="" className="badge-dot mr-4 text-capitalize">
-                                  <i className="bg-warning" />
-                                  { loan.loan_status }
-                                </Badge>)
-                              : loan.loan_status == 'accepted' ? (
-                                <Badge color="" className="badge-dot mr-4 text-capitalize">
-                                  <i className="bg-success" />
-                                  { loan.loan_status }
-                                </Badge>
-                              ) : loan.loan_status == 'failed' ? (
-                                <Badge color="" className="badge-dot mr-4 text-capitalize">
-                                  <i className="bg-danger" />
-                                  { loan.loan_status }
-                                </Badge>
-                              ) : "" 
-                            }
-                            
-                          </td>
-                          <td>
-                            { loan?.repaid }
-                          </td>
-                          <td>
-                            {/* { loan?.created_at } */}
-                            {new Date(loan?.created_at).toLocaleDateString("en-us", {
-                              month:'long', day:'2-digit', year:'numeric' 
-                            })}    
-                          </td>
-                          <td>
-                            <div className="d-flex align-items-center">
-                              <button onClick={(e) => ViewLoanApplicationModal(loan.id, e)} style={{ border:"1px solid white"}}>
-                                {/* <span className='icon icon-shape' style={{ height:"5px !important", width:"5px" }}> */}
-                                  <i class="fas fa-eye"></i>
-                                {/* </span> */}
-                              </button>
-                              {/* <Link>    
-                                <span className='icon icon-shape'>
-                                  <i class="fas fa-edit"></i>
-                                </span>
-                              </Link>
-                              <Link>
-                                <span className='icon icon-shape'>
-                                  <i class="fas fa-trash-alt"></i>
-                                </span>
-                              </Link> */}
-                            </div>
-                          </td>
+                  {loanloading ? (<Spinner className='m-auto' animation="border" 
+                    style={{ width:"4rem", height:"4rem" }} />) : loanData.length ? (
+                    <Table className="align-items-center table-flush" responsive>
+                      <thead className="thead-light">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Loan Type</th>
+                          <th scope="col">Loan Amount</th>
+                          <th scope="col">Loan Status</th>
+                          <th scope="col">Repayment Status</th>
+                          <th scope="col">Date Created</th>
+                          <th scope="col">Actions</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </Table>
+                      </thead>
+                      <tbody>
+                        {loanData?.map((loan, index) => (
+                          <tr key={loan.id}>
+                            <th scope="row">{ index + 1 }</th>
+                            <th scope="row">
+                              <Media className="align-items-center">
+                                <span className="mb-0 text-sm">
+                                  { loan?.loan_type?.name }
+                                </span>
+                              </Media>
+                            </th>
+                            <td>{ loan?.loan_type?.amount }</td>
+                            <td>
+                              {loan.loan_status == 'pending' ?
+                                ( <Badge color="" className="badge-dot mr-4 text-capitalize">
+                                    <i className="bg-yellow" />
+                                    { loan.loan_status }
+                                  </Badge>)
+                                : loan.loan_status == 'accepted' ? (
+                                  <Badge color="" className="badge-dot mr-4 text-capitalize">
+                                    <i className="bg-success" />
+                                    { loan.loan_status }
+                                  </Badge>
+                                ) : loan.loan_status == 'failed' ? (
+                                  <Badge color="" className="badge-dot mr-4 text-capitalize">
+                                    <i className="bg-danger" />
+                                    { loan.loan_status }
+                                  </Badge>
+                                ) : "" 
+                              }
+                              
+                            </td>
+                            <td>
+                              { loan?.repaid == 0 && loan?.loan_status == "accepted" ? ("Not Paid") 
+                                : loan?.repaid == 0 && loan?.loan_status == ("failed") || 
+                                loan?.loan_status == "pending" ? "--" : "Paid"
+                              }
+                            </td>
+                            <td>
+                              {/* { loan?.created_at } */}
+                              {new Date(loan?.created_at).toLocaleDateString("en-us", {
+                                month:'long', day:'2-digit', year:'numeric' 
+                              })}    
+                            </td>
+                            <td>
+                              <div className="d-flex align-items-center">
+                                <button onClick={(e) => ViewLoanApplicationModal(loan.id, e)} style={{ border:"1px solid white"}}>
+                                  {/* <span className='icon icon-shape' style={{ height:"5px !important", width:"5px" }}> */}
+                                    <i class="fas fa-eye"></i>
+                                  {/* </span> */}
+                                </button>
+                                {/* <Link>    
+                                  <span className='icon icon-shape'>
+                                    <i class="fas fa-edit"></i>
+                                  </span>
+                                </Link>
+                                <Link>
+                                  <span className='icon icon-shape'>
+                                    <i class="fas fa-trash-alt"></i>
+                                  </span>
+                                </Link> */}
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                    ):(<div className='text-center'>No data to display</div>)}
                   <CardFooter className="py-4">
                     <nav aria-label="...">
                       <Pagination

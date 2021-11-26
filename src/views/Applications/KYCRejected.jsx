@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import {
   Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink,
   Progress, Button, Table, Container, Row, UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, 
-  Form, Col, FormGroup, Input
+  Form, Col, FormGroup, Input, Spinner
 } from "reactstrap";
 import { getRejectedKYC, recycleKYC } from "./actions/action";
 import { getSingleKYCData } from "views/KYC/actions/action";
@@ -15,7 +15,8 @@ const KYCRejected = ()=> {
   const [toggleFailed, settoggleFailed] = useState(false)
   const [currentID, setcurrentID] = useState(null)
 
-  const { applications: { adminKYCData }, kyc: { singleKYC } } = useSelector(state => state)
+  const { applications: { applicationData, applicationLoading }, kyc: { singleKYC } } 
+    = useSelector(state => state)
   
   const dispatch = useDispatch();
 
@@ -37,7 +38,7 @@ const KYCRejected = ()=> {
  return(
    <>
     <ToastContainer />
-    <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+    <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
             <Row>
               <div className="col">
@@ -45,10 +46,12 @@ const KYCRejected = ()=> {
                   <CardHeader className="border-0">
                     <h3 className="mb-0">KYC Rejected Table</h3>
                   </CardHeader>
-                  {!adminKYCData ? (<RectSpinner />) : adminKYCData.length ? (
+                  { applicationLoading ? (<Spinner className='m-auto' animation="border" 
+                    style={{ width:"4rem", height:"4rem" }} />) : applicationData.length ? (
                     <Table className="align-items-center table-flush" responsive>
                       <thead className="thead-light">
                         <tr>
+                          <th scope="col">#</th>
                           <th scope="col">Name</th>
                           <th scope="col">Request Type</th>
                           <th scope="col">KYC Status</th>
@@ -57,8 +60,9 @@ const KYCRejected = ()=> {
                         </tr>
                       </thead>
                       <tbody>
-                          {adminKYCData.map((failed) => (
+                          {applicationData.map((failed, index) => (
                             <tr>
+                              <th scope="col">{ index + 1 }</th>
                               <th scope="row">
                                 <Media className="align-items-center">
                                   <span className="mb-0 text-sm">

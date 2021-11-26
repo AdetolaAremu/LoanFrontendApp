@@ -81,7 +81,7 @@ const KYC = () => {
   return(
     <>
       <ToastContainer />
-      <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+      <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         {dashboardDataLoading ? (<KYCLoader />) : (
           <Container className="mt-4" fluid>
             <Row>
@@ -94,9 +94,7 @@ const KYC = () => {
                       </Col>
                       <Col className="text-right" xs="4">
                         <Button
-                          href="#pablo"
                           className="text-capitalize text-white"
-                          onClick={(e) => e.preventDefault()}
                           style={{ background: statusColor(dashboardData?.kyc?.status)}}
                           size="sm"
                         >

@@ -4,22 +4,33 @@ import Skeleton from "react-loading-skeleton";
 
 export const DashBoardLazy = () => {
   const _LazyDetails = (
-    <div className="">
-      <rect x="537" y="9" rx="2" ry="2" width="140" height="10" />
-      <rect x="14" y="30" rx="2" ry="2" width="667" height="11" />
-      <rect x="12" y="58" rx="2" ry="2" width="211" height="211" />
-      <rect x="240" y="57" rx="2" ry="2" width="211" height="211" />
-      <rect x="467" y="56" rx="2" ry="2" width="211" height="211" />
-      <rect x="12" y="283" rx="2" ry="2" width="211" height="211" />
-      <rect x="240" y="281" rx="2" ry="2" width="211" height="211" />
-      <rect x="468" y="279" rx="2" ry="2" width="211" height="211" />
-      <circle cx="286" cy="536" r="12" />
-      <circle cx="319" cy="535" r="12" />
-      <circle cx="353" cy="535" r="12" />
-      <rect x="378" y="524" rx="0" ry="0" width="52" height="24" />
-      <rect x="210" y="523" rx="0" ry="0" width="52" height="24" />
-      <circle cx="210" cy="535" r="12" />
-      <circle cx="428" cy="536" r="12" />
+    <div className="_top">
+      <div className="_xt">
+        <div className="_pic">
+          <div className="user-image mr-3">
+            <Skeleton circle={true} height={78} width={78} />
+          </div>
+        </div>
+        <div className="_detail">
+          <div className="_salut">
+            <Skeleton height={17} width={270} />
+          </div>
+          <div className="_dte">
+            {" "}
+            <Skeleton height={17} width={100} />
+          </div>
+          <div className="text  mt-1">
+            <span className="mr-1">
+              <Skeleton circle={true} height={20} width={20} />
+            </span>
+            <Skeleton height={17} width={100} />
+          </div>
+        </div>
+      </div>
+
+      <div className="_bt">
+        <Skeleton height={38} width={120} />
+      </div>
     </div>
   );
   const _LazyOverview = Array(4)

@@ -7,7 +7,7 @@ import process from 'env.js';
 import {
   Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle,
   Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Table, Container, Row,
-  UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, Form, Col, FormGroup, Input
+  UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, Form, Col, FormGroup, Input, Spinner
 } from "reactstrap";
 import { RectSpinner } from 'utils/loader/Loader';
 import { getSingleKYCData } from 'views/KYC/actions/action';
@@ -23,7 +23,9 @@ const KYCPending = () => {
   const [country, setCountry] = useState(null)
   const [inputs, setinputs] = useState(null)
 
-  const { applications: { adminKYCData }, kyc: { singleKYC } } = useSelector(state => state)
+  const { applications: { applicationData, applicationLoading }, kyc: { singleKYC } } 
+    = useSelector(state => state)
+  
   const dispatch = useDispatch();
 
   const toggleModal = (id) => {
@@ -49,7 +51,7 @@ const KYCPending = () => {
   return (
     <div>
       <ToastContainer />
-      <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+      <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
             {/* Table */}
             <Row>
@@ -58,10 +60,12 @@ const KYCPending = () => {
                   <CardHeader className="border-0">
                     <h3 className="mb-0">KYC Pending Table</h3>
                   </CardHeader>
-                  {!adminKYCData ? (<RectSpinner />) : adminKYCData.length ? (
+                  { applicationLoading ? (<Spinner className='m-auto' animation="border" 
+                    style={{ width:"4rem", height:"4rem" }} />) : applicationData.length ? (
                     <Table className="align-items-center table-flush" responsive>
                       <thead className="thead-light">
                         <tr>
+                          <th scope="col">#</th>
                           <th scope="col">Name</th>
                           <th scope="col">Request Type</th>
                           <th scope="col">KYC Status</th>
@@ -70,8 +74,9 @@ const KYCPending = () => {
                         </tr>
                       </thead>
                       <tbody>
-                          {adminKYCData.map((pending) => (
+                          {applicationData.map((pending, index) => (
                             <tr>
+                              <th scope="col">{ index + 1 }</th>
                               <th scope="row">
                                 <Media className="align-items-center">
                                   <span className="mb-0 text-sm">

@@ -17,14 +17,16 @@
 */
 import React from 'react'
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  DropdownMenu, Button, DropdownItem, UncontrolledDropdown, DropdownToggle, Form, FormGroup,
-  InputGroupAddon, InputGroupText, Input, InputGroup, Navbar, Nav, Container, Media
+  DropdownMenu, Button, DropdownItem, UncontrolledDropdown, DropdownToggle, Navbar, Nav, Container, Media
 } from "reactstrap";
 import { logoutUser } from "../../views/Auth/actions/actions"
  
 const AdminNavbar = (props) => {
+  
+  const { dashboard: { dashboardData }} = useSelector(state => state)
+
   const dispatch = useDispatch()
   
   const handleLogout = (e) => {
@@ -46,18 +48,9 @@ const AdminNavbar = (props) => {
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
-                  <span className="avatar avatar-sm rounded-circle">
-                    <img
-                      alt="..."
-                      src={
-                        require("../../assets/img/theme/team-4-800x800.jpg")
-                          .default
-                      }
-                    />
-                  </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Jessica Jones
+                      { dashboardData?.first_name } { dashboardData?.last_name } <i className="ni ni-bold-down" />
                     </span>
                   </Media>
                 </Media>

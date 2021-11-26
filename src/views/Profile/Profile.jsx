@@ -47,7 +47,7 @@ const Profile = () => {
   return (
     <>
       <ToastContainer />
-      <div className="header pt-5 pt-lg-8 d-flex bg-gradient-info align-items-center">
+      <div className="header pb-5 pt-5 pt-lg-8 d-flex bg-gradient-info align-items-center">
         <ToastContainer />
         <Container className="mb-2" fluid>
           <Row>

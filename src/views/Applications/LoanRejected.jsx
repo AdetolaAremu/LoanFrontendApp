@@ -16,7 +16,8 @@ const LoanRejected = () => {
   const [currentID, setcurrentID] = useState(null)
   const dispatch = useDispatch()
 
-  const { applications: { adminLoanData }, loans: { singleLoan } } = useSelector(state => state)
+  const { applications: { applicationData, applicationLoading }, loans: { singleLoan } } 
+    = useSelector(state => state)
 
   const handleModal = (id) => {
     setcurrentID(id);
@@ -35,7 +36,7 @@ const LoanRejected = () => {
   return (
     <div>
       <ToastContainer />
-      <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+      <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
             {/* Table */}
             <Row>
@@ -44,23 +45,24 @@ const LoanRejected = () => {
                   <CardHeader className="border-0">
                     <h3 className="mb-0">Loan Rejected Table</h3>
                   </CardHeader>
-                  { !adminLoanData ? (<Spinner className='m-auto' animation="border" 
+                  { applicationLoading ? (<Spinner className='m-auto' animation="border" 
                     style={{ width:"4rem", height:"4rem" }} />)
-                    : adminLoanData.length ? (
+                    : applicationData.length ? (
                     <Table className="align-items-center table-flush" responsive>
                       <thead className="thead-light">
                         <tr>
+                          <th scope="col">#</th>
                           <th scope="col">Name</th>
                           <th scope="col">Request Type</th>
                           <th scope="col">Loan Status</th>
                           <th scope="col">Date Created</th>
                           <th scope="col">Actions</th>
-                          {/* <th scope="col" /> */}
                         </tr>
                       </thead>
                       <tbody>
-                      {adminLoanData.map((rejectedLoan) => (
+                      {applicationData.map((rejectedLoan, index) => (
                         <tr key={rejectedLoan.id}>
+                          <th scope="col">{ index + 1 }</th>
                           <th scope="row">
                             <Media className="align-items-center">
                               <span className="mb-0 text-sm">

@@ -1,7 +1,8 @@
-import { ADMIN_DASHBOARD_DATA_LOADING_ENDS, ADMIN_DASHBOARD_DATA_LOADING_STARTS, GET_ADMIN_DASHBOARD_DATA, GET_ALL_USERS_COUNT, GET_ERROR, GET_LAST_FIVE_USERS } from './types'
+import { ADMIN_DASHBOARD_DATA_LOADING_ENDS, ADMIN_DASHBOARD_DATA_LOADING_STARTS, GET_ADMIN_DASHBOARD_DATA, GET_ALL_USERS_COUNT, GET_ERROR, GET_LAST_FIVE_USERS, MODAL_DATA_LOADING_ENDS, MODAL_DATA_LOADING_STARTS } from './types'
 
 const INITIAL_STATE = {
     adminDataLoading: false,
+    modalData:false,
     adminStats:[],
     allUsersStats:[],
     lastfiveUsers:[],
@@ -16,10 +17,20 @@ const INITIAL_STATE = {
                 adminDataLoading:true
             }
         case ADMIN_DASHBOARD_DATA_LOADING_ENDS:
-                return {
-                    ...state,
-                    adminDataLoading:false
-                }
+            return {
+                ...state,
+                adminDataLoading:false
+            }
+        case MODAL_DATA_LOADING_STARTS:
+            return {
+                ...state,
+                modalData:true
+            }
+        case MODAL_DATA_LOADING_ENDS:
+            return {
+                ...state,
+                modalData:false
+            }
         case GET_ADMIN_DASHBOARD_DATA:
             return {
                 ...state,

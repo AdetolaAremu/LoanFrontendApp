@@ -93,12 +93,10 @@ export const updateLoanType = (id, data) => {
     try {
       dispatch({type: LOAN_TYPE_CRUD_OPERATIONS_STARTS})
       const res = await axios.put(`${service_url}/loan-types/${id}`, data)
-      if (res.status === 200) {
-        dispatch(getTypeLoanData())
-        removeModal('edit_type_modal')
-        notify(res?.data?.message);
-        dispatch({type: LOAN_TYPE_CRUD_OPERATIONS_ENDS})
-      }
+      dispatch(getTypeLoanData())
+      removeModal('edit_type_modal')
+      notify(res.data.message);
+      dispatch({type: LOAN_TYPE_CRUD_OPERATIONS_ENDS})
     } catch (error) {
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
@@ -110,8 +108,6 @@ export const updateLoanType = (id, data) => {
         } else {
           return notify('Sorry, something went wrong!', 'error')
         }
-      } else {
-        return notify('Sorry, something went wrong! Check your network', 'error')
       }
     }
   }

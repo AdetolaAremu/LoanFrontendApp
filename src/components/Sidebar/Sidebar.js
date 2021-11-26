@@ -244,12 +244,11 @@ const Sidebar = (props) => {
           <hr className="my-3" />
           {/* Heading */}
           <h6 className="navbar-heading text-muted">Extras</h6>
-          {/* Navigation */}
           <Nav className="mb-md-3" navbar>
             <NavItem>
               <NavLink to="/">
                 <i className="ni ni-spaceship" />
-                Contact Team
+                GitHub Code
               </NavLink>
             </NavItem>
             {/* <NavItem>

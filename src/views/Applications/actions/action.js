@@ -12,7 +12,7 @@ export const getPendingLoanApplication = () => {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_STARTS})
       const response = await axios.get(`${service_url}/loan/pending`)
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS})
-      dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
+      dispatch({type: GET_APPLICATION_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
@@ -36,7 +36,7 @@ export const getRejectedLoanApplication = () => {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_STARTS})
       const response = await axios.get(`${service_url}/loan/failed`)
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS})
-      dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
+      dispatch({type: GET_APPLICATION_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
@@ -60,7 +60,7 @@ export const getAcceptedLoanApplication = () => {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_STARTS})
       const response = await axios.get(`${service_url}/loan/accepted`)
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS})
-      dispatch({type: ADMIN_GET_LOAN_DATA, payload:response.data})
+      dispatch({type: GET_APPLICATION_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
@@ -164,7 +164,7 @@ export const getPendingKYC = () => {
       dispatch({type: ADMIN_KYC_DATA_LOADING_STARTS})
       const response = await axios.get(`${service_url}/kyc/pending`)
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
-      dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
+      dispatch({type: GET_APPLICATION_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
@@ -188,7 +188,7 @@ export const getApprovedKYC = () => {
       dispatch({type: ADMIN_KYC_DATA_LOADING_STARTS})
       const response = await axios.get(`${service_url}/kyc/successful`)
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
-      dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
+      dispatch({type: GET_APPLICATION_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
@@ -213,7 +213,7 @@ export const getRejectedKYC = () => {
       dispatch({type: ADMIN_KYC_DATA_LOADING_STARTS})
       const response = await axios.get(`${service_url}/kyc/failed`)
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS})
-      dispatch({type: ADMIN_GET_KYC_DATA, payload:response.data})
+      dispatch({type: GET_APPLICATION_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: ADMIN_KYC_DATA_LOADING_ENDS, payload:error})
       if (error.response) {

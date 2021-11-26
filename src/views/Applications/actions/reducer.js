@@ -7,7 +7,8 @@ const INITIAL_STATE = {
     error:{},
     singleLoanData:{},
     singleKYCData:{},
-    adminDashboardData:[]
+    adminDashboardData:[],
+    adminLoanData:[]
  }
  
  export default (state = INITIAL_STATE, action) => {

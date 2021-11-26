@@ -27,7 +27,7 @@ const routes = [
   {
     path: CONSTANTS.ALL_APPLICATION,
     name: "All Applications",
-    icon: "ni ni-single-02 text-yellow",
+    icon: "ni ni-bullet-list-67 text-red",
     component: Applications,
     layout: "/admin",
     show:true,
@@ -90,7 +90,7 @@ const routes = [
   {
     path: CONSTANTS.LOAN_TYPE,
     name: "Loan Types",
-    icon: "ni ni-single-02 text-yellow",
+    icon: "ni ni-bag-17 text-info",
     component: LoanType,
     layout: "/admin",
     show:true,
@@ -99,7 +99,7 @@ const routes = [
   {
     path: CONSTANTS.LOAN_APPLICATION,
     name: "Loan Application",
-    icon: "ni ni-single-02 text-yellow",
+    icon: "ni ni-briefcase-24 text-success",
     component: LoanApplication,
     layout: "/admin",
     show:true,
@@ -108,7 +108,7 @@ const routes = [
   {
     path: CONSTANTS.KYC_VIEW,
     name: "KYC Application",
-    icon: "ni ni-single-02 text-yellow",
+    icon: "ni ni-glasses-2 text-blue",
     component: Kyc,
     layout: "/admin",
     show:true,

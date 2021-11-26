@@ -6,10 +6,9 @@ import process from 'env.js';
 import { getTypeLoanData, createLoanTypeApplication, deleteLoanType, updateLoanType, getSingleLoanType } from './actions/action'
 import { RectSpinner } from "utils/loader/Loader"
 import {
-  Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem,
-  UncontrolledDropdown, DropdownToggle, Media, Pagination, PaginationItem, PaginationLink,
+  Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink,
   Progress, Table, Container, Row, UncontrolledTooltip, Form,
-  Button, Modal, ModalBody, ModalHeader, ModalFooter, Col, FormGroup, Input
+  Button, Modal, ModalBody, ModalHeader, ModalFooter, Col, FormGroup, Input, Spinner
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
 import isEmpty from 'utils/isEmpty';
@@ -34,7 +33,7 @@ const LoanType = () => {
 
   const dispatch = useDispatch()
 
-  const { loanType: { loanTypeData, errors } } = useSelector(state => state)
+  const { loanType: { loanTypeData, errors, loading } } = useSelector(state => state)
   
   const toggleSignUpModal = () => {
     settoggleModal(!toggleModal)
@@ -103,7 +102,7 @@ const LoanType = () => {
             Are you sure you want to delete?
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" type='submit' onClick={deleteType}>Delete</Button>
+            <Button color="danger" type='submit' disabled={loading} onClick={deleteType}>Delete</Button>
             <Button color="success" onClick={handleToggleDeleteModal}>Cancel</Button>
           </ModalFooter>
         </Modal>
@@ -192,7 +191,7 @@ const LoanType = () => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button color="success" type="submit">Submit</Button>
+              <Button color="success" type="submit" disabled={loading}>Submit</Button>
               <Button color="danger" onClick={handleToggleEditModal}>Cancel</Button>
             </ModalFooter>
           </Form>
@@ -303,65 +302,70 @@ const LoanType = () => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button color="success" type="submit">Submit</Button>
+              <Button color="success" type="submit" disabled={loading}>Submit</Button>
               <Button color="danger" onClick={toggleSignUpModal}>Cancel</Button>
             </ModalFooter>
           </Form>
         </Modal>
 
         <Container className="mt-4" fluid>
-          {/* Table */}
           <Row>
             <div className="col">
               <Card className="shadow">
                 <CardHeader className="border-0">
                   <h3 className="mb-0">Loan Types</h3>
                 </CardHeader>
-                <Table className="align-items-center table-flush" responsive>
-                  <thead className="thead-light">
-                    <tr>
-                      <th scope="col">Loan Name</th>
-                      <th scope="col">Loan Amount</th>
-                      <th scope="col">Repayment Amount</th>
-                      <th scope="col">Repayment Days</th>
-                      {/* <th scope="col">Date Created</th> */}
-                      <th scope="col">Actions</th>
-                      <th scope="col" />
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {loanTypeData?.map((type) => (
-                      <tr key={type.id}>
-                        <th scope="row">
-                          <Media className="align-items-center">
-                            <span className="mb-0 text-sm">
-                              { type?.name }
-                            </span>
-                          </Media>
-                        </th>
-                        <td>{ type?.amount }</td>
-                        <td>{ type?.repayment_amount }</td>
-                        <td>{ type?.repayment_days } days</td>
-                        {/* <td>
-                          {new Date(type?.created_at).toLocaleDateString("en-us", {
-                            month:'long', day:'2-digit', year:'numeric' 
-                          })}
-                        </td> */}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <button onClick={(e) => handleToggleEditModal(type?.id, e)} style={{ border:"1px solid white"}}>    
-                              <i class="fas fa-edit"></i>
-                            </button>
-                            {/* {console.log('id', handleToggleDeleteModal(type?.id, e)=)} */}
-                            <button onClick={(e) => handleToggleDeleteModal(type?.id, e)} style={{ border:"1px solid white"}}>
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                          </div>
-                        </td>
+                {loading ? (<Spinner className='m-auto' style={{ width:"4rem", height:"4rem", 
+                    marginLeft:"20rem !important" }} />) 
+                    : loanTypeData ? (
+                  <Table className="align-items-center table-flush" responsive>
+                    <thead className="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Loan Name</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">Repayment Amount</th>
+                        <th scope="col">Repayment Days</th>
+                        {/* <th scope="col">Date Created</th> */}
+                        <th scope="col">Actions</th>
+                        <th scope="col" />
                       </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                    </thead>                 
+                      <tbody>
+                        {loanTypeData?.map((type, index) => (
+                          <tr key={type.id}>
+                            <th scope="row">{ index + 1 }</th>
+                            <th scope="row">
+                              <Media className="align-items-center">
+                                <span className="mb-0 text-sm">
+                                  { type?.name }
+                                </span>
+                              </Media>
+                            </th>
+                            <td>{ type?.amount }</td>
+                            <td>{ type?.repayment_amount }</td>
+                            <td>{ type?.repayment_days } days</td>
+                            {/* <td>
+                              {new Date(type?.created_at).toLocaleDateString("en-us", {
+                                month:'long', day:'2-digit', year:'numeric' 
+                              })}
+                            </td> */}
+                            <td>
+                              <div className="d-flex align-items-center">
+                                <button onClick={(e) => handleToggleEditModal(type?.id, e)} style={{ border:"1px solid white"}}>    
+                                  <i class="fas fa-edit"></i>
+                                </button>
+                                {/* {console.log('id', handleToggleDeleteModal(type?.id, e)=)} */}
+                                <button onClick={(e) => handleToggleDeleteModal(type?.id, e)} style={{ border:"1px solid white"}}>
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                  </Table>
+                ) : (<div className='m-auto'>No cotent to display</div>) }
                 <CardFooter className="py-4">
                   <nav aria-label="...">
                     <Pagination

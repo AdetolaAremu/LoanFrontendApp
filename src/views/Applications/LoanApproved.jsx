@@ -15,7 +15,7 @@ const LoanApproved = () => {
   const [currentID, setcurrentID] = useState(null)
   const dispatch = useDispatch()
 
-  const { applications: { adminLoanData }, loans: { singleLoan } } = useSelector(state => state)
+  const { applications: { applicationData, applicationLoading }, loans: { singleLoan } } = useSelector(state => state)
 
   const handleModal = (id) => {
     setcurrentID(id);
@@ -30,7 +30,7 @@ const LoanApproved = () => {
   return (
     <div>
       <ToastContainer />
-      <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+      <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
           <Row>
             <div className="col">
@@ -38,12 +38,13 @@ const LoanApproved = () => {
                 <CardHeader className="border-0">
                   <h3 className="mb-0">Loan Approved Table</h3>
                 </CardHeader>
-                { !adminLoanData ? (<Spinner className='m-auto' animation="border" 
+                { applicationLoading ? (<Spinner className='m-auto' animation="border" 
                   style={{ width:"4rem", height:"4rem" }} />)
-                  : adminLoanData.length ? (
+                  : applicationData.length ? (
                   <Table className="align-items-center table-flush" responsive>
                     <thead className="thead-light">
                       <tr>
+                        <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Request Type</th>
                         <th scope="col">Loan Status</th>
@@ -53,8 +54,9 @@ const LoanApproved = () => {
                       </tr>
                     </thead>
                     <tbody>
-                    {adminLoanData.map((acceptedLoan) => (
+                    {applicationData?.map((acceptedLoan, index) => (
                       <tr key={acceptedLoan.id}>
+                        <th scope="col">{ index + 1 }</th>
                         <th scope="row">
                           <Media className="align-items-center">
                             <span className="mb-0 text-sm">
@@ -87,7 +89,7 @@ const LoanApproved = () => {
                     ))}
                     </tbody>
                   </Table>
-                ) : (<div className='text-center'>No data to display</div>) }
+                ): (<div className='text-center'>No data to display</div>) }
                 <CardFooter className="py-4">
                   <nav aria-label="...">
                     <Pagination
