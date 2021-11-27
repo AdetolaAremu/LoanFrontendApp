@@ -2,6 +2,7 @@ import { CLEAR_LOAN_TYPE_DATA_ERROR, GET_LOAN_TYPE_DATA, GET_LOAN_TYPE_DATA_ERRO
 
 const INITIAL_STATE = {
     loading: false,
+    loanTypeCRUD:false,
     loanTypeData:[],
     errors:{},
     deleteLoanType:undefined,

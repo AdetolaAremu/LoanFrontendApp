@@ -33,7 +33,7 @@ const LoanType = () => {
 
   const dispatch = useDispatch()
 
-  const { loanType: { loanTypeData, errors, loading } } = useSelector(state => state)
+  const { loanType: { loanTypeData, errors, loading, loanTypeCRUD } } = useSelector(state => state)
   
   const toggleSignUpModal = () => {
     settoggleModal(!toggleModal)
@@ -106,6 +106,7 @@ const LoanType = () => {
             <Button color="success" onClick={handleToggleDeleteModal}>Cancel</Button>
           </ModalFooter>
         </Modal>
+        
         <Modal isOpen={toggleEditMOdal} id="edit_type_modal">
           <ModalHeader toggle={handleToggleEditModal}>Edit Loan Type Form</ModalHeader>
           <Form onSubmit={handleSubmitEdit}>
@@ -355,7 +356,6 @@ const LoanType = () => {
                                 <button onClick={(e) => handleToggleEditModal(type?.id, e)} style={{ border:"1px solid white"}}>    
                                   <i class="fas fa-edit"></i>
                                 </button>
-                                {/* {console.log('id', handleToggleDeleteModal(type?.id, e)=)} */}
                                 <button onClick={(e) => handleToggleDeleteModal(type?.id, e)} style={{ border:"1px solid white"}}>
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
@@ -365,7 +365,7 @@ const LoanType = () => {
                         ))}
                       </tbody>
                   </Table>
-                ) : (<div className='m-auto'>No cotent to display</div>) }
+                ) : (<div className='m-auto'>No content to display</div>) }
                 <CardFooter className="py-4">
                   <nav aria-label="...">
                     <Pagination

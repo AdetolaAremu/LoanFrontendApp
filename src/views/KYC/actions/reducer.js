@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     KYCloading: false,
     KYCData:[],
     singleKYC:{},
-    error:{}
+    errors:{}
  }
 
  export default (state = INITIAL_STATE, action) => {
@@ -33,7 +33,7 @@ const INITIAL_STATE = {
         case GET_KYC_DATA_ERROR:
             return {
                 ...state,
-                error:action.payload
+                errors:action.payload
             }
         case CLEAR_KYC_DATA_ERROR:
             return {

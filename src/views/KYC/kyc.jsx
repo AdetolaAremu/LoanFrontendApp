@@ -29,7 +29,7 @@ const KYC = () => {
 
   const dispatch = useDispatch()
 
-  const { kyc: { KYCData, KYCloading }, dashboard:{ dashboardData, dashboardDataLoading } } = useSelector(state => state)
+  const { kyc: { KYCData, KYCloading, errors }, dashboard:{ dashboardData, dashboardDataLoading } } = useSelector(state => state)
 
   const handleChange = (e) => {
     if (e.target.name === 'country_id') {
@@ -167,13 +167,13 @@ const KYC = () => {
                             <Col>
                               <div>
                                 <small className="font-italic">Identification type: </small> 
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.address }</span>
+                                <span className="font-weight-bold text-capitalize">{ dashboardData?.kyc?.identification_type }</span>
                               </div>
                             </Col>
                             <Col>
                               <div>
-                                <small>Identification type: </small>
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.identification_type }</span>
+                                <small>Identification Number: </small>
+                                <span className="font-weight-bold">{ dashboardData?.kyc?.id_number }</span>
                               </div>
                             </Col>
                           </Row>
@@ -256,77 +256,6 @@ const KYC = () => {
                             User information
                           </h6>
                           <div className="pl-lg-4">
-                            {/* <Row>
-                              <Col lg="6">
-                                <FormGroup>
-                                  <label
-                                    className="form-control-label"
-                                    htmlFor="input-first-name"
-                                  >
-                                    First name
-                                  </label>
-                                  <Input
-                                    className="form-control-alternative"
-                                    defaultValue="Lucky"
-                                    id="input-first-name"
-                                    placeholder="First name"
-                                    type="text"
-                                  />
-                                </FormGroup>
-                              </Col>
-                              <Col lg="6">
-                                <FormGroup>
-                                  <label
-                                    className="form-control-label"
-                                    htmlFor="input-last-name"
-                                  >
-                                    Last name
-                                  </label>
-                                  <Input
-                                    className="form-control-alternative"
-                                    defaultValue="Jesse"
-                                    id="input-last-name"
-                                    placeholder="Last name"
-                                    type="text"
-                                  />
-                                </FormGroup>
-                              </Col>
-                            </Row>
-                            <Row>
-                              <Col lg="6">
-                                <FormGroup>
-                                  <label
-                                    className="form-control-label"
-                                    htmlFor="input-phone"
-                                  >
-                                    Phone Number
-                                  </label>
-                                  <Input
-                                    className="form-control-alternative"
-                                    defaultValue="09009998889"
-                                    id="input-phone"
-                                    placeholder="phone"
-                                    type="text"
-                                  />
-                                </FormGroup>
-                              </Col>
-                              <Col lg="6">
-                                <FormGroup>
-                                  <label
-                                    className="form-control-label"
-                                    htmlFor="input-email"
-                                  >
-                                    Email address
-                                  </label>
-                                  <Input
-                                    className="form-control-alternative"
-                                    id="input-email"
-                                    placeholder="jesse@example.com"
-                                    type="email"
-                                  />
-                                </FormGroup>
-                              </Col>
-                            </Row> */}
                             <Row>
                               <Col lg="6">
                                   <FormGroup>
@@ -337,13 +266,18 @@ const KYC = () => {
                                       Identification Type
                                     </label>
                                     <Input
-                                      className="form-control-alternative"
+                                      className={`form-control-alternative ${isEmpty(errors.data?.errors?.identification_type) ? "" : "border border-danger"}`}
                                       placeholder="nin, bvn etc"
                                       name="identification_type"
                                       value={Inputs.identification_type}
                                       onChange={handleChange}
                                       type="text"
                                     />
+                                    <div className="text-danger text-sm">
+                                      {
+                                        isEmpty(errors?.data?.errors?.identification_type) ? null : errors?.data?.errors?.identification_type
+                                      }
+                                    </div>
                                   </FormGroup>
                                 </Col>
                                 <Col lg="6">
@@ -355,13 +289,18 @@ const KYC = () => {
                                       Identification Number
                                     </label>
                                     <Input
-                                      className="form-control-alternative"
+                                      className={`form-control-alternative ${isEmpty(errors.data?.errors?.id_number) ? "" : "border border-danger"}`}
                                       name="id_number"
                                       value={Inputs.id_number}
                                       onChange={handleChange}
                                       placeholder="55959595857"
                                       type="text"
                                     />
+                                    <div className="text-danger text-sm">
+                                      {
+                                        isEmpty(errors?.data?.errors?.id_number) ? null : errors?.data?.errors?.id_number
+                                      }
+                                    </div>
                                   </FormGroup>
                                 </Col>
                               </Row>
@@ -382,13 +321,18 @@ const KYC = () => {
                                     Address
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.address) ? "" : "border border-danger"}`}
                                     name="address"
                                     value={Inputs.address}
                                     onChange={handleChange}
                                     placeholder="55 Walter street off lagos"
                                     type="text"
                                   />
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.address) ? null : errors?.data?.errors?.address
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                             </Row>
@@ -401,7 +345,7 @@ const KYC = () => {
                                     Country
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.country_id) ? "" : "border border-danger"}`}
                                     name="country_id"
                                     value={Inputs.country_id}
                                     onChange={handleChange}
@@ -413,6 +357,11 @@ const KYC = () => {
                                       <option key={count.id} value={count.id}>{ count.name }</option>
                                     ))}
                                   </Input>
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.country_id) ? null : errors?.data?.errors?.country_id
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                               <Col lg="4">
@@ -424,7 +373,7 @@ const KYC = () => {
                                     State
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.state_id) ? "" : "border border-danger"}`}
                                     name="state_id"
                                     value={Inputs.state_id}
                                     onChange={handleChange}
@@ -436,6 +385,11 @@ const KYC = () => {
                                       <option key={item.id} value={item.id}>{ item.name }</option>
                                     ))}
                                   </Input>
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.state_id) ? null : errors?.data?.errors?.state_id
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                               <Col lg="4">
@@ -446,12 +400,18 @@ const KYC = () => {
                                     City
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.city) ? "" : "border border-danger"}`}
+                                    name="state_id"
                                     name="city"
                                     value={Inputs.city}
                                     onChange={handleChange}
                                     placeholder="Ibadan"
                                   />
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.city) ? null : errors?.data?.errors?.city
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                             </Row>
@@ -470,13 +430,18 @@ const KYC = () => {
                                     NOK Last Name
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.nok_last_name) ? "" : "border border-danger"}`}
                                     name="nok_last_name"
                                     value={Inputs.nok_last_name}
                                     onChange={handleChange}
                                     placeholder="Last name"
                                     type="text"
                                   />
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.nok_last_name) ? null : errors?.data?.errors?.nok_last_name
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                               <Col lg="6">
@@ -487,13 +452,18 @@ const KYC = () => {
                                     NOK First Name
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.nok_first_name) ? "" : "border border-danger"}`}
                                     name="nok_first_name"
                                     value={Inputs.nok_first_name}
                                     onChange={handleChange}
                                     placeholder="First name"
                                     type="text"
                                   />
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.nok_first_name) ? null : errors?.data?.errors?.nok_first_name
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                             </Row>
@@ -506,13 +476,18 @@ const KYC = () => {
                                     NOK Middle Name
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.nok_middle_name) ? "" : "border border-danger"}`}
                                     name="nok_middle_name"
                                     value={Inputs.nok_middle_name}
                                     onChange={handleChange}
                                     placeholder="Middle name"
                                     type="text"
                                   />
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.nok_middle_name) ? null : errors?.data?.errors?.nok_middle_name
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                               <Col lg="6">
@@ -523,13 +498,18 @@ const KYC = () => {
                                     NOK Phone Number
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.nok_phone) ? "" : "border border-danger"}`}
                                     name="nok_phone"
                                     value={Inputs.nok_phone}
                                     onChange={handleChange}
                                     placeholder="090887899987"
                                     type="text"
                                   />
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.nok_phone) ? null : errors?.data?.errors?.nok_phone
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                               <Col lg="6">
@@ -541,13 +521,18 @@ const KYC = () => {
                                     NOK Email Address
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.nok_email) ? "" : "border border-danger"}`}
                                     name="nok_email"
                                     value={Inputs.nok_email}
                                     onChange={handleChange}
                                     placeholder="jesse@example.com"
                                     type="email"
                                   />
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.nok_email) ? null : errors?.data?.errors?.nok_email
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                             </Row>
@@ -568,13 +553,18 @@ const KYC = () => {
                                     NOK Address
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.nok_address) ? "" : "border border-danger"}`}
                                     name="nok_address"
                                     value={Inputs.nok_address}
                                     onChange={handleChange}
                                     placeholder="Home A"
                                     type="text"
                                   />
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.nok_address) ? null : errors?.data?.errors?.nok_address
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                             </Row>
@@ -588,7 +578,7 @@ const KYC = () => {
                                     NOK Country
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.nok_country_id) ? "" : "border border-danger"}`}
                                     name="nok_country_id"
                                     value={Inputs.nok_country_id}
                                     onChange={handleChange}
@@ -600,6 +590,11 @@ const KYC = () => {
                                       <option key={count.id} value={count.id}>{ count.name }</option>
                                     ))}
                                   </Input>
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.nok_country_id) ? null : errors?.data?.errors?.nok_country_id
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                               <Col lg="4">
@@ -610,7 +605,7 @@ const KYC = () => {
                                     NOK State
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.nok_state_id) ? "" : "border border-danger"}`}
                                     name="nok_state_id"
                                     value={Inputs.nok_state_id}
                                     onChange={handleChange}
@@ -621,6 +616,11 @@ const KYC = () => {
                                       <option key={item.id} value={item.id}>{ item.name }</option>
                                     ))}
                                   </Input>
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.nok_state_id) ? null : errors?.data?.errors?.nok_state_id
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                               <Col lg="4">
@@ -631,12 +631,17 @@ const KYC = () => {
                                     NOK City
                                   </label>
                                   <Input
-                                    className="form-control-alternative"
+                                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.nok_city) ? "" : "border border-danger"}`}
                                     name="nok_city"
                                     value={Inputs.nok_city}
                                     onChange={handleChange}
                                     placeholder="e.g Ibadan"
                                   />
+                                  <div className="text-danger text-sm">
+                                    {
+                                      isEmpty(errors?.data?.errors?.nok_city) ? null : errors?.data?.errors?.nok_city
+                                    }
+                                  </div>
                                 </FormGroup>
                               </Col>
                             </Row>

@@ -39,13 +39,27 @@ export const createKYCApplication = (KYCData) => {
   return async(dispatch) => {
     try {
       dispatch({type: KYC_DATA_LOADING_STARTS})
-      const response = await axios.post(`${service_url}/user/verify`, KYCData)
-      dispatch( getLoggedInUser() )
-      dispatch({type: KYC_DATA_LOADING_ENDS})
-      return notify("KYC created successfully");
-      // dispatch({type: GET_KYC_DATA, payload:response.data})
+      const res = await axios.post(`${service_url}/user/verify`, KYCData)
+      .then(() => {
+        dispatch( getLoggedInUser() )
+        dispatch({type: KYC_DATA_LOADING_ENDS})
+        dispatch(getKYCData())
+        notify(res?.data?.message);
+      })
     } catch (error) {
       dispatch({type: KYC_DATA_LOADING_ENDS, payload:error})
+      if (error.response) {
+        if (error?.response?.status == 422) {
+          dispatch({type: GET_KYC_DATA_ERROR, payload:error.response})
+          return notify('There are errors in your input', 'error')
+        } else if (error?.response?.status == 500) {
+          dispatch({type: GET_KYC_DATA_ERROR, payload:error.response})
+        } else {
+          return notify('Sorry, something went wrong!', 'error')
+        }
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'error')
+      }
     }
   }
 }
@@ -57,7 +71,6 @@ export const getSingleKYCData = (id) => {
       const response = await axios.get(`${service_url}/user/verify/${id}`)
         dispatch({type: KYC_DATA_LOADING_ENDS})
         dispatch({type: GET_A_KYC_DATA, payload:response.data})
-      console.log('response', response)
     } catch (error) {
       dispatch({type: KYC_DATA_LOADING_ENDS, payload:error})
       // if (error.response) {

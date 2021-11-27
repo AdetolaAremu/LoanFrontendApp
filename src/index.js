@@ -16,7 +16,6 @@ import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import Landing from "views/Landing/Landing"
 import Login from "views/Auth/Login"
-import hello from "views/Auth/hello";
 import KYCPending from "views/Applications/KYCPending";
 import { logoutUser } from "views/Auth/actions/actions";
 
@@ -48,8 +47,6 @@ ReactDOM.render(
         <PrivateRoute path="/admin" component ={AdminLayout} />
         <Route path="/auth" component ={AuthLayout} />
         <Route exact path="/" component={Landing} />
-        {/* <Route exact path="/hello" component={hello} /> */}
-        {/* <Redirect from="/" to="/admin/index" /> */}
       </Switch>
     </BrowserRouter>
   </Provider>,

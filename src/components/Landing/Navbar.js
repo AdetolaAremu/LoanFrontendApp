@@ -40,7 +40,7 @@ class DemoNavbar extends React.Component {
       <>
         <header className="header-global">
           <Navbar
-            className="navbar-main navbar-transparent navbar-white headroom"
+            className="navbar-main navbar-transparent navbar-light headroom"
             expand="lg"
             id="navbar-main"
           >
@@ -70,7 +70,7 @@ class DemoNavbar extends React.Component {
                       <Link to="/">
                         <img
                           alt="..."
-                          src={require("assets/img/brand/argon-react.png")}
+                          src={require("assets/img/brand/default.png").default}
                         />
                       </Link>
                     </Col>

@@ -4,6 +4,7 @@ import { AUTH_LOADING_ENDS, AUTH_LOADING_STARTS, SET_CURRENT_USER, ROLE_LOADING_
 const init = {
   isAuthenticated:false,
   user: {},
+  errors: {},
   permissions:{},
   user_role:"",
   loading:false,
@@ -53,7 +54,7 @@ export default function(state = init, action){
     case GET_AUTH_ERROR:
       return{
         ...state,
-        error:action.payload
+        errors:action.payload
       }
     default:
       return state;

@@ -2,12 +2,11 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from 'views/Landing/actions/actions';
-import {
-  Button, Card, CardHeader, CardBody, FormGroup, Form,
-  Input, InputGroupAddon, InputGroupText,InputGroup, Row,Col,
-} from "reactstrap";
+import { Button, Card, CardBody, FormGroup, Form,
+  Input, InputGroupAddon, InputGroupText,InputGroup, Row, Col } from "reactstrap";
 import { loginUser } from './actions/actions';
 import { ToastContainer } from 'react-toastify';
+import isEmpty from 'utils/isEmpty';
 
 const initialState = {
   "email":'',
@@ -15,7 +14,7 @@ const initialState = {
 }
 
 const Login = () => {
-  const { allAuths: { authLoading } } = useSelector(state => state)
+  const { allAuths: { authLoading, errors } } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
@@ -48,6 +47,7 @@ const Login = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
+                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.email) ? "" : "border border-danger"}`}
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
@@ -55,6 +55,11 @@ const Login = () => {
                     onChange={handleChange}
                     value={Inputs.email}
                   />
+                  <div className="text-danger text-sm">
+                    {
+                      isEmpty(errors?.data?.errors?.email) ? null : errors?.data?.errors?.email
+                    }
+                  </div>
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -65,6 +70,8 @@ const Login = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
+                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.password) ? "" : "border border-danger"}`}
+                    placeholder="Email"
                     placeholder="Password"
                     type="password"
                     name='password'
@@ -72,6 +79,11 @@ const Login = () => {
                     onChange={handleChange}
                     value={Inputs.password}
                   />
+                  <div className="text-danger text-sm">
+                    {
+                      isEmpty(errors?.data?.errors?.password) ? null : errors?.data?.errors?.password
+                    }
+                  </div>
                 </InputGroup>
               </FormGroup>
               <div className="text-center">

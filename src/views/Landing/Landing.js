@@ -6,6 +6,8 @@ import promo from "assets/img/theme/promo-1.png"
 import image1 from "assets/img/theme/img-1-1200x1000.jpg"
 import classnames from "classnames";
 import Download from "IndexSections/Download";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import {
   Badge,
@@ -29,6 +31,10 @@ class Landing extends React.Component {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+    AOS.init({
+      // initialise with other settings
+      duration : 2000
+    });
   }
   render() {
 
@@ -54,7 +60,7 @@ class Landing extends React.Component {
                 Register, get your KYC approved in minutes <br/>
                 It is free, fast and affordable
               </p>
-              <div className="btn-wrapper">
+              <div className="btn-wrapper" data-aos="fade-left">
                 <Button
                   className="btn-icon mb-3 mb-sm-0"
                   color="info"
@@ -81,7 +87,7 @@ class Landing extends React.Component {
                   src={require("assets/img/brand/screely-1637956621078.png").default}
                 />
               </Col>
-              <Col className="order-md-1" md="6">
+              <Col className="order-md-1" md="6" data-aos="fade-right">
                 <div className="pr-md-5">
                   <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
                     <i className="ni ni-settings-gear-65" />
@@ -152,50 +158,126 @@ class Landing extends React.Component {
           <Container className="pt-lg pb-300">
             <Row className="text-center justify-content-center">
               <Col lg="10">
-                <h2 className="display-3 text-white">Build something</h2>
+                <h2 className="display-3 text-white">Why you should choose us</h2>
                 <p className="lead text-white">
-                  According to the National Oceanic and Atmospheric
-                  Administration, Ted, Scambos, NSIDClead scentist, puts the
-                  potentially record low maximum sea ice extent tihs year down
-                  to low ice.
+                  We are ranked no. 1 by the CBN on loan performance index,
+                  which means we give the lowest best loan with the lowest
+                  interest in the country.
                 </p>
               </Col>
             </Row>
             <Row className="row-grid mt-5">
-              <Col lg="4">
+              <Col lg="4" data-aos="fade-right">
                 <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
                   <i className="ni ni-settings text-primary" />
                 </div>
-                <h5 className="text-white mt-3">Building tools</h5>
+                <h5 className="text-white mt-3">Low Interest Loan</h5>
                 <p className="text-white mt-3">
-                  Some quick example text to build on the card title and make
-                  up the bulk of the card's content.
+                  We offer low interest loans that will give you peace of mind
+                  and make sure you are not under pressure.
                 </p>
               </Col>
               <Col lg="4">
                 <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
                   <i className="ni ni-ruler-pencil text-primary" />
                 </div>
-                <h5 className="text-white mt-3">Grow your market</h5>
+                <h5 className="text-white mt-3">We don't bully</h5>
                 <p className="text-white mt-3">
-                  Some quick example text to build on the card title and make
-                  up the bulk of the card's content.
+                  Lots of loan sharks bully you into paying back your loan,
+                  but we do not engage in such activities.
                 </p>
               </Col>
-              <Col lg="4">
+              <Col lg="4" data-aos="fade-left">
                 <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
                   <i className="ni ni-atom text-primary" />
                 </div>
-                <h5 className="text-white mt-3">Launch time</h5>
+                <h5 className="text-white mt-3">24/7 Customer Support</h5>
                 <p className="text-white mt-3">
-                  Some quick example text to build on the card title and make
-                  up the bulk of the card's content.
+                  Our customer support team are always ready to listen to your plight.
+                  Do not hesitate to drop a message when you feel the need to.
                 </p>
               </Col>
             </Row>
           </Container>
-           
+        
         </section>
+
+        <section className="section section-lg pt-lg-0 section-contact-us">
+          <Container>
+            <Row className="justify-content-center mt--300" data-aos="fade-up">
+              <Col lg="8">
+                <Card className="bg-gradient-secondary shadow">
+                  <CardBody className="p-lg-5">
+                    <h4 className="mb-1">Have questions?</h4>
+                    <p className="mt-0">
+                      Please contact us by filling the form below.
+                    </p>
+                    <FormGroup
+                      className={classnames("mt-5", {
+                        focused: this.state.nameFocused
+                      })}
+                    >
+                      <InputGroup className="input-group-alternative">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="ni ni-user-run" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Your name"
+                          type="text"
+                          onFocus={e => this.setState({ nameFocused: true })}
+                          onBlur={e => this.setState({ nameFocused: false })}
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                    <FormGroup
+                      className={classnames({
+                        focused: this.state.emailFocused
+                      })}
+                    >
+                      <InputGroup className="input-group-alternative">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="ni ni-email-83" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Email address"
+                          type="email"
+                          onFocus={e => this.setState({ emailFocused: true })}
+                          onBlur={e => this.setState({ emailFocused: false })}
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                    <FormGroup className="mb-4">
+                      <Input
+                        className="form-control-alternative"
+                        cols="80"
+                        name="name"
+                        placeholder="Type a message..."
+                        rows="4"
+                        type="textarea"
+                      />
+                    </FormGroup>
+                    <div>
+                      <Button
+                        block
+                        className="btn-round"
+                        color="default"
+                        size="lg"
+                        type="button"
+                      >
+                        Send Message
+                      </Button>
+                    </div>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+        
 
         <section className="section section-lg pt-0 mb-5 mt-5">
           <Container>
@@ -204,33 +286,34 @@ class Landing extends React.Component {
                 <Row className="align-items-center">
                   <Col lg="8">
                     <h3 className="text-white">
-                      We made website building easier for you.
+                      We are available on smartphones.
                     </h3>
                     <p className="lead text-white mt-3">
-                      I will be the leader of a company that ends up being
-                      worth billions of dollars, because I got the answers. I
-                      understand culture.
+                      You can download our application from either iphone
+                      store or playstore. The application is smooth and 
+                      we assure you that the experience will be mind blowing.
                     </p>
                   </Col>
                   <Col className="ml-lg-auto" lg="3">
-                    <Button
-                      block
-                      className="btn-white"
-                      color="default"
-                      href="https://www.creative-tim.com/product/argon-design-system-react?ref=adsr-landing-page"
-                      size="lg"
-                    >
-                      Download React
-                    </Button>
+                    <img
+                      data-aos="flip-left"
+                      className="mb-2"
+                      width={200}
+                      alt="..."
+                      src={require("assets/img/brand/iphone.png").default}
+                    />
+                    <img
+                      data-aos="zoom-in-up"
+                      width={200}
+                      alt="..."
+                      src={require("assets/img/brand/playstore.png").default}
+                    />
                   </Col>
                 </Row>
               </div>
             </Card>
           </Container>
         </section>
-
-        
-
         </main>
         <SimpleFooter />
       </>

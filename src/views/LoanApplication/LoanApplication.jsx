@@ -32,8 +32,8 @@ const LoanApplication = () => {
   const [Inputs, setInputs] = useState(initialState)
   const [currentID, setcurrentID] = useState({})
 
-  const {  loanType: { loanTypeData }, loans: { loanData, loanloading, singleLoan }, dashboard: { data }} 
-    = useSelector(state => state)
+  const {  loanType: { loanTypeData }, loans: { loanData, loanloading, singleLoan, viewLoanLoading, errors }, 
+    dashboard: { data }} = useSelector(state => state)
 
   const dispatch = useDispatch()
   
@@ -247,7 +247,8 @@ const LoanApplication = () => {
                           <FormGroup>
                             <Label className="form-control-label">Loan Type</Label>
                             <Input 
-                              onChange={handleChange} 
+                              className={`form-control-alternative ${isEmpty(errors.data?.errors?.loan_type_id) ? "" : "border border-danger"}`}
+                              onChange={handleChange}
                               value={Inputs.loan_type_id}
                               type="select" 
                               name="loan_type_id"
@@ -260,6 +261,11 @@ const LoanApplication = () => {
                                 </option>
                               ))}
                             </Input>
+                            <div className="text-danger text-sm">
+                              {
+                                isEmpty(errors?.data?.errors?.loan_type_id) ? null : errors?.data?.errors?.loan_type_id
+                              }
+                            </div>
                           </FormGroup>
                         </Col>
                       </Row>
@@ -275,7 +281,7 @@ const LoanApplication = () => {
                         Bank Name
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.bank_name) ? "" : "border border-danger"}`}
                         id="input-amount"
                         name='bank_name'
                         value={Inputs.bank_name}
@@ -283,12 +289,18 @@ const LoanApplication = () => {
                         placeholder="e.g Access bank"
                         type="text"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.bank_name) ? null : errors?.data?.errors?.bank_name
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                   <Col lg="6">
                     <FormGroup>
                       <Label className="form-control-label">Account Type</Label>
-                      <Input 
+                      <Input
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.account_type) ? "" : "border border-danger"}`}
                         value={Inputs.account_type} 
                         onChange={handleChange} 
                         type="select" 
@@ -299,6 +311,11 @@ const LoanApplication = () => {
                         <option className='text-capitalize'>savings</option>
                         <option className='text-capitalize'>current</option>
                       </Input>
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.account_type) ? null : errors?.data?.errors?.account_type
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                   <Col lg="6">
@@ -310,13 +327,18 @@ const LoanApplication = () => {
                         Account Number
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.account_number) ? "" : "border border-danger"}`}
                         name="account_number"
                         value={Inputs.account_number}
                         onChange={handleChange}
                         placeholder="e.g 0272637383"
                         type="text"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.account_number) ? null : errors?.data?.errors?.account_number
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                 </Row>
@@ -329,13 +351,18 @@ const LoanApplication = () => {
                         Full Name
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.full_name) ? "" : "border border-danger"}`}
                         name="full_name"
                         value={Inputs.full_name}
                         onChange={handleChange}
                         placeholder="e.g John Doe"
                         type="text"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.full_name) ? null : errors?.data?.errors?.full_name
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                   <Col lg="6">
@@ -347,13 +374,18 @@ const LoanApplication = () => {
                         Email
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.email) ? "" : "border border-danger"}`}
                         name="email"
                         value={Inputs.email}
                         onChange={handleChange}
                         placeholder="e.g johndoe@mail.com"
                         type="email"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.email) ? null : errors?.data?.errors?.email
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                   <Col>
@@ -365,13 +397,18 @@ const LoanApplication = () => {
                         Full Address
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.address) ? "" : "border border-danger"}`}
                         name="address"
                         value={Inputs.address}
                         onChange={handleChange}
                         placeholder="e.g 5 Wall Street"
                         type="text"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.address) ? null : errors?.data?.errors?.address
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                 </Row>
@@ -385,13 +422,18 @@ const LoanApplication = () => {
                         Phone Number
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.phone) ? "" : "border border-danger"}`}
                         name="phone"
                         value={Inputs.phone}
                         onChange={handleChange}
                         placeholder="e.g 5 Wall Street"
                         type="text"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.phone) ? null : errors?.data?.errors?.phone
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                   <Col>
@@ -403,13 +445,18 @@ const LoanApplication = () => {
                         Relationship
                       </label>
                       <Input
-                        className="form-control-alternative"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.relationship) ? "" : "border border-danger"}`}
                         name="relationship"
                         value={Inputs.relationship}
                         onChange={handleChange}
                         placeholder="e.g 5 Wall Street"
                         type="text"
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.relationship) ? null : errors?.data?.errors?.relationship
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                 </Row>
@@ -423,10 +470,16 @@ const LoanApplication = () => {
                       </label>
                       <Input
                         type="textarea"
+                        className={`form-control-alternative ${isEmpty(errors.data?.errors?.reason) ? "" : "border border-danger"}`}
                         value={Inputs.reason}
                         name='reason'
                         onChange={handleChange}
                       />
+                      <div className="text-danger text-sm">
+                        {
+                          isEmpty(errors?.data?.errors?.reason) ? null : errors?.data?.errors?.reason
+                        }
+                      </div>
                     </FormGroup>
                   </Col>
                 </Row>
@@ -438,124 +491,126 @@ const LoanApplication = () => {
             </ModalFooter>
           </Form>
         </Modal>
-        <Modal isOpen={toggleViewModal} size="lg">
+        <Modal isOpen={toggleViewModal} size="lg" id>
           <ModalHeader toggle={ViewLoanApplicationModal}>Loan Details</ModalHeader>
           <ModalBody>
-            <div>
-              <div className='text-right font-weight-bold' >
-                <Button
-                  // color="primary"
-                  href="#pablo"
-                  className="text-capitalize text-white"
-                  onClick={(e) => e.preventDefault()}
-                  style={{ background: loanColor(singleLoan?.loan_status )}}
-                  size="sm"
-                >
-                  {singleLoan?.loan_status}
-                </Button>
-              </div>
-              <Row>
-                <Col>
-                  <small>Account Number:</small> 
-                  <div className='font-weight-bold'>{ singleLoan?.account_number }</div>
-                </Col>
-                <Col>
-                  <small>Account type:</small>
-                  <div className='text-capitalize font-weight-bold'>{ singleLoan?.account_type }</div>
-                </Col>
-                <Col>
-                  <small>Bank Name:</small> 
-                  <div className='text-capitalize font-weight-bold'>
-                    { singleLoan?.bank_name }
+            {viewLoanLoading ? (<Spinner className='m-auto d-flex justify-content-center' animation="border" 
+              style={{ width:"4rem", height:"4rem" }} />) : (
+                <div>
+                  <div className='text-right font-weight-bold' >
+                    <Button
+                      // color="primary"
+                      className="text-capitalize text-white"
+                      onClick={(e) => e.preventDefault()}
+                      style={{ background: loanColor(singleLoan?.loan_status )}}
+                      size="sm"
+                    >
+                      {singleLoan?.loan_status}
+                    </Button>
                   </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <hr className="my-3" />
-                  <h6 className="heading-small text-muted">
-                   Loan Category
-                  </h6>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <small>Category Name:</small> 
-                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.name }</div>
-                </Col>
-                <Col>
-                  <small>Amount:</small> 
-                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.amount }</div>
-                </Col>
-                <Col>
-                  <small>Repayment Amount:</small> 
-                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.repayment_amount }</div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <small>Payment Due In:</small> 
-                  <div className='font-weight-bold'>{ singleLoan?.loan_type?.repayment_days }</div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <hr className="my-3" />
-                  <h6 className="heading-small text-muted">
-                    Guarantor's Data
-                  </h6>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <small>Full Name:</small> 
-                  <div className='font-weight-bold'>{ singleLoan?.guarantor?.full_name }</div>
-                </Col>
-                <Col>
-                  <small>Phone Number:</small>
-                  <div className='text-capitalize font-weight-bold'>{ singleLoan?.guarantor?.phone }</div>
-                </Col>
-                <Col>
-                  <small>Email:</small> 
-                  <div className='text-capitalize font-weight-bold'>
-                    { singleLoan?.guarantor?.email }
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <small>Relationship:</small> 
-                  <div className='text-capitalize font-weight-bold'>
-                    { singleLoan?.guarantor?.relationship }
-                  </div>
-                </Col>
-                <Col>
-                  <small>Address:</small> 
-                  <div className='text-capitalize font-weight-bold'>
-                    { singleLoan?.guarantor?.address }
-                  </div>
-                </Col>
-                <Col></Col>
-              </Row>
-              <Row className='mt-2'>
-                <Col>
-                  <small>Reason for Loan Reqest:</small> 
-                  <div className='text-capitalize font-weight-bold'>
-                    { singleLoan?.reason }
-                  </div>
-                </Col>
-              </Row>
-              {!singleLoan?.rejection_reason == null || singleLoan?.status == 'rejected' ? (
-                <Row className='mt-2'>
-                  <Col>
-                    <small>Loan Rejection Due to:</small> 
-                    <div className='text-capitalize font-weight-bold'>
-                      { singleLoan?.rejection_reason }
-                    </div>
-                  </Col>
-                </Row>
-              ): '' }
-            </div>
+                  <Row>
+                    <Col>
+                      <small>Account Number:</small> 
+                      <div className='font-weight-bold'>{ singleLoan?.account_number }</div>
+                    </Col>
+                    <Col>
+                      <small>Account type:</small>
+                      <div className='text-capitalize font-weight-bold'>{ singleLoan?.account_type }</div>
+                    </Col>
+                    <Col>
+                      <small>Bank Name:</small> 
+                      <div className='text-capitalize font-weight-bold'>
+                        { singleLoan?.bank_name }
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <hr className="my-3" />
+                      <h6 className="heading-small text-muted">
+                      Loan Category
+                      </h6>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <small>Category Name:</small> 
+                      <div className='font-weight-bold'>{ singleLoan?.loan_type?.name }</div>
+                    </Col>
+                    <Col>
+                      <small>Amount:</small> 
+                      <div className='font-weight-bold'>{ singleLoan?.loan_type?.amount }</div>
+                    </Col>
+                    <Col>
+                      <small>Repayment Amount:</small> 
+                      <div className='font-weight-bold'>{ singleLoan?.loan_type?.repayment_amount }</div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <small>Payment Due In:</small> 
+                      <div className='font-weight-bold'>{ singleLoan?.loan_type?.repayment_days }</div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <hr className="my-3" />
+                      <h6 className="heading-small text-muted">
+                        Guarantor's Data
+                      </h6>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <small>Full Name:</small> 
+                      <div className='font-weight-bold'>{ singleLoan?.guarantor?.full_name }</div>
+                    </Col>
+                    <Col>
+                      <small>Phone Number:</small>
+                      <div className='text-capitalize font-weight-bold'>{ singleLoan?.guarantor?.phone }</div>
+                    </Col>
+                    <Col>
+                      <small>Email:</small> 
+                      <div className='text-capitalize font-weight-bold'>
+                        { singleLoan?.guarantor?.email }
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <small>Relationship:</small> 
+                      <div className='text-capitalize font-weight-bold'>
+                        { singleLoan?.guarantor?.relationship }
+                      </div>
+                    </Col>
+                    <Col>
+                      <small>Address:</small> 
+                      <div className='text-capitalize font-weight-bold'>
+                        { singleLoan?.guarantor?.address }
+                      </div>
+                    </Col>
+                    <Col></Col>
+                  </Row>
+                  <Row className='mt-2'>
+                    <Col>
+                      <small>Reason for Loan Reqest:</small> 
+                      <div className='text-capitalize font-weight-bold'>
+                        { singleLoan?.reason }
+                      </div>
+                    </Col>
+                  </Row>
+                  {!singleLoan?.rejection_reason == null || singleLoan?.status == 'rejected' ? (
+                    <Row className='mt-2'>
+                      <Col>
+                        <small>Loan Rejection Due to:</small> 
+                        <div className='text-capitalize font-weight-bold'>
+                          { singleLoan?.rejection_reason }
+                        </div>
+                      </Col>
+                    </Row>
+                  ): '' }
+                </div>
+              )}
           </ModalBody>
           <ModalFooter>
             <Button color="danger" onClick={ViewLoanApplicationModal}>Close</Button>
