@@ -13,6 +13,7 @@ import KYCRejected from "views/Applications/KYCRejected";
 import LoanPending from "views/Applications/LoanPending";
 import LoanApproved from "views/Applications/LoanApproved";
 import LoanRejected from "views/Applications/LoanRejected";
+import LoginSuccess from "views/Auth/LoginSuccess";
 
 const routes = [
   {
@@ -137,6 +138,15 @@ const routes = [
     name: "Register",
     icon: "ni ni-circle-08 text-pink",
     component: Register,
+    layout: "/auth",
+    show:false,
+    checkadmin:false
+  },
+  {
+    path: '/login-success',
+    name: "Register",
+    icon: "ni ni-circle-08 text-pink",
+    component: LoginSuccess,
     layout: "/auth",
     show:false,
     checkadmin:false

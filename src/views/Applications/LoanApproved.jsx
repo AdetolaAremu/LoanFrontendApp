@@ -128,6 +128,38 @@ const LoanApproved = () => {
             <div>
               <Row>
                 <Col>
+                  <small>First Name:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.user?.first_name }</div>
+                </Col>
+                <Col>
+                  <small>Last Name:</small>
+                  <div className='text-capitalize font-weight-bold'>{ singleLoan?.user?.last_name }</div>
+                </Col>
+                <Col>
+                  <small>Phone Number:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.user?.phone }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Email:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.user?.email }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <hr className="my-3" />
+                  <h6 className="heading-small text-muted">
+                    Account Information
+                  </h6>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
                   <small>Account Number:</small> 
                   <div className='font-weight-bold'>{ singleLoan?.account_number }</div>
                 </Col>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, ModalBody, ModalHeader,
-  Modal, ModalFooter
+  Modal, ModalFooter, Spinner
 } from "reactstrap";
 import { updateProfile } from './actions/action';
 import process from 'env';
@@ -17,7 +17,7 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   
-  const { admin: { dashboardData }, profiler: {profileLoading}  } = useSelector(state => state)
+  const { admin: { dashboardData, dashboardDataLoading }, profiler: {profileLoading}  } = useSelector(state => state)
 
   const toggleEditModal = () => {
     seteditProfileModal(!editProfileModal)
@@ -144,75 +144,78 @@ const Profile = () => {
 
         <Modal isOpen={editProfileModal} size="lg">
           <ModalHeader toggle={closeModal}>Edit Profile</ModalHeader>
-            <Form onClick={handleSubmit}>
-              <ModalBody>
-                  <Row>
-                    <Col>
-                      <FormGroup>
-                        <label
-                          className="form-control-label">
-                          First Name
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          value={inputs.first_name}
-                          name="first_name"
-                          onChange={handleChange}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col>
-                      <FormGroup>
-                        <label
-                          className="form-control-label">
-                          Last Name
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          value={inputs.last_name}
-                          name="last_name"
-                          onChange={handleChange}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <FormGroup>
-                        <label
-                          className="form-control-label">
-                          Email
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          value={inputs.email}
-                          type='email'
-                          name="email"
-                          onChange={handleChange}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col>
-                      <FormGroup>
-                        <label
-                          className="form-control-label">
-                          Phone Number
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          value={inputs.phone}
-                          name="phone"
-                          onChange={handleChange}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-              </ModalBody>
-              <ModalFooter>
-                <Button className='btn-success' type='submit'>Submit</Button>
-                <Button className='btn-danger' onClick={closeModal}>Cancel</Button>
-              </ModalFooter>
-            </Form>
+            {!inputs.first_name ? (<Spinner className='m-auto d-flex justify-content-center' 
+              animation="border" style={{ width:"4rem", height:"4rem" }} />) : (
+                <Form onClick={handleSubmit}>
+                  <ModalBody>
+                      <Row>
+                        <Col>
+                          <FormGroup>
+                            <label
+                              className="form-control-label">
+                              First Name
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              value={inputs.first_name}
+                              name="first_name"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col>
+                          <FormGroup>
+                            <label
+                              className="form-control-label">
+                              Last Name
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              value={inputs.last_name}
+                              name="last_name"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <FormGroup>
+                            <label
+                              className="form-control-label">
+                              Email
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              value={inputs.email}
+                              type='email'
+                              name="email"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col>
+                          <FormGroup>
+                            <label
+                              className="form-control-label">
+                              Phone Number
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              value={inputs.phone}
+                              name="phone"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button className='btn-success' type='submit'>Submit</Button>
+                    <Button className='btn-danger' onClick={closeModal}>Cancel</Button>
+                  </ModalFooter>
+                </Form>
+              )}
         </Modal>
       </div>
     </>

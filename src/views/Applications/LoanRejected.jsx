@@ -38,108 +38,139 @@ const LoanRejected = () => {
       <ToastContainer />
       <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
-            {/* Table */}
-            <Row>
-              <div className="col">
-                <Card className="shadow">
-                  <CardHeader className="border-0">
-                    <h3 className="mb-0">Loan Rejected Table</h3>
-                  </CardHeader>
-                  { applicationLoading ? (<Spinner className='m-auto' animation="border" 
-                    style={{ width:"4rem", height:"4rem" }} />)
-                    : applicationData.length ? (
-                    <Table className="align-items-center table-flush" responsive>
-                      <thead className="thead-light">
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Request Type</th>
-                          <th scope="col">Loan Status</th>
-                          <th scope="col">Date Created</th>
-                          <th scope="col">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      {applicationData.map((rejectedLoan, index) => (
-                        <tr key={rejectedLoan.id}>
-                          <th scope="col">{ index + 1 }</th>
-                          <th scope="row">
-                            <Media className="align-items-center">
-                              <span className="mb-0 text-sm">
-                                { rejectedLoan?.user?.first_name } { rejectedLoan?.user?.last_name }
-                              </span>
-                            </Media>
-                          </th>
-                          <td>Loan</td>
-                          <td className=''>
-                            <Badge color="" className="badge-dot mr-4 text-capitalize">
-                              <i className="bg-warning" />
-                              { rejectedLoan?.loan_status }
-                            </Badge>
-                          </td>
-                          <td>
-                          { new Date(rejectedLoan?.created_at).toLocaleDateString("en-us", 
-                            { day:"2-digit", month:"2-digit", year:"numeric" }
-                          ) }   
-                          </td>
-                          <td>
-                            <div className="d-flex align-items-center">
-                              <Link>
-                                <Button onClick={(e) => handleModal(rejectedLoan.id, e)} className="bg-gradient-primary text-white">
-                                  Take Action
-                                </Button>
-                              </Link>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                      </tbody>
-                    </Table>
-                   ):(<div className='text-center'>No data to display</div>)}
-                  <CardFooter className="py-4">
-                    <nav aria-label="...">
-                      <Pagination
-                        className="pagination justify-content-end mb-0"
-                        listClassName="justify-content-end mb-0"
-                      >
-                        <PaginationItem className="disabled">
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                            tabIndex="-1"
-                          >
-                            <i className="fas fa-angle-left" />
-                            <span className="sr-only">Previous</span>
-                          </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem className="active">
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            1
-                          </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            2 <span className="sr-only">(current)</span>
-                          </PaginationLink>
-                        </PaginationItem>
-                      </Pagination>
-                    </nav>
-                  </CardFooter>
-                </Card>
-              </div>
-            </Row>
+          <Row>
+            <div className="col">
+              <Card className="shadow">
+                <CardHeader className="border-0">
+                  <h3 className="mb-0">Loan Rejected Table</h3>
+                </CardHeader>
+                { applicationLoading ? (<Spinner className='m-auto' animation="border" 
+                  style={{ width:"4rem", height:"4rem" }} />)
+                  : applicationData.length ? (
+                  <Table className="align-items-center table-flush" responsive>
+                    <thead className="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Request Type</th>
+                        <th scope="col">Loan Status</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {applicationData.map((rejectedLoan, index) => (
+                      <tr key={rejectedLoan.id}>
+                        <th scope="col">{ index + 1 }</th>
+                        <th scope="row">
+                          <Media className="align-items-center">
+                            <span className="mb-0 text-sm">
+                              { rejectedLoan?.user?.first_name } { rejectedLoan?.user?.last_name }
+                            </span>
+                          </Media>
+                        </th>
+                        <td>Loan</td>
+                        <td className=''>
+                          <Badge color="" className="badge-dot mr-4 text-capitalize">
+                            <i className="bg-warning" />
+                            { rejectedLoan?.loan_status }
+                          </Badge>
+                        </td>
+                        <td>
+                        { new Date(rejectedLoan?.created_at).toLocaleDateString("en-us", 
+                          { day:"2-digit", month:"2-digit", year:"numeric" }
+                        ) }   
+                        </td>
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <Link>
+                              <Button onClick={(e) => handleModal(rejectedLoan.id, e)} className="bg-gradient-primary text-white">
+                                Take Action
+                              </Button>
+                            </Link>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                    </tbody>
+                  </Table>
+                  ):(<div className='text-center'>No data to display</div>)}
+                <CardFooter className="py-4">
+                  <nav aria-label="...">
+                    <Pagination
+                      className="pagination justify-content-end mb-0"
+                      listClassName="justify-content-end mb-0"
+                    >
+                      <PaginationItem className="disabled">
+                        <PaginationLink
+                          href="#pablo"
+                          onClick={(e) => e.preventDefault()}
+                          tabIndex="-1"
+                        >
+                          <i className="fas fa-angle-left" />
+                          <span className="sr-only">Previous</span>
+                        </PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem className="active">
+                        <PaginationLink
+                          href="#pablo"
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          1
+                        </PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink
+                          href="#pablo"
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          2 <span className="sr-only">(current)</span>
+                        </PaginationLink>
+                      </PaginationItem>
+                    </Pagination>
+                  </nav>
+                </CardFooter>
+              </Card>
+            </div>
+          </Row>
         </Container>
       </div>
       <Modal isOpen={toggleModal} size="lg">
         <ModalHeader toggle={handleModal}>Take Action on Loan Request</ModalHeader>
           <ModalBody>
             <div>
+              <Row>
+                <Col>
+                  <small>First Name:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.user?.first_name }</div>
+                </Col>
+                <Col>
+                  <small>Last Name:</small>
+                  <div className='text-capitalize font-weight-bold'>{ singleLoan?.user?.last_name }</div>
+                </Col>
+                <Col>
+                  <small>Phone Number:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.user?.phone }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Email:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.user?.email }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <hr className="my-3" />
+                  <h6 className="heading-small text-muted">
+                    Account Information
+                  </h6>
+                </Col>
+              </Row>
               <Row>
                 <Col>
                   <small>Account Number:</small> 

@@ -135,31 +135,6 @@ const LoanPending = () => {
                             1
                           </PaginationLink>
                         </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            2 <span className="sr-only">(current)</span>
-                          </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            3
-                          </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            <i className="fas fa-angle-right" />
-                            <span className="sr-only">Next</span>
-                          </PaginationLink>
-                        </PaginationItem>
                       </Pagination>
                     </nav>
                   </CardFooter>
@@ -173,6 +148,38 @@ const LoanPending = () => {
         <Form>
           <ModalBody>
             <div>
+              <Row>
+                <Col>
+                  <small>First Name:</small> 
+                  <div className='font-weight-bold'>{ singleLoan?.user?.first_name }</div>
+                </Col>
+                <Col>
+                  <small>Last Name:</small>
+                  <div className='text-capitalize font-weight-bold'>{ singleLoan?.user?.last_name }</div>
+                </Col>
+                <Col>
+                  <small>Phone Number:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.user?.phone }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small>Email:</small> 
+                  <div className='text-capitalize font-weight-bold'>
+                    { singleLoan?.user?.email }
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <hr className="my-3" />
+                  <h6 className="heading-small text-muted">
+                    Account Information
+                  </h6>
+                </Col>
+              </Row>
               <Row>
                 <Col>
                   <small>Account Number:</small> 

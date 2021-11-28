@@ -55,7 +55,7 @@ export const registerNewUser = (userData) => dispatch =>{
   axios.post(`${service_url}/register`, userData)
   .then(()=>{
     dispatch({ type: AUTH_LOADING_ENDS })
-    notify("Registration successful, you can now login");
+    // notify("Registration successful, you can now login");
     window.location.href = CONSTANTS.LOGIN;
   }).catch((error) => {
     dispatch({type: AUTH_LOADING_ENDS});
