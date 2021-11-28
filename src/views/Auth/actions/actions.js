@@ -5,7 +5,7 @@ import setAuthToken from "utils/setAuthToken";
 import { notify } from "utils/notification";
 import process from "env.js"
 import CONSTANTS from "Routes/routes.json"
-import { AUTH_LOADING_ENDS, AUTH_LOADING_STARTS, CHECK_USER_ROLE, GET_AUTH_ERROR, GET_LOGGED_IN_USER_DETAILS, REDIRECT_TO, SET_CURRENT_USER } from "./types";
+import { AUTH_LOADING_ENDS, AUTH_LOADING_STARTS, CHECK_USER_ROLE, GET_AUTH_ERROR, SET_CURRENT_USER } from "./types";
 // import { REDIRECT_TO } from "stats/statType";
 
 const service_url = process.env.SERVICE_URL
@@ -35,8 +35,11 @@ export const loginUser = (userData) => {
       dispatch({type: AUTH_LOADING_ENDS});
       if (error.response) {
         if (error.response.status == 422) {
-          dispatch({type: GET_AUTH_ERROR, payload:error})
+          dispatch({type: GET_AUTH_ERROR, payload:error.response})
           return notify('There are errors in your input', 'error')
+        } else if(error.response.status == 400){
+          dispatch({type: GET_AUTH_ERROR, payload:error.response})
+          return notify('Email and password do not match', 'error')
         } else if (error.response.status == 500) {
           dispatch({type: GET_AUTH_ERROR, payload:error.response})
         } else {
@@ -49,16 +52,16 @@ export const loginUser = (userData) => {
 
 export const registerNewUser = (userData) => dispatch =>{
   dispatch({ type:AUTH_LOADING_STARTS });
-  axios.post(`${service_url}/login`, userData)
+  axios.post(`${service_url}/register`, userData)
   .then(()=>{
     dispatch({ type: AUTH_LOADING_ENDS })
+    notify("Registration successful, you can now login");
     window.location.href = CONSTANTS.LOGIN;
-    return notify("Registration successful, you can now login");
   }).catch((error) => {
     dispatch({type: AUTH_LOADING_ENDS});
     if (error.response) {
       if (error.response.status == 422) {
-        dispatch({type: GET_AUTH_ERROR, payload:error})
+        dispatch({type: GET_AUTH_ERROR, payload:error.response})
         return notify('There are errors in your input', 'error')
       } else if (error.response.status == 500) {
         dispatch({type: GET_AUTH_ERROR, payload:error.response})

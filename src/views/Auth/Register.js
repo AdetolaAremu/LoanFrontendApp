@@ -1,11 +1,14 @@
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import "../Auth/authStyles.css";
 import {
   Button, Card, CardHeader, CardBody, FormGroup, Form,
   Input, InputGroupAddon, InputGroupText,InputGroup, Row, Col,
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
+import isEmpty from 'utils/isEmpty';
+import { registerNewUser } from './actions/actions';
 
 const initialState = {
   first_name: "", last_name:"", email:"", phone:"", password:"", confirm_password:""
@@ -14,17 +17,8 @@ const initialState = {
 const Register = () => {
   const [Inputs, setInputs] = useState(initialState)
 
-  const strength = (length) => {
-    if(length < 3){
-        return 'weak'
-    }
-    else if(length = 5){
-      return 'good'
-    }
-    else if (length = 7) {
-      return 'strong'
-    }
-  }
+  const { allAuths: { authLoading, errors } } = useSelector(state => state)
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     setInputs({...Inputs, [e.target.name]: e.target.value})
@@ -32,7 +26,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('inputs', Inputs)
+    dispatch(registerNewUser(Inputs))
   }
 
   return (
@@ -52,14 +46,21 @@ const Register = () => {
                       <i className="ni ni-hat-3" />
                     </InputGroupText>
                   </InputGroupAddon>
+                  {console.log('regerror', errors.data)}
                   <Input 
-                    placeholder="First name" 
+                    placeholder="First name"
+                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.first_name) ? "" : "border border-danger"}`}
                     type="text"
                     name='first_name'
                     onChange={handleChange}
                     value={Inputs.first_name} 
                   />
                 </InputGroup>
+                <div className="text-danger text-sm">
+                  {
+                    isEmpty(errors?.data?.errors?.first_name) ? null : errors?.data?.errors?.first_name
+                  }
+                </div>
               </FormGroup>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
@@ -69,6 +70,7 @@ const Register = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input 
+                     className={`form-control-alternative ${isEmpty(errors.data?.errors?.last_name) ? "" : "border border-danger"}`}
                     placeholder="Last name" 
                     type="text"
                     name='last_name'
@@ -76,6 +78,11 @@ const Register = () => {
                     value={Inputs.last_name} 
                   />
                 </InputGroup>
+                <div className="text-danger text-sm">
+                  {
+                    isEmpty(errors?.data?.errors?.last_name) ? null : errors?.data?.errors?.last_name
+                  }
+                </div>
               </FormGroup>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
@@ -86,6 +93,7 @@ const Register = () => {
                   </InputGroupAddon>
                   <Input
                     placeholder="Email"
+                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.email) ? "" : "border border-danger"}`}
                     type="email"
                     autoComplete="new-email"
                     name='email'
@@ -93,6 +101,11 @@ const Register = () => {
                     value={Inputs.email}
                   />
                 </InputGroup>
+                <div className="text-danger text-sm">
+                  {
+                    isEmpty(errors?.data?.errors?.email) ? null : errors?.data?.errors?.email
+                  }
+                </div>
               </FormGroup>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
@@ -102,13 +115,19 @@ const Register = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input 
-                    placeholder="Phone number" 
+                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.phone) ? "" : "border border-danger"}`}
+                    placeholder="Phone number"
                     type="text"
                     name='phone'
                     onChange={handleChange}
                     value={Inputs.phone} 
                   />
                 </InputGroup>
+                <div className="text-danger text-sm">
+                  {
+                    isEmpty(errors?.data?.errors?.phone) ? null : errors?.data?.errors?.phone
+                  }
+                </div>
               </FormGroup>
               <FormGroup>
                 <InputGroup className="input-group-alternative">
@@ -118,6 +137,7 @@ const Register = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
+                     className={`form-control-alternative ${isEmpty(errors.data?.errors?.password) ? "" : "border border-danger"}`}
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
@@ -126,12 +146,11 @@ const Register = () => {
                     value={Inputs.password} 
                   />
                 </InputGroup>
-                {/* <span className={`${strength(Inputs?.password?.length)}`}>
+                <div className="text-danger text-sm">
                   {
-                    Inputs.password.length <= 0 ? "" : 
-                    <small>strength</small>
+                    isEmpty(errors?.data?.errors?.password) ? null : errors?.data?.errors?.password
                   }
-                </span> */}
+                </div>
               </FormGroup>
               <FormGroup>
                 <InputGroup className="input-group-alternative">
@@ -141,6 +160,7 @@ const Register = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
+                    className={`form-control-alternative ${isEmpty(errors.data?.errors?.confirm_password) ? "" : "border border-danger"}`}
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
@@ -149,9 +169,14 @@ const Register = () => {
                     value={Inputs.confirm_password} 
                   />
                 </InputGroup>
+                <div className="text-danger text-sm">
+                  {
+                    isEmpty(errors?.data?.errors?.confirm_password) ? null : errors?.data?.errors?.confirm_password
+                  }
+                </div>
               </FormGroup>
               <div className="text-center">
-                <Button className="mt-4" color="primary" type="submit">
+                <Button className="mt-4" disabled={authLoading} color="primary" type="submit">
                   Create account
                 </Button>
               </div>

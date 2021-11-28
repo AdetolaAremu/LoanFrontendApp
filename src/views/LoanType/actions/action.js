@@ -41,7 +41,6 @@ export const createLoanTypeApplication = (data) => {
         notify(res?.data?.message);
       })
     } catch (error) {
-      console.log('check', error.response)
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
         if (error.response.status == 422) {

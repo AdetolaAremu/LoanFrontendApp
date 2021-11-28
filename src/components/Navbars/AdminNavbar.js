@@ -70,7 +70,7 @@ const AdminNavbar = (props) => {
                 <DropdownItem divider />
                 <DropdownItem>
                   <i className="ni ni-user-run" />
-                  <Button type='submit' onClick={handleLogout}>Logout</Button>
+                  <Button type='submit' className='btn-danger' onClick={handleLogout}>Logout</Button>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

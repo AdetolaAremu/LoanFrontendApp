@@ -55,12 +55,12 @@ const Login = () => {
                     onChange={handleChange}
                     value={Inputs.email}
                   />
-                  <div className="text-danger text-sm">
-                    {
-                      isEmpty(errors?.data?.errors?.email) ? null : errors?.data?.errors?.email
-                    }
-                  </div>
                 </InputGroup>
+                <div className="text-danger text-sm">
+                  {
+                    isEmpty(errors?.data?.errors?.email) ? null : errors?.data?.errors?.email
+                  }
+                </div>
               </FormGroup>
               <FormGroup>
                 <InputGroup className="input-group-alternative">
@@ -79,12 +79,12 @@ const Login = () => {
                     onChange={handleChange}
                     value={Inputs.password}
                   />
-                  <div className="text-danger text-sm">
-                    {
-                      isEmpty(errors?.data?.errors?.password) ? null : errors?.data?.errors?.password
-                    }
-                  </div>
                 </InputGroup>
+                <div className="text-danger text-sm">
+                  {
+                    isEmpty(errors?.data?.errors?.password) ? null : errors?.data?.errors?.password
+                  }
+                </div>
               </FormGroup>
               <div className="text-center">
                 <Button className="my-4" color="primary" type="submit" disabled={authLoading}>
