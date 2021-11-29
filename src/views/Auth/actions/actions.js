@@ -56,7 +56,7 @@ export const registerNewUser = (userData) => dispatch =>{
   .then(()=>{
     dispatch({ type: AUTH_LOADING_ENDS })
     // notify("Registration successful, you can now login");
-    window.location.href = CONSTANTS.LOGIN;
+    window.location.href = CONSTANTS.LOGIN_SUCCESS;
   }).catch((error) => {
     dispatch({type: AUTH_LOADING_ENDS});
     if (error.response) {

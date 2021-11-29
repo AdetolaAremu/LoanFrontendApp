@@ -18,6 +18,7 @@ const Register = () => {
   const [Inputs, setInputs] = useState(initialState)
 
   const { allAuths: { authLoading, errors } } = useSelector(state => state)
+  
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
@@ -46,7 +47,6 @@ const Register = () => {
                       <i className="ni ni-hat-3" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  {console.log('regerror', errors.data)}
                   <Input 
                     placeholder="First name"
                     className={`form-control-alternative ${isEmpty(errors.data?.errors?.first_name) ? "" : "border border-danger"}`}

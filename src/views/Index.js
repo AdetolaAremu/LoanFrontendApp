@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import classnames from "classnames";
-import Chart from "chart.js";
 import { Button, Card, CardHeader, CardBody, NavItem, NavLink, Nav, Progress, Table, Container, 
-  Row, Col, CardTitle, Badge, ModalBody, ModalFooter, Modal, ModalHeader 
-} from "reactstrap";
-import { chartOptions, parseOptions,chartExample1,chartExample2 } from "variables/charts.js";
-import Header from "components/Headers/Header.js";
+  Row, Col, CardTitle, Badge, ModalBody, ModalFooter, Modal, ModalHeader } from "reactstrap";
 import { allUsersCount, dashboardCount, lastFiveUsers } from "../views/DashbordActions/action";
 import { getTypeLoanData } from "./LoanType/actions/action";
 import { DashboardTopLoader } from "utils/MyLoader";
@@ -19,9 +15,6 @@ const Index = (props) => {
   const { mainStats: { adminStats, allUsersStats, lastfiveUsers, adminDataLoading }, 
     loanType: { loanTypeData } } = useSelector(state => state)
 
-  if (window.Chart) {
-    parseOptions(Chart, chartOptions());
-  }
 
   const toggleUsersModal = () => {
     settoggleUsers(!toggleUsers)

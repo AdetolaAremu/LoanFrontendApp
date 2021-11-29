@@ -18,10 +18,8 @@ export const dashboardCount = () => {
       if (error.response) {
         if (error.response.status == 500) {
            dispatch({type: GET_ERROR, payload:error.response})
-         } else if(error.response.status == 401){
+         } else if(error.response.status == 403){
             return notify("You are unauthorized")
-         } else {
-           return notify('Sorry, something went wrong!', 'error')
          }
        } else {
          return notify('Sorry, something went wrong! Check your network', 'error')
@@ -42,10 +40,8 @@ export const allUsersCount = () => {
       if (error.response) {
         if (error.response.status == 500) {
            dispatch({type: GET_ERROR, payload:error.response})
-         } else if(error.response.status == 401){
+         } else if(error.response.status == 403){
             return notify("You are unauthorized")
-         } else {
-           return notify('Sorry, something went wrong!', 'error')
          }
        } else {
          return notify('Sorry, something went wrong! Check your network', 'error')
@@ -67,13 +63,11 @@ export const lastFiveUsers = () => {
       if (error.response) {
         if (error.response.status == 500) {
            dispatch({type: GET_ERROR, payload:error.response})
-         } else if(error.response.status == 401){
+         } else if(error.response.status == 403){
             return notify("You are unauthorized")
-         } else {
-           return notify('Sorry, something went wrong!', 'error')
          }
-       } else {
-         return notify('Sorry, something went wrong! Check your network', 'error')
+      } else {
+        return notify('Sorry, something went wrong! Check your network', 'error')
       }
     }
   }

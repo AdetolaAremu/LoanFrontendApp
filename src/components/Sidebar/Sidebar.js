@@ -73,8 +73,8 @@ const Sidebar = (props) => {
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     const filtered = routes.filter(route=> 
-      route.show !== false
-      // route.show !== false || dashboardData?.role?.name !== "admin" ?  route.show !== false && route.checkadmin == false : route.checkadmin == false && route.show !== false
+      // route.show !== false
+      route.show !== true || dashboardData?.role?.name != "admin" ? route.show == true && route.checkadmin == false : route.checkadmin !== false && route.show == true || route.checkadmin == false
     )
 
     return filtered.map((prop, key) => {

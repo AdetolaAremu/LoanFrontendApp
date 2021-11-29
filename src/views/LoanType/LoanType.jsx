@@ -96,7 +96,7 @@ const LoanType = () => {
           </Link>
         </div>
 
-        <Modal isOpen={toggleDeleteMOdal} id='add_type_modal'>
+        <Modal isOpen={toggleDeleteMOdal}>
           <ModalHeader toggle={handleToggleDeleteModal}>Add Loan Type Form</ModalHeader>
           <ModalBody>
             Are you sure you want to delete?

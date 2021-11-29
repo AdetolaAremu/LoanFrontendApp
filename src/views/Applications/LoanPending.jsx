@@ -30,6 +30,16 @@ const LoanPending = () => {
     dispatch(getSingleLoanData(id))
   }
 
+  const testModalTrue = (id) => {
+    settoggleLoan(toggleLoan == true)
+    setcurrentID(id)
+    dispatch(getSingleLoanData(id))
+  }
+
+  const testModalFalse = (id) => {
+    settoggleLoan(toggleLoan == false)
+  }
+
   const handleApprove = (e) => {
     e.preventDefault()
     dispatch(approveLoan(currentID))
@@ -286,7 +296,7 @@ const LoanPending = () => {
           <ModalFooter>
             <Button color="success" onClick={handleApprove}>Approve</Button>
             <Button color="danger" type='submit' onClick={handleReject}>Reject</Button>
-            <Button color="primary" onClick={toggleModal}>Close</Button>
+            <Button color="primary" onClick={testModalFalse}>Close</Button>
           </ModalFooter>
         </Form>
       </Modal>
