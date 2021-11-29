@@ -98,7 +98,7 @@ const routes = [
     checkadmin:true
   },
   {
-    path: CONSTANTS.LOAN_APPLICATION,
+    path: '/loan-application',
     name: "Loan Application",
     icon: "ni ni-briefcase-24 text-success",
     component: LoanApplication,

@@ -22,6 +22,7 @@ import {
   DropdownMenu, Button, DropdownItem, UncontrolledDropdown, DropdownToggle, Navbar, Nav, Container, Media
 } from "reactstrap";
 import { logoutUser } from "../../views/Auth/actions/actions"
+import { ProfileLoader } from 'utils/MyLoader';
  
 const AdminNavbar = (props) => {
   
@@ -50,7 +51,7 @@ const AdminNavbar = (props) => {
                 <Media className="align-items-center">
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      { dashboardData?.first_name } { dashboardData?.last_name } <i className="ni ni-bold-down" />
+                        { dashboardData?.first_name } { dashboardData?.last_name } <i className="ni ni-bold-down" />
                     </span>
                   </Media>
                 </Media>
@@ -62,10 +63,6 @@ const AdminNavbar = (props) => {
                 <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-single-02" />
                   <span>My profile</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-settings-gear-65" />
-                  <span>Settings</span>
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>

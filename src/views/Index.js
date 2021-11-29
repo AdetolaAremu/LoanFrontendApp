@@ -169,7 +169,7 @@ const Index = (props) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {lastfiveUsers?.data?.map((last) => (
+                      {lastfiveUsers?.map((last) => (
                         <tr>
                         <th scope="row">{ last?.first_name } { last?.last_name }</th>
                         <td>{ last.email }</td>
@@ -241,7 +241,7 @@ const Index = (props) => {
               </tr>
             </thead>
             <tbody>
-              {allUsersStats?.data?.map((all, index) => (
+              {allUsersStats?.map((all, index) => (
                 <tr key={all.id}>
                   <th scope="row">{ index + 1 }</th>
                   <th scope="row">{ all?.first_name } { all?.last_name }</th>

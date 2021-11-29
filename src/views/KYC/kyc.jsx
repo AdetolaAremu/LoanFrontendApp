@@ -143,13 +143,13 @@ const KYC = () => {
                             <Col>
                               <div>
                                 <small className="font-italic">Country: </small> 
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.country_id }</span>
+                                <span className="font-weight-bold">{ dashboardData?.kyc?.country?.name }</span>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small>State: </small>
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.state_id }</span>
+                                <span className="font-weight-bold">{ dashboardData?.kyc?.state?.name }</span>
                               </div>
                             </Col>
                           </Row>
@@ -219,13 +219,14 @@ const KYC = () => {
                             <Col>
                               <div>
                                 <small className="font-italic">NOK Country: </small> 
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.nok_country_id }</span>
+                                {console.log('nok',)}
+                                <span className="font-weight-bold">{ dashboardData?.kyc?.nokcountry?.name }</span>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small>NOK State: </small>
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.nok_state_id }</span>
+                                <span className="font-weight-bold">{ dashboardData?.kyc?.nokstate?.name }</span>
                               </div>
                             </Col>
                           </Row>

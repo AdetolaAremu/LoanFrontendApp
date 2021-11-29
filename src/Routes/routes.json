@@ -6,7 +6,7 @@
   "DASHBOARD": "/admin/index",
   "ALL_APPLICATION": "/applications",
   "LOAN_TYPE": "/loan-type",
-  "LOAN_APPLICATION": "/loan-application",
+  "LOAN_APPLICATION": "/admin/loan-application",
   "KYC_VIEW": "/kyc",
   "USER_PROFILE_VIEW": "/user-profile",
   "KYC_PENDING": "/pending-kyc",

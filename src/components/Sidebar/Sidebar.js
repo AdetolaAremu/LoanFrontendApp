@@ -24,39 +24,14 @@ import { PropTypes } from "prop-types";
 
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Collapse,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Media,
-  NavbarBrand,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Progress,
-  Table,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
+  Collapse, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Media,
+  NavbarBrand, Navbar, NavItem, NavLink, Nav, Container, Row, Col, Spinner } from "reactstrap";
+import { BulletList } from "utils/MyLoader";
 
 var ps;
 
 const Sidebar = (props) => {
-  const { dashboard: { dashboardData} } = useSelector(state => state)
+  const { dashboard: { dashboardData, dashboardDataLoading } } = useSelector(state => state)
   const [collapseOpen, setCollapseOpen] = useState();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
@@ -172,18 +147,6 @@ const Sidebar = (props) => {
                 <i className="ni ni-single-02" />
                 <span>My profile</span>
               </DropdownItem>
-              <DropdownItem to="/user-profile" tag={Link}>
-                <i className="ni ni-settings-gear-65" />
-                <span>Settings</span>
-              </DropdownItem>
-              <DropdownItem to="/user-profile" tag={Link}>
-                <i className="ni ni-calendar-grid-58" />
-                <span>Activity</span>
-              </DropdownItem>
-              <DropdownItem to="/user-profile" tag={Link}>
-                <i className="ni ni-support-16" />
-                <span>Support</span>
-              </DropdownItem>
               <DropdownItem divider />
               <DropdownItem onClick={(e) => e.preventDefault()}>
                 <i className="ni ni-user-run" />
@@ -222,48 +185,25 @@ const Sidebar = (props) => {
               </Col>
             </Row>
           </div>
-          {/* Form */}
-          {/* <Form className="mt-4 mb-3 d-md-none">
-            <InputGroup className="input-group-rounded input-group-merge">
-              <Input
-                aria-label="Search"
-                className="form-control-rounded form-control-prepended"
-                placeholder="Search"
-                type="search"
-              />
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <span className="fa fa-search" />
-                </InputGroupText>
-              </InputGroupAddon>
-            </InputGroup>
-          </Form> */}
-          {/* Navigation */}
-          <Nav navbar>{createLinks(routes)}</Nav>
-          {/* Divider */}
-          <hr className="my-3" />
-          {/* Heading */}
-          <h6 className="navbar-heading text-muted">Extras</h6>
-          <Nav className="mb-md-3" navbar>
-            <NavItem>
-              <NavLink to="/">
-                <i className="ni ni-spaceship" />
-                GitHub Code
-              </NavLink>
-            </NavItem>
-            {/* <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/colors?ref=adr-admin-sidebar">
-                <i className="ni ni-palette" />
-                Foundation
-              </NavLink>
-            </NavItem> */}
-            {/* <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-ui-04" />
-                Components
-              </NavLink>
-            </NavItem> */}
-          </Nav>
+          {/* <BulletList /> */}
+          {dashboardDataLoading ? (<BulletList className="my-4" />) : (
+            <>
+              <Nav navbar>{createLinks(routes)}</Nav>
+        
+              <hr className="my-3" />
+              
+              <h6 className="navbar-heading text-muted">Extras</h6>
+              <Nav className="mb-md-3" navbar>
+                <NavItem>
+                  <NavLink to="/">
+                    <i className="ni ni-spaceship" />
+                    GitHub Code
+                  </NavLink>
+                </NavItem>
+              </Nav>
+            </>
+          )}
+
         </Collapse>
       </Container>
     </Navbar>

@@ -55,7 +55,7 @@ export const lastFiveUsers = () => {
   return async(dispatch) => {
     try {
       dispatch({type: ADMIN_DASHBOARD_DATA_LOADING_STARTS})
-      const response = await axios.get(`${service_url}/users`)
+      const response = await axios.get(`${service_url}/latest-users`)
       dispatch({type: ADMIN_DASHBOARD_DATA_LOADING_ENDS})
       dispatch({type: GET_LAST_FIVE_USERS, payload:response.data})
     } catch (error) {

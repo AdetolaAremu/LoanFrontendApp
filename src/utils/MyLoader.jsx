@@ -8,8 +8,8 @@ export const AppLoader = (props) => {
     width={900}
     height={475}
     viewBox="0 0 700 475"
-    backgroundColor="#cfd7e2"
-    foregroundColor="#918888"
+    backgroundColor="#ffffff"
+    foregroundColor="#80a3ea"
     {...props}
     >
       
@@ -58,4 +58,36 @@ export const DashboardTopLoader = (props) => {
     
   </ContentLoader>
   )   
+}
+
+export const ProfileLoader = (props) => {
+  return (
+    <ContentLoader viewBox="0 0 778 116" width={778} height={116} {...props}>
+      <rect x="37" y="34" rx="0" ry="0" width="0" height="0" />
+      <rect x="28" y="29" rx="0" ry="0" width="258" height="32" />
+      <rect x="28" y="71" rx="0" ry="0" width="465" height="32" />
+      <rect x="434" y="94" rx="0" ry="0" width="0" height="0" />
+      <rect x="29" y="116" rx="0" ry="0" width="749" height="32" />
+    </ContentLoader>
+  )
+}
+
+export const BulletList = (props) => {
+  return(
+    <ContentLoader 
+    speed={2}
+    width={170}
+    height={124}
+    viewBox="0 0 200 124"
+    backgroundColor="#ffffff"
+    foregroundColor="#80a3ea"
+    {...props}
+    >
+      <rect x="9" y="12" rx="3" ry="3" width="380" height="20" /> 
+      <rect x="9" y="42" rx="3" ry="3" width="380" height="20" /> 
+      <rect x="9" y="73" rx="3" ry="3" width="380" height="20" /> 
+      <rect x="8" y="104" rx="3" ry="3" width="380" height="20" /> 
+      <rect x="7" y="136" rx="3" ry="3" width="380" height="20" />
+    </ContentLoader>
+  )
 }

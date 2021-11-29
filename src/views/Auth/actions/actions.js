@@ -27,7 +27,7 @@ export const loginUser = (userData) => {
       setAuthToken(localStorage.jwtToken);
       const decoded =  jwtdecode(token);
       notify(response?.data?.message);
-      window.location.href = CONSTANTS.DASHBOARD;
+      window.location.href = CONSTANTS.LOAN_APPLICATION;
       dispatch(setCurrentUser(decoded));
       dispatch({type: CHECK_USER_ROLE});
       dispatch({type: AUTH_LOADING_ENDS});
