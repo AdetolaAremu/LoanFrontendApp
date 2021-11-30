@@ -1,9 +1,8 @@
 
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { getData } from 'views/Landing/actions/actions';
 import { Button, Card, CardBody, FormGroup, Form,
-  Input, InputGroupAddon, InputGroupText,InputGroup, Row, Col } from "reactstrap";
+  Input, InputGroupAddon, InputGroupText,InputGroup, Col } from "reactstrap";
 import { loginUser } from './actions/actions';
 import { ToastContainer } from 'react-toastify';
 import isEmpty from 'utils/isEmpty';
@@ -71,7 +70,6 @@ const Login = () => {
                   </InputGroupAddon>
                   <Input
                     className={`form-control-alternative ${isEmpty(errors.data?.errors?.password) ? "" : "border border-danger"}`}
-                    placeholder="Email"
                     placeholder="Password"
                     type="password"
                     name='password'

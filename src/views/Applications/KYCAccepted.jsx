@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RectSpinner } from 'utils/loader/Loader';
 import { getSingleKYCData } from 'views/KYC/actions/action';
 import { getApprovedKYC } from './actions/action';
 import {
-  Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Table,
-  Container, Row, ModalFooter, Modal, ModalBody, ModalHeader, Form, Col, FormGroup, Input, Spinner
+  Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink, Button, Table,
+  Container, Row, ModalFooter, Modal, ModalBody, ModalHeader, Form, Col, Spinner
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
-
 
 const KYCAccepted = () => {
   const [toggleAccepted, settoggleAccepted] = useState(false)
@@ -22,7 +20,7 @@ const KYCAccepted = () => {
 
   const toggleModal = (id) => {
     setcurrentID(id)
-    dispatch(getSingleKYCData(id))
+    dispatch(getSingleKYCData(currentID))
     settoggleAccepted(!toggleAccepted)
   }
 

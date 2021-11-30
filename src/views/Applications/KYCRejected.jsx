@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RectSpinner } from "utils/loader/Loader";
 import { Link } from 'react-router-dom';
 import {
   Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink,
-  Progress, Button, Table, Container, Row, UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, 
-  Form, Col, FormGroup, Input, Spinner
+  Button, Table, Container, Row, ModalFooter, Modal, ModalBody, ModalHeader, Form, Col, Spinner
 } from "reactstrap";
 import { getRejectedKYC, recycleKYC } from "./actions/action";
 import { getSingleKYCData } from "views/KYC/actions/action";

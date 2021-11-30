@@ -4,10 +4,9 @@ import { getLoanData, createLoanApplication, getSingleLoanData } from "./actions
 import { getTypeLoanData } from "../LoanType/actions/action";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown,
-  DropdownToggle, Media, Pagination, PaginationItem, PaginationLink, Button,
-  Progress, Table, Container, Row, UncontrolledTooltip, Modal, ModalBody,
-  ModalHeader, ModalFooter, Col, FormGroup, Input, Form, Label, Spinner
+  Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink, Button,
+  Table, Container, Row, Modal, ModalBody, ModalHeader, ModalFooter, Col, FormGroup, 
+  Input, Form, Label, Spinner
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
 import isEmpty from 'utils/isEmpty';
@@ -33,7 +32,7 @@ const LoanApplication = () => {
   const [currentID, setcurrentID] = useState({})
 
   const {  loanType: { loanTypeData }, loans: { loanData, loanloading, singleLoan, viewLoanLoading, errors }, 
-    dashboard: { dashboardData, dashboardkycData }} = useSelector(state => state)
+    dashboard: { dashboardkycData }} = useSelector(state => state)
 
   const dispatch = useDispatch()
   
@@ -44,7 +43,7 @@ const LoanApplication = () => {
 
   const ViewLoanApplicationModal = (id) => {
     setcurrentID(id)
-    dispatch(getSingleLoanData(id));
+    dispatch(getSingleLoanData(currentID));
     settoggleViewModal(!toggleViewModal)
 
   }
@@ -63,13 +62,13 @@ const LoanApplication = () => {
   }, [])
 
   const loanColor = (loan_status) => {
-    if (loan_status == 'pending') {
+    if (loan_status === 'pending') {
       return 'orange'
     }
-    if (loan_status == 'failed') {
+    if (loan_status === 'failed') {
       return 'red'
     }
-    if (loan_status == 'accepted') {
+    if (loan_status === 'accepted') {
       return 'green'
     }
   }
@@ -81,8 +80,8 @@ const LoanApplication = () => {
         <div className='text-right'>
           <Link>
             <Button onClick={ModalLoanApplication} 
-              disabled={dashboardkycData?.status == 'pending' 
-                || dashboardkycData?.status == 'rejected' || dashboardkycData == null
+              disabled={dashboardkycData?.status === 'pending' 
+                || dashboardkycData?.status === 'rejected' || dashboardkycData === null
               }
               className='mx-5'
               id="uncontrolled"
@@ -125,17 +124,17 @@ const LoanApplication = () => {
                             </th>
                             <td>{ loan?.loan_type?.amount }</td>
                             <td>
-                              {loan.loan_status == 'pending' ?
+                              {loan.loan_status === 'pending' ?
                                 ( <Badge color="" className="badge-dot mr-4 text-capitalize">
                                     <i className="bg-yellow" />
                                     { loan.loan_status }
                                   </Badge>)
-                                : loan.loan_status == 'accepted' ? (
+                                : loan.loan_status === 'accepted' ? (
                                   <Badge color="" className="badge-dot mr-4 text-capitalize">
                                     <i className="bg-success" />
                                     { loan.loan_status }
                                   </Badge>
-                                ) : loan.loan_status == 'failed' ? (
+                                ) : loan.loan_status === 'failed' ? (
                                   <Badge color="" className="badge-dot mr-4 text-capitalize">
                                     <i className="bg-danger" />
                                     { loan.loan_status }
@@ -145,9 +144,9 @@ const LoanApplication = () => {
                               
                             </td>
                             <td>
-                              { loan?.repaid == 0 && loan?.loan_status == "accepted" ? ("Not Paid") 
-                                : loan?.repaid == 0 && loan?.loan_status == ("failed") || 
-                                loan?.loan_status == "pending" ? "--" : "Paid"
+                              { (loan?.repaid === 0 && loan?.loan_status === "accepted") ? ("Not Paid") 
+                                : (loan?.repaid === 0 && loan?.loan_status === ("failed")) || 
+                                loan?.loan_status === "pending" ? "--" : "Paid"
                               }
                             </td>
                             <td>
@@ -565,7 +564,7 @@ const LoanApplication = () => {
                       </div>
                     </Col>
                   </Row>
-                  {!singleLoan?.rejection_reason == null || singleLoan?.status == 'rejected' ? (
+                  {!singleLoan?.rejection_reason === null || singleLoan?.status === 'rejected' ? (
                     <Row className='mt-2'>
                       <Col>
                         <small>Loan Rejection Due to:</small> 

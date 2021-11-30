@@ -1,4 +1,4 @@
-import { DELETE_LOAN_TYPE, GET_LOAN_DATA, GET_LOAN_TYPE_DATA, GET_LOAN_TYPE_DATA_ERROR, GET_SINGLE_LOAN_TYPE_DATA, LOAN_DATA_LOADING_ENDS, LOAN_DATA_LOADING_STARTS, LOAN_TYPE_CRUD_OPERATIONS_ENDS, LOAN_TYPE_CRUD_OPERATIONS_STARTS, LOAN_TYPE_DATA_LOADING_ENDS, LOAN_TYPE_DATA_LOADING_STARTS } from './types'
+import { DELETE_LOAN_TYPE, GET_LOAN_TYPE_DATA, GET_LOAN_TYPE_DATA_ERROR, GET_SINGLE_LOAN_TYPE_DATA, LOAN_TYPE_CRUD_OPERATIONS_ENDS, LOAN_TYPE_CRUD_OPERATIONS_STARTS, LOAN_TYPE_DATA_LOADING_ENDS, LOAN_TYPE_DATA_LOADING_STARTS } from './types'
 import axios from 'axios';
 import process from 'env.js';
 import { notify } from 'utils/notification';
@@ -16,9 +16,9 @@ export const getTypeLoanData = () => {
     } catch (error) {
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
-        if (error.response.status == 500) {
+        if (error.response.status === 500) {
            dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error.response})
-         } else if(error.response.status == 401){
+         } else if(error.response.status === 401){
             return notify("You are not unauthorized")
          } else {
            return notify('Sorry, something went wrong!', 'errors')
@@ -34,7 +34,7 @@ export const createLoanTypeApplication = (data) => {
   return async(dispatch) => {
     try {
       dispatch({type: LOAN_TYPE_DATA_LOADING_STARTS})
-      const res = await axios.post(`${service_url}/loan-types`, data)
+      await axios.post(`${service_url}/loan-types`, data)
       .then(() => {
         dispatch(getTypeLoanData())
         notify('Loan type created successfully!');
@@ -43,10 +43,10 @@ export const createLoanTypeApplication = (data) => {
     } catch (error) {
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
-        if (error.response.status == 422) {
+        if (error.response.status === 422) {
           dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error.response})
           return notify('There are errors in your input', 'error')
-        } else if (error.response.status == 500) {
+        } else if (error.response.status === 500) {
           dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error.response})
         } else {
           return notify('Sorry, something went wrong!', 'error')
@@ -71,10 +71,10 @@ export const deleteLoanType = (id) => {
     } catch (error) {
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
-        if (error.response.status == 422) {
+        if (error.response.status === 422) {
           dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error})
           return notify('There are errors in your input', 'error')
-        } else if (error.response.status == 500) {
+        } else if (error.response.status === 500) {
           dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error.response})
         } else {
           return notify('Sorry, something went wrong!', 'error')
@@ -98,10 +98,10 @@ export const updateLoanType = (id, data) => {
     } catch (error) {
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
-        if (error.response.status == 422) {
+        if (error.response.status === 422) {
           dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error})
           return notify('There are errors in your input', 'error')
-        } else if (error.response.status == 500) {
+        } else if (error.response.status === 500) {
           dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error.response})
         } else {
           return notify('Sorry, something went wrong!', 'error')
@@ -121,9 +121,9 @@ export const getSingleLoanType = (id) => {
     } catch (error) {
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
-       if (error.response.status == 500) {
+       if (error.response.status === 500) {
           dispatch({type: GET_LOAN_TYPE_DATA_ERROR, payload:error.response})
-        } else if(error.response.status == 401){
+        } else if(error.response.status === 401){
           return notify("You are not unauthorized")
         } else {
           return notify('Sorry, something went wrong!', 'error')

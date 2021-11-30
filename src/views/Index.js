@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import classnames from "classnames";
-import { Button, Card, CardHeader, CardBody, NavItem, NavLink, Nav, Progress, Table, Container, 
+import { Button, Card, CardHeader, CardBody, Table, Container, 
   Row, Col, CardTitle, Badge, ModalBody, ModalFooter, Modal, ModalHeader } from "reactstrap";
 import { allUsersCount, dashboardCount, lastFiveUsers } from "../views/DashbordActions/action";
 import { getTypeLoanData } from "./LoanType/actions/action";
 import { DashboardTopLoader } from "utils/MyLoader";
 
 const Index = (props) => {
-  const [activeNav, setActiveNav] = useState(1);
-  const [chartExample1Data, setChartExample1Data] = useState("data1");
   const [toggleUsers, settoggleUsers] = useState(false)
 
   const { mainStats: { adminStats, allUsersStats, lastfiveUsers, adminDataLoading }, 
@@ -20,12 +17,6 @@ const Index = (props) => {
     settoggleUsers(!toggleUsers)
     dispatch(allUsersCount())
   }
-
-  const toggleNavs = (e, index) => {
-    e.preventDefault();
-    setActiveNav(index);
-    setChartExample1Data("data" + index);
-  };
 
   const dispatch = useDispatch();
 
@@ -174,13 +165,13 @@ const Index = (props) => {
                         <th scope="row">{ last?.first_name } { last?.last_name }</th>
                         <td>{ last.email }</td>
                         <td>
-                          { last?.kyc == null ? (<div>Not Applied</div>) : last?.kyc?.status == 'pending' ? 
+                          { last?.kyc === null ? (<div>Not Applied</div>) : last?.kyc?.status === 'pending' ? 
                             (<div>
                               <Badge color="" className="badge-dot mr-4 text-capitalize">
                               <i className="bg-warning" />Pending</Badge>
-                            </div>) : last?.kyc?.status == 'failed' ? (<div><Badge color="" className="badge-dot mr-4 text-capitalize">
+                            </div>) : last?.kyc?.status === 'failed' ? (<div><Badge color="" className="badge-dot mr-4 text-capitalize">
                               <i className="bg-warning" />Failed</Badge></div>) :
-                            last?.kyc?.status == 'successful' ? (<div>Verified</div>) : ""
+                            last?.kyc?.status === 'successful' ? (<div>Verified</div>) : ""
                           }
                         </td>
                         <td>
@@ -247,13 +238,13 @@ const Index = (props) => {
                   <th scope="row">{ all?.first_name } { all?.last_name }</th>
                   <td>{ all.email }</td>
                   <td>
-                    { all?.kyc == null ? (<div>Not Applied</div>) : all?.kyc?.status == 'pending' ? 
+                    { all?.kyc === null ? (<div>Not Applied</div>) : all?.kyc?.status === 'pending' ? 
                       (<div>
                           <Badge color="" className="badge-dot mr-4 text-capitalize">
                         <i className="bg-warning" />Pending</Badge>
-                      </div>) : all?.kyc?.status == 'failed' ? (<div><Badge color="" className="badge-dot mr-4 text-capitalize">
+                      </div>) : all?.kyc?.status === 'failed' ? (<div><Badge color="" className="badge-dot mr-4 text-capitalize">
                         <i className="bg-warning" />Failed</Badge></div>) :
-                      all?.kyc?.status == 'successful' ? (<div>Verified</div>) : ""
+                      all?.kyc?.status === 'successful' ? (<div>Verified</div>) : ""
                     }
                   </td>
                   <td>

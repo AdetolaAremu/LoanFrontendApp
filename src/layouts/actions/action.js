@@ -1,7 +1,6 @@
 import { DASHBOARD_DATA_LOADING_ENDS, DASHBOARD_DATA_LOADING_STARTS, GET_DASHBOARD_DATA, GET_KYC_DATA } from './types'
 import axios from 'axios';
 import process from 'env.js';
-import { notify } from 'utils/notification';
 
 const service_url = process.env.SERVICE_URL
 

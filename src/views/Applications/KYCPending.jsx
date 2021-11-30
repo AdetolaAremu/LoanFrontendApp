@@ -2,26 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import  { approveKYC, getPendingKYC, rejectKYC } from "./actions/action";
-import axios from "axios";
-import process from 'env.js';
 import {
-  Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle,
-  Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Table, Container, Row,
-  UncontrolledTooltip, ModalFooter, Modal, ModalBody, ModalHeader, Form, Col, FormGroup, Input, Spinner
+  Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink, 
+  Button, Table, Container, Row, ModalFooter, Modal, ModalBody, ModalHeader, Form, Col, Spinner
 } from "reactstrap";
-import { RectSpinner } from 'utils/loader/Loader';
-import { getSingleKYCData } from 'views/KYC/actions/action';
 import { ToastContainer } from 'react-toastify';
-
-const service_url = process.env.SERVICE_URL
-
+import { getSingleKYCData } from 'views/KYC/actions/action';
 
 const KYCPending = () => {
   const [togglePending, settogglePending] = useState(false)
   const [currentID, setcurrentID] = useState(null)
-  const [states, setStates] = useState(null)
-  const [country, setCountry] = useState(null)
-  const [inputs, setinputs] = useState(null)
 
   const { applications: { applicationData, applicationLoading }, kyc: { singleKYC } } 
     = useSelector(state => state)

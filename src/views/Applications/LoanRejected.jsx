@@ -5,9 +5,9 @@ import { getRejectedLoanApplication } from "./actions/action";
 import { getSingleLoanData } from 'views/LoanApplication/actions/action';
 import { recycleLoan } from "./actions/action"
 import {
-  Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown,
-  DropdownToggle, Media, Pagination, PaginationItem, PaginationLink, Progress, Button, Form,
-  Table, Container, Row, UncontrolledTooltip, Spinner, Modal, ModalHeader, ModalBody, Col, ModalFooter
+  Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, 
+  PaginationLink, Button, Table, Container, Row, Spinner, Modal, ModalHeader, 
+  ModalBody, Col, ModalFooter
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
 

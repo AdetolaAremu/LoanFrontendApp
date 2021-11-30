@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import process from 'env.js';
-import { notify } from 'utils/notification';
 import { createKYCApplication } from "./actions/action";
-import Header from "components/Headers/Header.js";
 import {
   Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col,
 } from "reactstrap";
@@ -29,7 +27,7 @@ const KYC = () => {
 
   const dispatch = useDispatch()
 
-  const { kyc: { KYCData, KYCloading, errors }, 
+  const { kyc: { KYCloading, errors }, 
     dashboard:{ dashboardData, dashboardDataLoading, dashboardkycData } 
   } = useSelector(state => state)
 
@@ -49,7 +47,7 @@ const KYC = () => {
   }
 
   const makeCountryApiCall = async () => {
-    const res = await axios.get(`${service_url}/countries`).then((res) => {
+    await axios.get(`${service_url}/countries`).then((res) => {
       setcountry(res.data);
     })
   }
@@ -69,13 +67,13 @@ const KYC = () => {
   }, [])
 
   const statusColor = (status) => {
-    if (status == 'pending') {
+    if (status === 'pending') {
       return 'orange'
     }
-    if (status == 'successful') {
+    if (status === 'successful') {
       return 'green'
     }
-    if (status == 'rejected') {
+    if (status === 'rejected') {
       return 'red'
     }
   }
@@ -106,7 +104,7 @@ const KYC = () => {
                     </Row>
                   </CardHeader>
                   <CardBody>
-                    {dashboardkycData?.status == 'pending' || dashboardkycData?.status == 'successful' ? (
+                    {dashboardkycData?.status === 'pending' || dashboardkycData?.status === 'successful' ? (
                       <div>
                         <div>
                           <Row>
@@ -403,7 +401,6 @@ const KYC = () => {
                                   </label>
                                   <Input
                                     className={`form-control-alternative ${isEmpty(errors.data?.errors?.city) ? "" : "border border-danger"}`}
-                                    name="state_id"
                                     name="city"
                                     value={Inputs.city}
                                     onChange={handleChange}

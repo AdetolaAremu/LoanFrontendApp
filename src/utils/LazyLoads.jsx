@@ -121,37 +121,6 @@ export function HeaderLazyLoads() {
   );
 }
 
-export const SidebarLazyLoads = () => {
-  const _LazySideBar = (
-    <li className="nav-item">
-      <Link to={{}} className="nav-link">
-        <Skeleton circle={true} height={30} width={30} />
-
-        <span className="link-title">
-          <Skeleton width={90} />
-        </span>
-      </Link>
-    </li>
-  );
-  return (
-    <>
-      {Array(11)
-        .fill(null)
-        .map((item, index) => (
-          <li key={index * 2} className="nav-item">
-            <span className='"nav-link'></span>
-            <Link to={"#"} className="nav-link">
-              <Skeleton circle={true} height={30} width={30} />
-              <span className="link-title">
-                <Skeleton width={200} />
-              </span>
-            </Link>
-          </li>
-        ))}
-    </>
-  );
-};
-
 export const FormLazyLoad = () => {
   return (
     <div className="inner-page">

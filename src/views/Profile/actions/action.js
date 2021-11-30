@@ -11,7 +11,7 @@ export const updateProfile = (data) => {
   return async(dispatch) => {
     try {
       dispatch({type: PROFILE_DATA_LOADING_STARTS})
-      const response = await axios.put(`${service_url}/user/update`, data)
+      await axios.put(`${service_url}/user/update`, data)
       .then(() => {
         dispatch(getLoggedInUser());
         dispatch({type: PROFILE_DATA_LOADING_ENDS})
@@ -21,10 +21,10 @@ export const updateProfile = (data) => {
     } catch (error) {
       dispatch({type: PROFILE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
-        if (error.response.status == 422) {
+        if (error.response.status === 422) {
           dispatch({type: PROFILE_DATA_ERROR, payload:error})
           return notify('There are errors in your input', 'error')
-        } else if (error.response.status == 500) {
+        } else if (error.response.status === 500) {
           dispatch({type: PROFILE_DATA_ERROR, payload:error.response})
         } else {
           return notify('Sorry, something went wrong!', 'error')

@@ -1,10 +1,9 @@
 
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import "../Auth/authStyles.css";
 import {
-  Button, Card, CardHeader, CardBody, FormGroup, Form,
-  Input, InputGroupAddon, InputGroupText,InputGroup, Row, Col,
+  Button, Card, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText,InputGroup, Col,
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
 import isEmpty from 'utils/isEmpty';

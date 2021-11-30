@@ -16,8 +16,8 @@
 
 */
 import React from "react";
-import { useLocation, Route, Switch, Redirect } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
+import { Route, Switch } from "react-router-dom";
+import { Container, Row } from "reactstrap";
 
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
@@ -27,7 +27,6 @@ import routes from "routes.js";
 
 const Auth = (props) => {
   const mainContent = React.useRef(null);
-  const location = useLocation();
 
   React.useEffect(() => {
     document.body.classList.add("bg-default");

@@ -16,9 +16,9 @@ export const dashboardCount = () => {
     } catch (error) {
       dispatch({type: ADMIN_DASHBOARD_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
-        if (error.response.status == 500) {
+        if (error.response.status === 500) {
            dispatch({type: GET_ERROR, payload:error.response})
-         } else if(error.response.status == 403){
+         } else if(error.response.status === 403){
             return notify("You are unauthorized")
          }
        } else {
@@ -38,9 +38,9 @@ export const allUsersCount = () => {
     } catch (error) {
       dispatch({type: MODAL_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
-        if (error.response.status == 500) {
+        if (error.response.status === 500) {
            dispatch({type: GET_ERROR, payload:error.response})
-         } else if(error.response.status == 403){
+         } else if(error.response.status === 403){
             return notify("You are unauthorized")
          }
        } else {
@@ -61,9 +61,9 @@ export const lastFiveUsers = () => {
     } catch (error) {
       dispatch({type: ADMIN_DASHBOARD_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
-        if (error.response.status == 500) {
+        if (error.response.status === 500) {
            dispatch({type: GET_ERROR, payload:error.response})
-         } else if(error.response.status == 403){
+         } else if(error.response.status === 403){
             return notify("You are unauthorized")
          }
       } else {

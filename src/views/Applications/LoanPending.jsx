@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import  { getPendingLoanApplication, approveLoan, rejectLoan } from "./actions/action"
 import { getSingleLoanData } from 'views/LoanApplication/actions/action';
 import {
-  Badge,Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown,
-  DropdownToggle, Media, Pagination, PaginationItem, PaginationLink,Progress, Button, Form,
-  Table, Container, Row, UncontrolledTooltip, Spinner, Modal, ModalHeader, ModalBody, Col, ModalFooter
+  Badge,Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink, Button, Form,
+  Table, Container, Row, Spinner, Modal, ModalHeader, ModalBody, Col, ModalFooter
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
 
@@ -28,16 +27,6 @@ const LoanPending = () => {
     settoggleLoan(!toggleLoan);
     setcurrentID(id)
     dispatch(getSingleLoanData(id))
-  }
-
-  const testModalTrue = (id) => {
-    settoggleLoan(toggleLoan == true)
-    setcurrentID(id)
-    dispatch(getSingleLoanData(id))
-  }
-
-  const testModalFalse = (id) => {
-    settoggleLoan(toggleLoan == false)
   }
 
   const handleApprove = (e) => {
@@ -153,7 +142,7 @@ const LoanPending = () => {
             </Row>
         </Container>
       </div>
-      <Modal isOpen={toggleLoan} size="lg">
+      <Modal isOpen={toggleLoan} size="lg" id='pending_loan'>
         <ModalHeader toggle={toggleModal}>Take Action on Loan Request</ModalHeader>
         <Form>
           <ModalBody>
@@ -296,7 +285,7 @@ const LoanPending = () => {
           <ModalFooter>
             <Button color="success" onClick={handleApprove}>Approve</Button>
             <Button color="danger" type='submit' onClick={handleReject}>Reject</Button>
-            <Button color="primary" onClick={testModalFalse}>Close</Button>
+            <Button color="primary" onClick={toggleModal}>Close</Button>
           </ModalFooter>
         </Form>
       </Modal>

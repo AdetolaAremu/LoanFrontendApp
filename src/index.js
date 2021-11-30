@@ -1,8 +1,8 @@
 import React from "react";
 import PrivateRoute from "layouts/PrivateRoute";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import {Provider, connect} from 'react-redux'
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {Provider} from 'react-redux'
 import store from "Store"
 import setAuthToken from "utils/setAuthToken";
 import jwt_decode from "jwt-decode";
@@ -15,8 +15,6 @@ import "assets/scss/argon-dashboard-react.scss";
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import Landing from "views/Landing/Landing"
-import Login from "views/Auth/Login"
-import KYCPending from "views/Applications/KYCPending";
 import { logoutUser } from "views/Auth/actions/actions";
 
 // Check for token

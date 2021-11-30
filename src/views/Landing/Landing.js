@@ -2,10 +2,7 @@
 import React from "react";
 import Navbar from "components/Landing/Navbar"
 import SimpleFooter from "components/Landing/SimpleFooter";
-import promo from "assets/img/theme/promo-1.png"
-import image1 from "assets/img/theme/img-1-1200x1000.jpg"
 import classnames from "classnames";
-import Download from "IndexSections/Download";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -14,7 +11,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardImg,
   FormGroup,
   Input,
   InputGroupAddon,

@@ -1,13 +1,5 @@
-import {DATA_ERROR, GET_DATA, DATA_LOADING_STARTS, DATA_LOADING_ENDS, CLEAR_DATA_ERROR} from './types'
+import {DATA_ERROR, GET_DATA, DATA_LOADING_STARTS, DATA_LOADING_ENDS} from './types'
 import axios from 'axios'
-// import ROUTES from "../../../helpers/routes.json"
-// import CONSTANTS from '../../../helpers/routes.json'
-// import process from '../../../env';
-
-
-
-//Register user
-const url = 'https://jsonplaceholder.typicode.com/users'
 
 export const getData = () => {
     return async(dispatch) => {

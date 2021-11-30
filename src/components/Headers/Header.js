@@ -17,8 +17,7 @@
 */
 
 // reactstrap components
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 
 const Header = () => {

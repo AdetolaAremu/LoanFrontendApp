@@ -1,15 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// JavaScript plugin that hides or shows a component based on your scroll
 import Headroom from "headroom.js";
 import { connect } from "react-redux";
 import {
-  Button, UncontrolledCollapse, DropdownMenu, DropdownItem, DropdownToggle,
-  UncontrolledDropdown, Media, NavbarBrand, Navbar, NavItem, NavLink,
-  Nav, Container, Row, Col, UncontrolledTooltip
+  Button, UncontrolledCollapse, Navbar, NavItem, NavLink, Nav, Container, Row, Col, UncontrolledTooltip
 } from "reactstrap";
-import { useSelector } from "react-redux";
-
 class DemoNavbar extends React.Component {
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));

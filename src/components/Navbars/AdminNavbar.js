@@ -22,7 +22,6 @@ import {
   DropdownMenu, Button, DropdownItem, UncontrolledDropdown, DropdownToggle, Navbar, Nav, Container, Media
 } from "reactstrap";
 import { logoutUser } from "../../views/Auth/actions/actions"
-import { ProfileLoader } from 'utils/MyLoader';
  
 const AdminNavbar = (props) => {
   

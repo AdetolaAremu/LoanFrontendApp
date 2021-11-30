@@ -3,8 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, ModalBody, ModalHeader,
-  Modal, ModalFooter, Spinner
-} from "reactstrap";
+  Modal, ModalFooter, Spinner } from "reactstrap";
 import { updateProfile } from './actions/action';
 import process from 'env';
 import { ToastContainer } from 'react-toastify';
@@ -17,7 +16,7 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   
-  const { admin: { dashboardData, dashboardDataLoading }, profiler: {profileLoading}  } = useSelector(state => state)
+  const { admin: { dashboardData }  } = useSelector(state => state)
 
   const toggleEditModal = () => {
     seteditProfileModal(!editProfileModal)

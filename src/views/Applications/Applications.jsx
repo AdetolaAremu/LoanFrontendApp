@@ -2,14 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { countStatus } from "./actions/action";
-import {
-  Card, Container, Row, CardBody, CardTitle, Col, Spinner,
-} from "reactstrap";
-import ROUTES from "Routes/routes.json"
+import { Card, Container, Row, CardBody, CardTitle, Col, } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
-import { FormLazyLoad } from 'utils/LazyLoads';
-import { DashBoardLazy } from 'utils/LazyLoads';
-// import MyLoader from "utils/MyLoader"
 import { AppLoader } from 'utils/MyLoader';
 
 function Applications() {

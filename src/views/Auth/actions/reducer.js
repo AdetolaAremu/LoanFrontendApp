@@ -6,7 +6,6 @@ const init = {
   user: {},
   errors: {},
   permissions:{},
-  user_role:"",
   loading:false,
   authLoading:false,
   loggedInUser:{}
@@ -44,7 +43,6 @@ export default function(state = init, action){
       return {
         ...state,
         permissions:action.payload.data,
-        user_role:action.payload.role_id
       }
     case GET_LOGGED_IN_USER_DETAILS:
       return{

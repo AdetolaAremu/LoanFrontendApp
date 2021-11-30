@@ -1,6 +1,6 @@
 import React from "react";
-import { useLocation, Route, Switch, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import { useDispatch } from "react-redux";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
@@ -12,7 +12,6 @@ import { getLoggedInKYC, getLoggedInUser } from "./actions/action";
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
-  const location = useLocation();
   const dispatch = useDispatch();
 
   React.useEffect(() => {

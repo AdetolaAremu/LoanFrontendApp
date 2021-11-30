@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { Button, Card, CardBody, Col } from "reactstrap";
+import { useHistory } from 'react-router-dom';
+import { Card, CardBody, Col } from "reactstrap";
 
 function LoginSuccess() {
   const history  = useHistory()

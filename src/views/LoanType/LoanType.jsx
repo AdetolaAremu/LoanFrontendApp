@@ -3,13 +3,11 @@ import {Link} from "react-router-dom"
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import process from 'env.js';
-import { getTypeLoanData, createLoanTypeApplication, deleteLoanType, updateLoanType, getSingleLoanType } from './actions/action'
-import { RectSpinner } from "utils/loader/Loader"
+import { getTypeLoanData, createLoanTypeApplication, deleteLoanType, updateLoanType } from './actions/action'
 import {
-  Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink,
-  Progress, Table, Container, Row, UncontrolledTooltip, Form,
-  Button, Modal, ModalBody, ModalHeader, ModalFooter, Col, FormGroup, Input, Spinner
-} from "reactstrap";
+  Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink,
+  Table, Container, Row, Form, Button, Modal, ModalBody, ModalHeader, ModalFooter, Col, FormGroup, 
+  Input, Spinner } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
 import isEmpty from 'utils/isEmpty';
 
@@ -33,7 +31,7 @@ const LoanType = () => {
 
   const dispatch = useDispatch()
 
-  const { loanType: { loanTypeData, errors, loading, loanTypeCRUD } } = useSelector(state => state)
+  const { loanType: { loanTypeData, errors, loading } } = useSelector(state => state)
   
   const toggleSignUpModal = () => {
     settoggleModal(!toggleModal)
@@ -61,7 +59,7 @@ const LoanType = () => {
 
   const deleteType = (id, e) => {
     dispatch(deleteLoanType(currentID))
-    settoggleDeleteMOdal(toggleDeleteMOdal == false)
+    settoggleDeleteMOdal(toggleDeleteMOdal === false)
   }
 
   const handleChange = (e) => {
