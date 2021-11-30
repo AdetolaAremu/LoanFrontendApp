@@ -52,6 +52,7 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "eslint-config-react-app": "^6.0.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.9"
   },
