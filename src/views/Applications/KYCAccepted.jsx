@@ -35,7 +35,6 @@ const KYCAccepted = () => {
       <ToastContainer />
       <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         <Container className="mt-4" fluid>
-            {/* Table */}
             <Row>
               <div className="col">
                 <Card className="shadow">
