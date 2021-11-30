@@ -37,8 +37,8 @@ export const createLoanTypeApplication = (data) => {
       const res = await axios.post(`${service_url}/loan-types`, data)
       .then(() => {
         dispatch(getTypeLoanData())
+        notify('Loan type created successfully!');
         removeModal('add_type_modal')
-        notify(res?.data?.message);
       })
     } catch (error) {
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
@@ -63,12 +63,11 @@ export const deleteLoanType = (id) => {
     try {
       dispatch({type: LOAN_TYPE_CRUD_OPERATIONS_STARTS})
       const res = await axios.delete(`${service_url}/loan-types/${id}`)
-      .then(() => {
-        dispatch(getTypeLoanData())
-        dispatch({type: DELETE_LOAN_TYPE, payload:id})
-        notify(res?.data?.message);
-        dispatch({type: LOAN_TYPE_CRUD_OPERATIONS_ENDS})
-      })
+      dispatch(getTypeLoanData())
+      dispatch({type: DELETE_LOAN_TYPE, payload:id})
+      notify(res?.data?.message);
+      removeModal('delete_modal')
+      dispatch({type: LOAN_TYPE_CRUD_OPERATIONS_ENDS})
     } catch (error) {
       dispatch({type: LOAN_TYPE_DATA_LOADING_ENDS, payload:error})
       if (error.response) {

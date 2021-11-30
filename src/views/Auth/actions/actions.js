@@ -41,7 +41,7 @@ export const loginUser = (userData) => {
           dispatch({type: GET_AUTH_ERROR, payload:error.response})
           return notify('Email and password do not match', 'error')
         } else if (error.response.status == 500) {
-          dispatch({type: GET_AUTH_ERROR, payload:error.response})
+          return notify('An internal error occured, we are working on it!')
         } else {
           return notify('Sorry, something went wrong!', 'error')
         }

@@ -3,6 +3,7 @@ import axios from 'axios';
 import process from 'env.js';
 import { notify } from 'utils/notification';
 import { getLoggedInUser } from 'layouts/actions/action';
+import { removeModal } from 'utils/removeModal';
 
 const service_url = process.env.SERVICE_URL
 
@@ -14,7 +15,8 @@ export const updateProfile = (data) => {
       .then(() => {
         dispatch(getLoggedInUser());
         dispatch({type: PROFILE_DATA_LOADING_ENDS})
-        notify(response?.data?.message)
+        removeModal('edit_profile')
+        notify('Profile updated successfully!')
       })
     } catch (error) {
       dispatch({type: PROFILE_DATA_LOADING_ENDS, payload:error})

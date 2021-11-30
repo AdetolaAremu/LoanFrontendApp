@@ -135,7 +135,7 @@ const LoanRejected = () => {
           </Row>
         </Container>
       </div>
-      <Modal isOpen={toggleModal} size="lg">
+      <Modal isOpen={toggleModal} size="lg" id='rejected_loan'>
         <ModalHeader toggle={handleModal}>Take Action on Loan Request</ModalHeader>
           <ModalBody>
             <div>

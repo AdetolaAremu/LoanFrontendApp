@@ -1,8 +1,9 @@
-import { DASHBOARD_DATA_LOADING_ENDS, DASHBOARD_DATA_LOADING_STARTS, GET_DASHBOARD_DATA } from './types'
+import { DASHBOARD_DATA_LOADING_ENDS, DASHBOARD_DATA_LOADING_STARTS, GET_DASHBOARD_DATA, GET_KYC_DATA } from './types'
 
 const INITIAL_STATE = {
     dashboardDataLoading: false,
     dashboardData:[],
+    dashboardkycData:null
  }
  
  export default (state = INITIAL_STATE, action) => {
@@ -21,6 +22,11 @@ const INITIAL_STATE = {
             return {
                 ...state,
                 dashboardData:action.payload
+            }
+        case GET_KYC_DATA:
+            return {
+                ...state,
+                dashboardkycData:action.payload
             }
         default:
             return state

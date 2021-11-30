@@ -155,8 +155,8 @@ const KYCRejected = ()=> {
             </Row>
         </Container>
     </div>
-    <Modal isOpen={toggleFailed} size="lg">
-      <ModalHeader toggle={toggleModal}>Pending KYC Request</ModalHeader>
+    <Modal isOpen={toggleFailed} size="lg" id='rejected_kyc'>
+      <ModalHeader toggle={toggleModal}>Rejected KYC Request</ModalHeader>
       <Form>
         <ModalBody>
             <Row>

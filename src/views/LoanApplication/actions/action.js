@@ -4,6 +4,7 @@ import process from 'env.js';
 import CONSTANTS from 'Routes/routes.json'
 import { notify } from 'utils/notification';
 import { GET_LOAN_SINGLE_DATA } from 'views/Applications/actions/types';
+import { removeModal } from 'utils/removeModal';
 
 const service_url = process.env.SERVICE_URL
 
@@ -12,9 +13,8 @@ export const getLoanData = () => {
     try {
       dispatch({type: LOAN_DATA_LOADING_STARTS})
       const response = await axios.get(`${service_url}/loan-application`)
-        dispatch({type: LOAN_DATA_LOADING_ENDS})
-        dispatch({type: GET_LOAN_DATA, payload:response.data})
-      
+      dispatch({type: LOAN_DATA_LOADING_ENDS})
+      dispatch({type: GET_LOAN_DATA, payload:response.data})
     } catch (error) {
       dispatch({type: LOAN_DATA_LOADING_ENDS, payload:error})
       if (error.response) {
@@ -35,7 +35,9 @@ export const createLoanApplication = (loanData) => {
       const response = await axios.post(`${service_url}/loan-application`, loanData)
       .then(() => {
         dispatch({type: CRUD_OPERATIONS_ENDS})
-        notify(response?.data?.message);
+        dispatch(getLoanData())
+        removeModal('create_loan')
+        notify('Loan created successfully!');
       })
     } catch (error) {
       dispatch({type: CRUD_OPERATIONS_ENDS, payload:error})

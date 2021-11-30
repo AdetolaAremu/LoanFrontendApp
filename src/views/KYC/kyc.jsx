@@ -29,7 +29,9 @@ const KYC = () => {
 
   const dispatch = useDispatch()
 
-  const { kyc: { KYCData, KYCloading, errors }, dashboard:{ dashboardData, dashboardDataLoading } } = useSelector(state => state)
+  const { kyc: { KYCData, KYCloading, errors }, 
+    dashboard:{ dashboardData, dashboardDataLoading, dashboardkycData } 
+  } = useSelector(state => state)
 
   const handleChange = (e) => {
     if (e.target.name === 'country_id') {
@@ -70,7 +72,7 @@ const KYC = () => {
     if (status == 'pending') {
       return 'orange'
     }
-    if (status == 'approved') {
+    if (status == 'successful') {
       return 'green'
     }
     if (status == 'rejected') {
@@ -80,7 +82,7 @@ const KYC = () => {
 
   return(
     <>
-      <ToastContainer />
+      <ToastContainer style={{background:"green"}} />
       <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         {dashboardDataLoading ? (<KYCLoader />) : (
           <Container className="mt-4" fluid>
@@ -95,16 +97,16 @@ const KYC = () => {
                       <Col className="text-right" xs="4">
                         <Button
                           className="text-capitalize text-white"
-                          style={{ background: statusColor(dashboardData?.kyc?.status)}}
+                          style={{ background: statusColor(dashboardkycData?.status)}}
                           size="sm"
                         >
-                          {dashboardData?.kyc?.status}
+                          { dashboardkycData?.status }
                         </Button>
                       </Col>
                     </Row>
                   </CardHeader>
                   <CardBody>
-                    {dashboardData?.kyc?.status === 'pending' || dashboardData?.kyc?.status === 'successful' ? (
+                    {dashboardkycData?.status == 'pending' || dashboardkycData?.status == 'successful' ? (
                       <div>
                         <div>
                           <Row>
@@ -112,20 +114,20 @@ const KYC = () => {
                               <div>
                                 <div>
                                   <small className="font-italic">First name: </small> 
-                                  <span className="font-weight-bold">{ dashboardData?.first_name }</span>
+                                  <span className="font-weight-bold">{ dashboardkycData?.user?.first_name }</span>
                                 </div>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small className="font-italic">Last name: </small> 
-                                <span className="font-weight-bold">{ dashboardData?.last_name }</span>
+                                <span className="font-weight-bold">{ dashboardkycData?.user?.last_name }</span>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small>Email: </small>
-                                <span className="font-weight-bold">{ dashboardData?.email }</span>
+                                <span className="font-weight-bold">{ dashboardkycData?.user?.email }</span>
                               </div>
                             </Col>
                           </Row>
@@ -136,20 +138,20 @@ const KYC = () => {
                               <div>
                                 <div>
                                   <small className="font-italic">Phone number: </small> 
-                                  <span className="font-weight-bold">{ dashboardData?.phone }</span>
+                                  <span className="font-weight-bold">{ dashboardkycData?.user?.phone }</span>
                                 </div>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small className="font-italic">Country: </small> 
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.country?.name }</span>
+                                <span className="font-weight-bold">{ dashboardkycData?.country?.name }</span>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small>State: </small>
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.state?.name }</span>
+                                <span className="font-weight-bold">{ dashboardkycData?.state?.name }</span>
                               </div>
                             </Col>
                           </Row>
@@ -160,20 +162,20 @@ const KYC = () => {
                               <div>
                                 <div>
                                   <small className="font-italic">City: </small> 
-                                  <span className="font-weight-bold">{ dashboardData?.kyc?.city }</span>
+                                  <span className="font-weight-bold">{ dashboardkycData?.city }</span>
                                 </div>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small className="font-italic">Identification type: </small> 
-                                <span className="font-weight-bold text-capitalize">{ dashboardData?.kyc?.identification_type }</span>
+                                <span className="font-weight-bold text-capitalize"> { dashboardkycData?.identification_type }</span>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small>Identification Number: </small>
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.id_number }</span>
+                                <span className="font-weight-bold">{ dashboardkycData?.id_number }</span>
                               </div>
                             </Col>
                           </Row>
@@ -188,20 +190,20 @@ const KYC = () => {
                               <div>
                                 <div>
                                   <small className="font-italic">NOK First Name: </small> 
-                                  <span className="font-weight-bold">{ dashboardData?.kyc?.nok_last_name }</span>
+                                  <span className="font-weight-bold"> { dashboardkycData?.nok_last_name }</span>
                                 </div>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small className="font-italic">NOK Last Name: </small> 
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.nok_first_name }</span>
+                                <span className="font-weight-bold">{ dashboardkycData?.nok_first_name }</span>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small>NOK Email: </small>
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.nok_email }</span>
+                                <span className="font-weight-bold">{ dashboardkycData?.nok_email }</span>
                               </div>
                             </Col>
                           </Row>
@@ -219,14 +221,13 @@ const KYC = () => {
                             <Col>
                               <div>
                                 <small className="font-italic">NOK Country: </small> 
-                                {console.log('nok',)}
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.nokcountry?.name }</span>
+                                <span className="font-weight-bold">{  dashboardkycData?.nokcountry?.name }</span>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small>NOK State: </small>
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.nokstate?.name }</span>
+                                <span className="font-weight-bold">{  dashboardkycData?.nokstate?.name }</span>
                               </div>
                             </Col>
                           </Row>
@@ -237,14 +238,14 @@ const KYC = () => {
                               <div>
                                 <div>
                                   <small className="font-italic">NOK City: </small> 
-                                  <span className="font-weight-bold">{ dashboardData?.kyc?.nok_city }</span>
+                                  <span className="font-weight-bold">{  dashboardkycData?.nok_city }</span>
                                 </div>
                               </div>
                             </Col>
                             <Col>
                               <div>
                                 <small className="font-italic">NOK Address: </small> 
-                                <span className="font-weight-bold">{ dashboardData?.kyc?.nok_address }</span>
+                                <span className="font-weight-bold">{  dashboardkycData?.nok_address }</span>
                               </div>
                             </Col>
                             <Col></Col>
@@ -647,7 +648,7 @@ const KYC = () => {
                               </Col>
                             </Row>
                             <div className="text-right">
-                              <Button color="success" type="submit">Submit</Button>
+                              <Button color="success" type="submit" disabled={KYCloading}>Submit</Button>
                               <Button color="danger">Cancel</Button>
                             </div>
                           </div>

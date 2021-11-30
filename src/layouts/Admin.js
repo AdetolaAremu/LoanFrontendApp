@@ -8,7 +8,7 @@ import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import routes from "routes.js";
-import { getLoggedInUser } from "./actions/action";
+import { getLoggedInKYC, getLoggedInUser } from "./actions/action";
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
@@ -20,6 +20,7 @@ const Admin = (props) => {
     document.scrollingElement.scrollTop = 0;
     mainContent.current.scrollTop = 0;
     dispatch(getLoggedInUser());
+    dispatch(getLoggedInKYC())
   }, []);
 
   const getRoutes = (routes) => {

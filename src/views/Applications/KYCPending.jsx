@@ -87,7 +87,7 @@ const KYCPending = () => {
                               <td>KYC</td>
                               <td>
                                 <Badge color="" className="badge-dot mr-4 text-capitalize">
-                                  <i className="bg-warning" />
+                                  <i className="bg-yellow" />
                                   { pending?.status }
                                 </Badge>
                               </td>
@@ -169,7 +169,7 @@ const KYCPending = () => {
             </Row>
         </Container>
       </div>
-      <Modal isOpen={togglePending} size="lg">
+      <Modal isOpen={togglePending} size="lg" id='pending_kyc'>
         <ModalHeader toggle={toggleModal}>Pending KYC Request</ModalHeader>
         <Form>
           <ModalBody>

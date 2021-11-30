@@ -142,7 +142,7 @@ const Profile = () => {
           </Row>
         </Container>
 
-        <Modal isOpen={editProfileModal} size="lg">
+        <Modal isOpen={editProfileModal} size="lg" id='edit_profile'>
           <ModalHeader toggle={closeModal}>Edit Profile</ModalHeader>
             {!inputs.first_name ? (<Spinner className='m-auto d-flex justify-content-center' 
               animation="border" style={{ width:"4rem", height:"4rem" }} />) : (

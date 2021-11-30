@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Button, Card, CardBody, FormGroup, Form,
-  Input, InputGroupAddon, InputGroupText,InputGroup, Row, Col } from "reactstrap";
+import { Button, Card, CardBody, Col } from "reactstrap";
 
 function LoginSuccess() {
   const history  = useHistory()
@@ -9,7 +8,7 @@ function LoginSuccess() {
   useEffect(() => {
    setTimeout(() => {
      history.push('login')
-   }, 10000);
+   }, 5000);
   }, [])
 
   return (
@@ -21,10 +20,7 @@ function LoginSuccess() {
               Congratulations! <span className='font-weight-bold'>Your registration is successful</span>.
             </div>
             <div className='mt-4'>
-              You will be redirected in 10 seconds. If you can not wait, please click the button below
-            </div>
-            <div className='mt-4'>
-              <Button tag={Link} to="login" className='btn btn-info'>Take me to Login Page</Button>
+              You will be redirected in 5 seconds.
             </div>
           </CardBody>
         </Card>

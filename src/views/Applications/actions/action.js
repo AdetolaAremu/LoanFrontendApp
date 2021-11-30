@@ -3,6 +3,7 @@ import axios from 'axios';
 import process from 'env.js';
 import { notify } from 'utils/notification';
 import { GET_DASHBOARD_DATA } from 'layouts/actions/types';
+import { removeModal } from 'utils/removeModal';
 
 const service_url = process.env.SERVICE_URL
 
@@ -84,7 +85,8 @@ export const approveLoan = (id, data) => {
       const response = await axios.put(`${service_url}/loan-application/approve/${id}`, data)
       .then(() => {
         dispatch(getPendingLoanApplication())
-        notify(response?.data?.message)
+        removeModal('pending_loan')
+        notify('Loan approved successfully')
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
@@ -110,7 +112,8 @@ export const rejectLoan = (id, data) => {
       const response = await axios.put(`${service_url}/loan-application/reject/${id}`, data)
       .then(() => {
         dispatch(getPendingLoanApplication())
-        notify(response?.data?.message)
+        removeModal('pending_loan')
+        notify('Loan rejected!')
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
@@ -136,7 +139,8 @@ export const recycleLoan = (id, data) => {
       const response = await axios.put(`${service_url}/loan-application/recycle/${id}`, data)
       .then(() => {
         dispatch(getRejectedLoanApplication())
-        notify(response?.data?.message)
+        removeModal('rejected_loan')
+        notify('Loan recycled successfully!')
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
@@ -237,7 +241,8 @@ export const approveKYC = (id, data) => {
       const response = await axios.put(`${service_url}/user/verify/approve/${id}`, data)
       .then(() => {
         dispatch(getPendingKYC())
-        notify(response?.data?.message)
+        removeModal('pending_kyc')
+        notify('KYC approved successfully!')
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
@@ -263,7 +268,8 @@ export const rejectKYC = (id, data) => {
       const response = await axios.put(`${service_url}/user/verify/reject/${id}`, data)
       .then(() => {
         dispatch(getPendingKYC())
-        notify(response?.data?.message)
+        removeModal('pending_kyc')
+        notify('KYC rejected!')
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})
@@ -289,7 +295,8 @@ export const recycleKYC = (id, data) => {
       const response = await axios.put(`${service_url}/user/verify/recycle/${id}`, data)
       .then(() => {
         dispatch(getRejectedKYC())
-        notify(response?.data?.message)
+        removeModal('rejected_kyc')
+        notify('KYC recycled successfully!')
       })
     } catch (error) {
       dispatch({type: ADMIN_LOAN_DATA_LOADING_ENDS, payload:error})

@@ -4,6 +4,7 @@ import process from 'env.js';
 import CONSTANTS from 'Routes/routes.json'
 import { notify } from 'utils/notification';
 import  { getLoggedInUser } from "layouts/actions/action"
+import { getLoggedInKYC } from 'layouts/actions/action';
 
 const service_url = process.env.SERVICE_URL
 
@@ -41,9 +42,8 @@ export const createKYCApplication = (KYCData) => {
       dispatch({type: KYC_DATA_LOADING_STARTS})
       const res = await axios.post(`${service_url}/user/verify`, KYCData)
       .then(() => {
-        dispatch( getLoggedInUser() )
+        dispatch(getLoggedInKYC())
         dispatch({type: KYC_DATA_LOADING_ENDS})
-        dispatch(getKYCData())
         notify(res?.data?.message);
       })
     } catch (error) {
@@ -57,8 +57,6 @@ export const createKYCApplication = (KYCData) => {
         } else {
           return notify('Sorry, something went wrong!', 'error')
         }
-      } else {
-        return notify('Sorry, something went wrong! Check your network', 'error')
       }
     }
   }

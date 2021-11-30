@@ -33,7 +33,7 @@ const LoanApplication = () => {
   const [currentID, setcurrentID] = useState({})
 
   const {  loanType: { loanTypeData }, loans: { loanData, loanloading, singleLoan, viewLoanLoading, errors }, 
-    dashboard: { data }} = useSelector(state => state)
+    dashboard: { dashboardData, dashboardkycData }} = useSelector(state => state)
 
   const dispatch = useDispatch()
   
@@ -81,10 +81,11 @@ const LoanApplication = () => {
         <div className='text-right'>
           <Link>
             <Button onClick={ModalLoanApplication} 
-              // disabled={data?.data?.kyc?.status == 'pending' 
-              //   || data?.data?.kyc?.status == 'rejected' || data?.data?.kyc == null 
-              // } 
+              disabled={dashboardkycData?.status == 'pending' 
+                || dashboardkycData?.status == 'rejected' || dashboardkycData == null
+              }
               className='mx-5'
+              id="uncontrolled"
             >
               Create Loan Application
             </Button>
@@ -185,47 +186,12 @@ const LoanApplication = () => {
                         className="pagination justify-content-end mb-0"
                         listClassName="justify-content-end mb-0"
                       >
-                        <PaginationItem className="disabled">
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                            tabIndex="-1"
-                          >
-                            <i className="fas fa-angle-left" />
-                            <span className="sr-only">Previous</span>
-                          </PaginationLink>
-                        </PaginationItem>
                         <PaginationItem className="active">
                           <PaginationLink
                             href="#pablo"
                             onClick={(e) => e.preventDefault()}
                           >
                             1
-                          </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            2 <span className="sr-only">(current)</span>
-                          </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            3
-                          </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            <i className="fas fa-angle-right" />
-                            <span className="sr-only">Next</span>
                           </PaginationLink>
                         </PaginationItem>
                       </Pagination>
@@ -235,7 +201,7 @@ const LoanApplication = () => {
               </div>
             </Row>
         </Container>
-        <Modal isOpen={toggleLoanApplication}>
+        <Modal isOpen={toggleLoanApplication} id='create_loan'>
           <ModalHeader toggle={ModalLoanApplication}>Create Loan Application</ModalHeader>
           <Form onSubmit={handleSubmit}>
             <ModalBody>
@@ -491,7 +457,7 @@ const LoanApplication = () => {
             </ModalFooter>
           </Form>
         </Modal>
-        <Modal isOpen={toggleViewModal} size="lg" id>
+        <Modal isOpen={toggleViewModal} size="lg">
           <ModalHeader toggle={ViewLoanApplicationModal}>Loan Details</ModalHeader>
           <ModalBody>
             {viewLoanLoading ? (<Spinner className='m-auto d-flex justify-content-center' animation="border" 

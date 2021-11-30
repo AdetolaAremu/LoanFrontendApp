@@ -197,10 +197,19 @@ const Sidebar = (props) => {
                 <NavItem>
                   <NavLink to="/">
                     <i className="ni ni-spaceship" />
-                    GitHub Code
+                    GitHub Code (Frontend)
                   </NavLink>
                 </NavItem>
               </Nav>
+              <Nav className="mb-md-3" navbar>
+                <NavItem>
+                  <NavLink to="/">
+                    <i className="ni ni-spaceship" />
+                    GitHub Code (Backend)
+                  </NavLink> 
+                </NavItem>
+              </Nav>
+
             </>
           )}
 
