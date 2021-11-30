@@ -210,9 +210,6 @@ function Applications() {
         </div>
       )}
       </div>
-      {/* <div className='mt-2'>
-        
-      </div> */}
     </>
   )
 }
