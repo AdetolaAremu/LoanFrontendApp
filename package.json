@@ -1,7 +1,10 @@
 {
-  "name": "react",
-  "description": "Loaney Frontend Application",
+  "name": "argon-design-system",
+  "description": "Bootstrap 4 Argon Design System",
   "version": "1.2.2",
+  "homepage": "http://creative-tim.com/product/argon-design-system",
+  "author": "Creative Tim",
+  "license": "Creative Tim License <www.creative-tim.com/license>",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
