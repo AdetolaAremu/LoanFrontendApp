@@ -3,7 +3,7 @@ import { DASHBOARD_DATA_LOADING_ENDS, DASHBOARD_DATA_LOADING_STARTS, GET_DASHBOA
 const INITIAL_STATE = {
     dashboardDataLoading: false,
     dashboardData:[],
-    dashboardkycData:null
+    dashboardkycData:[]
  }
  
  export default (state = INITIAL_STATE, action) => {
