@@ -540,7 +540,6 @@ const KYC = () => {
                             </Row>
                           </div>
                           <hr className="my-4" />
-                          {/* Address */}
                           <h6 className="heading-small text-muted mb-4">
                             Next of Kin Contact information
                           </h6>
