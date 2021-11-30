@@ -1,19 +1,4 @@
 {
-  "name": "loan-frontend",
-  "version": "17.0.2",
-  "description": "This is a loan application",
-  "keywords": [
-    "react",
-    "reactjs",
-    "argon",
-    "argon-react",
-    "dashboard",
-    "dashboard-react",
-    "argon-dashboard",
-    "argon-dashboard-react"
-  ],
-  "author": "Creative Tim",
-  "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
