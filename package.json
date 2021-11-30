@@ -1,4 +1,7 @@
 {
+  "name": "react",
+  "description": "Bootstrap 4 Argon Design System",
+  "version": "1.2.2",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
