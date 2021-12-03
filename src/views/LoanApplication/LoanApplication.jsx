@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Badge, Card, CardHeader, CardFooter, Media, Pagination, PaginationItem, PaginationLink, Button,
   Table, Container, Row, Modal, ModalBody, ModalHeader, ModalFooter, Col, FormGroup, 
-  Input, Form, Label, Spinner
+  Input, Form, Label, Spinner, Alert
 } from "reactstrap";
 import { ToastContainer } from 'react-toastify';
 import isEmpty from 'utils/isEmpty';
@@ -90,6 +90,16 @@ const LoanApplication = () => {
             </Button>
           </Link>
         </div>
+        {dashboardkycData.status !== "successful" ?
+          (<Container className=''>
+            <Row className='d-flex justify-content-center'>
+              <Alert color="danger mt-2 text-center text-white font-weight-bold">
+                You can only apply for Loan when your KYC has been verified!
+              </Alert>
+            </Row>
+          </Container>) : ""
+        }
+        
         <Container className="mt-4" fluid>
             <Row>
               <div className="col">
