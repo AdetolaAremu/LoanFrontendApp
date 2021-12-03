@@ -81,7 +81,7 @@ const LoanApplication = () => {
           <Link>
             <Button onClick={ModalLoanApplication} 
               disabled={dashboardkycData?.status === 'pending' 
-                || dashboardkycData?.status === 'rejected' || dashboardkycData === null
+                || dashboardkycData?.status === 'rejected' || dashboardkycData === ""
               }
               className='mx-5'
               id="uncontrolled"
@@ -141,12 +141,11 @@ const LoanApplication = () => {
                                   </Badge>
                                 ) : "" 
                               }
-                              
                             </td>
                             <td>
                               { (loan?.repaid === 0 && loan?.loan_status === "accepted") ? ("Not Paid") 
                                 : (loan?.repaid === 0 && loan?.loan_status === ("failed")) || 
-                                loan?.loan_status === "pending" ? "--" : "Paid"
+                                loan?.loan_status === "pending" ? "--" : "Paid" 
                               }
                             </td>
                             <td>

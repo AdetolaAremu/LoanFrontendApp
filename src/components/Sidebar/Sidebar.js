@@ -47,8 +47,8 @@ const Sidebar = (props) => {
   };
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
-    const filtered = routes.filter(route=> 
-      // route.show !== false
+    const filtered = routes.filter(route=>
+      // to filter some routes that shouldn't show on the sidebar and also check if user is an admin or not
       route.show !== true || dashboardData?.role?.name != "admin" ? route.show == true && route.checkadmin == false : route.checkadmin !== false && route.show == true || route.checkadmin == false
     )
 
@@ -127,16 +127,10 @@ const Sidebar = (props) => {
           </UncontrolledDropdown>
           <UncontrolledDropdown nav>
             <DropdownToggle nav>
-              <Media className="align-items-center">
-                <span className="avatar avatar-sm rounded-circle">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/theme/team-1-800x800.jpg")
-                        .default
-                    }
-                  />
-                </span>
+              <Media className="align-items-center" style={{ fontSize:"12px", color:"gray" }}>
+               
+                { dashboardData?.first_name } <i className="ni ni-bold-down" />
+             
               </Media>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu-arrow" right>
@@ -185,7 +179,6 @@ const Sidebar = (props) => {
               </Col>
             </Row>
           </div>
-          {/* <BulletList /> */}
           {dashboardDataLoading ? (<BulletList className="my-4" />) : (
             <>
               <Nav navbar>{createLinks(routes)}</Nav>
@@ -193,26 +186,28 @@ const Sidebar = (props) => {
               <hr className="my-3" />
               
               <h6 className="navbar-heading text-muted">Extras</h6>
-              <Nav className="mb-md-3" navbar>
+              <Nav className="mb-md-3 ml-1" navbar>
                 <NavItem>
-                  <NavLink to="/">
-                    <i className="ni ni-spaceship" />
+                  <i className="ni ni-spaceship" />
+                  <a className="mx-3" target="_blank" href="https://github.com/AdetolaAremu/LoanFrontendApp"
+                    style={{ color:"gray", fontSize:"14px" }}
+                  >
                     GitHub Code (Frontend)
-                  </NavLink>
+                  </a>
                 </NavItem>
               </Nav>
-              <Nav className="mb-md-3" navbar>
+              <Nav className="mb-md-3 ml-1" navbar>
                 <NavItem>
-                  <NavLink to="/">
-                    <i className="ni ni-spaceship" />
+                  <i className="ni ni-spaceship" />
+                  <a className="mx-3" target="_blank" href="https://github.com/AdetolaAremu/LoanAppBackend"
+                    style={{ color:"gray", fontSize:"14px" }}
+                  >
                     GitHub Code (Backend)
-                  </NavLink> 
+                  </a>
                 </NavItem>
               </Nav>
-
             </>
           )}
-
         </Collapse>
       </Container>
     </Navbar>

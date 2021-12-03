@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     singleKYCData:{},
     adminDashboardData:[],
     adminLoanData:[]
- }
+ }  
  
  export default (state = INITIAL_STATE, action) => {
     switch (action.type) {

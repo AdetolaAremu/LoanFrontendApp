@@ -81,7 +81,7 @@ class DemoNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://github.com/creativetimofficial/argon-design-system-react"
+                      href="https://github.com/AdetolaAremu"
                       id="tooltip112445449"
                       target="_blank"
                     >
@@ -91,7 +91,7 @@ class DemoNavbar extends React.Component {
                       </span>
                     </NavLink>
                     <UncontrolledTooltip delay={0} target="tooltip112445449">
-                      See Github code
+                      My Github page
                     </UncontrolledTooltip>
                   </NavItem>
                   { allAuths.isAuthenticated === true ? (
@@ -113,33 +113,33 @@ class DemoNavbar extends React.Component {
                     </NavItem>
                     ):(
                       <NavItem className="d-none d-lg-block ml-lg-4">
-                      <Button
-                        className="btn-neutral btn-icon"
-                        color="default"
-                      >
-                        {/* <span className="btn-inner--icon">
-                          <i className="fa fa-cloud-download mr-2" />
-                        </span> */}
-                        <Link to="/auth/login">
-                          <span className="nav-link-inner--text ml-1">
-                            Login
-                          </span>
+                        <Link to="/auth/login" className="mx-2">
+                          <Button
+                            className="btn-neutral btn-icon"
+                            color="default"
+                          >
+                            {/* <span className="btn-inner--icon">
+                              <i className="fa fa-cloud-download mr-2" />
+                            </span> */}
+                              <span className="nav-link-inner--text ml-1">
+                                Login
+                              </span>
+                          </Button>
                         </Link>
-                      </Button>
-                      <Link to="/auth/register">
-                        <Button
-                          className="btn-neutral btn-icon"
-                          color="default"
-                        >
-                          {/* <span className="btn-inner--icon">
-                            <i className="fa fa-cloud-download mr-2" />
-                          </span> */}
-                          
-                            <span className="nav-link-inner--text ml-1">
-                              Register
-                            </span>
-                        </Button>
-                      </Link>
+                        <Link to="/auth/register">
+                          <Button
+                            className="btn-neutral btn-icon"
+                            color="default"
+                          >
+                            {/* <span className="btn-inner--icon">
+                              <i className="fa fa-cloud-download mr-2" />
+                            </span> */}
+                            
+                              <span className="nav-link-inner--text ml-1">
+                                Register
+                              </span>
+                          </Button>
+                        </Link>
                       </NavItem>
                     )
                   }
