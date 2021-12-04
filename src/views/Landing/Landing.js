@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 import Navbar from "components/Landing/Navbar"
 import SimpleFooter from "components/Landing/SimpleFooter";
 import classnames from "classnames";
@@ -60,7 +61,8 @@ class Landing extends React.Component {
                 <Button
                   className="btn-icon mb-3 mb-sm-0"
                   color="info"
-                  href="https://demos.creative-tim.com/argon-design-system-react/#/documentation/alerts?ref=adsr-landing-page"
+                  tag={Link}
+                  to="auth/register"
                 >
                   <span className="btn-inner--icon mr-1">
                     <i className="fa fa-code" />
