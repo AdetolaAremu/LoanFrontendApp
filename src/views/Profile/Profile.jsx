@@ -23,6 +23,10 @@ const Profile = () => {
     getEditData()
   }
 
+  const closeModal = () => {
+    seteditProfileModal(editProfileModal === false)
+  }
+
   const getEditData = () => {
     axios.get(`${service_url}/user/currentuser`)
     .then((res) => {
@@ -138,10 +142,10 @@ const Profile = () => {
         </Container>
 
         <Modal isOpen={editProfileModal} size="lg" id='edit_profile'>
-          <ModalHeader toggle={closeModal}>Edit Profile</ModalHeader>
+          <ModalHeader toggle={toggleEditModal}>Edit Profile</ModalHeader>
             {!inputs.first_name ? (<Spinner className='m-auto d-flex justify-content-center' 
               animation="border" style={{ width:"4rem", height:"4rem" }} />) : (
-                <Form onClick={handleSubmit}>
+                <Form onSubmit={handleSubmit}>
                   <ModalBody>
                       <Row>
                         <Col>
