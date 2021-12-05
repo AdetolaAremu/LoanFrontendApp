@@ -23,10 +23,6 @@ const Profile = () => {
     getEditData()
   }
 
-  const closeModal = () => {
-    seteditProfileModal(editProfileModal === false)
-  }
-
   const getEditData = () => {
     axios.get(`${service_url}/user/currentuser`)
     .then((res) => {
@@ -211,7 +207,7 @@ const Profile = () => {
                   </ModalBody>
                   <ModalFooter>
                     <Button className='btn-success' type='submit'>Submit</Button>
-                    <Button className='btn-danger' onClick={closeModal}>Cancel</Button>
+                    <Button className='btn-danger' onClick={toggleEditModal}>Cancel</Button>
                   </ModalFooter>
                 </Form>
               )}
