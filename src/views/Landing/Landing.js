@@ -93,7 +93,7 @@ class Landing extends React.Component {
                   <h3>Awesome features</h3>
                   <p>
                     You will get awesome and breathtaking loans offers
-                    which are not only unbeatable but the best of both worlds/.
+                    which are not only unbeatable but the best of both worlds.
                   </p>
                   <ul className="list-unstyled mt-5">
                     <li className="py-2">
