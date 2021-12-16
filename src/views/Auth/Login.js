@@ -38,7 +38,7 @@ const Login = () => {
               <small>Please sign in with your credentials</small>
             </div>
             <Form role="form" onSubmit={handleSubmit}>
-              <FormGroup className="mb-3">
+              <FormGroup className="">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
@@ -85,7 +85,7 @@ const Login = () => {
                 </div>
               </FormGroup>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="submit" disabled={authLoading}>
+                <Button className="" color="primary" type="submit" disabled={authLoading}>
                   Sign in
                 </Button>
               </div>

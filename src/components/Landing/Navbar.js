@@ -45,7 +45,7 @@ class DemoNavbar extends React.Component {
                   <img
                     height={60}
                     alt="..."
-                    src={require("assets/img/brand/default.png").default}
+                    src={require("assets/img/brand/default.jpg").default}
                   />
                 </span>
               </Link>
@@ -65,7 +65,7 @@ class DemoNavbar extends React.Component {
                       <Link to="/">
                         <img
                           alt="..."
-                          src={require("assets/img/brand/default.png").default}
+                          src={require("assets/img/brand/default.jpg").default}
                         />
                       </Link>
                     </Col>
@@ -99,15 +99,11 @@ class DemoNavbar extends React.Component {
                       <Link to="admin/index">
                         <Button
                           className="btn-neutral btn-icon"
-                          color="default"
+                          style={{backgroundColor:"#f7f8fa"}}
                         >
-                          {/* <span className="btn-inner--icon">
-                            <i className="fa fa-cloud-download mr-2" />
-                          </span> */}
-                          
-                            <span className="nav-link-inner--text ml-1">
-                              Dashboard
-                            </span>
+                          <span className="nav-link-inner--text ml-1">
+                            Dashboard
+                          </span>
                         </Button>
                       </Link>
                     </NavItem>
@@ -116,7 +112,7 @@ class DemoNavbar extends React.Component {
                         <Link to="/auth/login" className="mx-2">
                           <Button
                             className="btn-neutral btn-icon"
-                            color="default"
+                            style={{backgroundColor:"#f7f8fa"}}
                           >
                             {/* <span className="btn-inner--icon">
                               <i className="fa fa-cloud-download mr-2" />
@@ -129,7 +125,7 @@ class DemoNavbar extends React.Component {
                         <Link to="/auth/register">
                           <Button
                             className="btn-neutral btn-icon"
-                            color="default"
+                            style={{backgroundColor:"#f7f8fa"}}
                           >
                             {/* <span className="btn-inner--icon">
                               <i className="fa fa-cloud-download mr-2" />

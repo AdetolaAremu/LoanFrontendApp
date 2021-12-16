@@ -79,7 +79,7 @@ class Landing extends React.Component {
             <Row className="row-grid align-items-center">
               <Col className="order-md-2" md="6">
                 <img
-                  style={{height:"30rem"}}
+                  style={{height:"30rem", width:"100%"}}
                   alt="..."
                   className="img-fluid floating"
                   src={require("assets/img/brand/screely-1637956621078.png").default}

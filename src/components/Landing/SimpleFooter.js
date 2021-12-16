@@ -40,19 +40,18 @@ class SimpleFooter extends React.Component {
                 <div className=" copyright">
                   © {new Date().getFullYear()}{" "}
                   <a
-                    href="https://www.creative-tim.com?ref=adsr-footer"
+                    href="https://github.com/AdetolaAremu"
                     target="_blank"
                   >
                     Loaney
                   </a>
-                  .
                 </div>
               </Col>
               <Col md="6">
                 <Nav className=" nav-footer justify-content-end">
                   <NavItem>
                     <NavLink
-                      href="https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md"
+                      href="https://github.com/AdetolaAremu"
                       target="_blank"
                     >
                       Github
