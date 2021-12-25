@@ -76,8 +76,10 @@ const LoanApplication = () => {
   return (
     <div>
       <ToastContainer />
-      <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
-        <div className='text-right'>
+      <div className="header bg-gradient-info pb-5 pt-5 pt-md-8"
+        style={{ height:"100vh" }}
+      >
+        <div className='text-right mb-2'>
           <Link>
             <Button onClick={ModalLoanApplication} 
               disabled={dashboardkycData?.status === 'pending' 
@@ -100,7 +102,7 @@ const LoanApplication = () => {
           </Container>) : ""
         }
         
-        <Container className="mt-4" fluid>
+        <Container className="mt-2" fluid>
             <Row>
               <div className="col">
                 <Card className="shadow">

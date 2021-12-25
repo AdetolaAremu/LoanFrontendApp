@@ -80,12 +80,12 @@ const KYC = () => {
 
   return(
     <>
-      <ToastContainer style={{background:"green"}} />
+      <ToastContainer />
       <div className="header bg-gradient-info pb-5 pt-5 pt-md-8">
         {dashboardDataLoading ? (<KYCLoader />) : (
           <Container className="mt-4" fluid>
             <Row>
-              <Col className="order-xl-1" xl="11">
+              <Col className="order-xl-1">
                 <Card className="bg-secondary shadow">
                   <CardHeader className="bg-white border-0">
                     <Row className="align-items-center">

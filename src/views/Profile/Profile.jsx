@@ -46,11 +46,13 @@ const Profile = () => {
   return (
     <>
       <ToastContainer />
-      <div className="header pb-5 pt-5 pt-lg-8 d-flex bg-gradient-info align-items-center">
+      <div className="header pb-5 pt-5 pt-lg-8 d-flex bg-gradient-info align-items-center"
+        style={{ height:"100vh" }}
+      >
         <ToastContainer />
         <Container className="mb-2" fluid>
           <Row>
-            <Col className="order-xl-4" xl="10">
+            <Col className="order-xl-4">
               <Card className="bg-secondary shadow">
                 <CardHeader className="bg-white border-0">
                   <Row className="align-items-center">

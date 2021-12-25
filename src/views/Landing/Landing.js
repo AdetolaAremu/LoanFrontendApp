@@ -6,6 +6,7 @@ import SimpleFooter from "components/Landing/SimpleFooter";
 import classnames from "classnames";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import '../Auth/authStyles.css'
 
 import {
   Badge,
@@ -48,7 +49,7 @@ class Landing extends React.Component {
         <div className="" style={mystyle}>
           
           <Container className="py-lg-md d-flex">
-            <div className="col px-0f text-center" style={{ marginTop:"7rem" }}>
+            <div className="col px-0f text-center topinlanding" style={{ marginTop:"7rem" }}>
               <h1 className="display-3 mt-5 text-white">
                With Loaney, you will get the best loan plans <br /> with little interest rate..
               </h1>
@@ -79,7 +80,7 @@ class Landing extends React.Component {
             <Row className="row-grid align-items-center">
               <Col className="order-md-2" md="6">
                 <img
-                  style={{height:"30rem", width:"100%"}}
+                  // style={{height:"30rem", width:"100%"}}
                   alt="..."
                   className="img-fluid floating"
                   src={require("assets/img/brand/screely-1637956621078.png").default}
@@ -279,13 +280,13 @@ class Landing extends React.Component {
 
         <section className="section section-lg pt-0 mb-5 mt-5">
           <Container>
-            <Card className="bg-gradient-warning shadow-lg border-0">
+            <Card className="bg-gradient-warning shadow-lg border-0 bottomlanding" style={{ height:"15rem" }}>
               <div className="p-5">
-                <Row className="align-items-center">
+                <Row className="">
                   <Col lg="8">
-                    <h3 className="text-white">
+                    <h2 className="text-white">
                       We are available on smartphones.
-                    </h3>
+                    </h2>
                     <p className="lead text-white mt-3">
                       You can download our application from either iphone
                       store or playstore. The application is smooth and 
@@ -293,19 +294,23 @@ class Landing extends React.Component {
                     </p>
                   </Col>
                   <Col className="ml-lg-auto" lg="3">
-                    <img
-                      data-aos="flip-left"
-                      className="mb-2"
-                      width={200}
-                      alt="..."
-                      src={require("assets/img/brand/iphone.png").default}
-                    />
-                    <img
-                      data-aos="zoom-in-up"
-                      width={200}
-                      alt="..."
-                      src={require("assets/img/brand/playstore.png").default}
-                    />
+                    <div>
+                      <img
+                        data-aos="flip-left"
+                        className=""
+                        width={200}
+                        alt="..."
+                        src={require("assets/img/brand/iphone.png").default}
+                      />
+                    </div>
+                    <div style={{ marginTop:"-4.3rem" }}>
+                      <img
+                        data-aos="zoom-in-up"
+                        width={200}
+                        alt="..."
+                        src={require("assets/img/brand/playstore1.png").default}
+                      />
+                    </div>
                   </Col>
                 </Row>
               </div>

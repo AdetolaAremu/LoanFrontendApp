@@ -92,3 +92,13 @@
   transition: 0.5s;
   font-variant: small-caps;
 }
+
+@media screen and (max-width: 600px) {
+  .topinlanding {
+    margin-top: 1rem !important;
+  }
+
+  .bottomlanding {
+    height: 30rem !important;
+  }
+}
