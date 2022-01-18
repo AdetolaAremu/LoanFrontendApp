@@ -96,13 +96,13 @@ class DemoNavbar extends React.Component {
                   </NavItem>
                   { allAuths.isAuthenticated === true ? (
                     <NavItem className="d-none d-lg-block ml-lg-4">
-                      <Link to="admin/index">
+                      <Link to="admin/loan-application">
                         <Button
                           className="btn-neutral btn-icon"
                           style={{backgroundColor:"#f7f8fa"}}
                         >
                           <span className="nav-link-inner--text ml-1">
-                            Dashboard
+                            Loans
                           </span>
                         </Button>
                       </Link>
