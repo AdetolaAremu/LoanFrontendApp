@@ -203,7 +203,7 @@ class Landing extends React.Component {
 
         <section className="section section-lg pt-lg-0 section-contact-us">
           <Container>
-            <Row className="justify-content-center mt--300" data-aos="fade-up">
+            <Row className="justify-content-center mt--300" data-once="true" data-aos="fade-up">
               <Col lg="8">
                 <Card className="bg-gradient-secondary shadow">
                   <CardBody className="p-lg-5">
