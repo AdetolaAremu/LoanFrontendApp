@@ -318,6 +318,10 @@ const LoanApplication = () => {
                     </FormGroup>
                   </Col>
                 </Row>
+                <hr className="my-1" />
+                <h6 className="heading-small text-muted mb-4 text-center">
+                  Guarantor's Data
+                </h6>
                 <Row>
                   <Col lg="6">
                     <FormGroup>
